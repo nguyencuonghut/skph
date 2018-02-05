@@ -90,7 +90,13 @@ class DescriptionsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $description = Description::findOrFail($id);
+        return view('tickets.descriptions.edit')
+            ->withDescription($description)
+            ->withUsers(User::all()->pluck('name', 'id'))
+            ->withAreas(Area::all()->pluck('name', 'id'))
+            ->withSources(Source::all()->pluck('name', 'id'))
+            ->withActions(Action::all()->pluck('name', 'id'));
     }
 
     /**
@@ -102,7 +108,9 @@ class DescriptionsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->descriptions->update($id, $request);
+        Session()->flash('flash_message', 'Ticket successfully updated');
+        return redirect()->route("descriptions.show", $id);
     }
 
     /**

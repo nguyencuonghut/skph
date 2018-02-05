@@ -105,4 +105,36 @@ class DescriptionRepository implements DescriptionRepositoryContract
         $description->fill($input)->save();
         $description = $description->fresh();
     }
+
+    /**
+     * @param $id
+     * @param $requestData
+     */
+    public function update($id, $requestData)
+    {
+        $description = Description::findOrFail($id);
+
+        // Save the attached file
+        $filename = NULL;
+        if($requestData->hasFile('image'))
+        {
+            $file = $requestData->file('image');
+            $filename = time() . '.' . $file->getClientOriginalName();
+            $location = public_path('upload/');
+            if (!file_exists($location)) {
+                mkdir($location,0777,true);
+            }
+            $requestData->file('image')->move($location, $filename);
+        } else {
+            $filename = $description->image;
+        }
+
+        $input = $requestData = array_merge(
+            $requestData->all(),
+            ['image' => $filename]
+        );
+
+
+        $description->fill($input)->save();
+    }
 }

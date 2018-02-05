@@ -45,7 +45,11 @@
                                     <br>
                                     <br>
                                 </div>
-                                <h5><b style="color:blue">1. Mô tả vấn đề:</b></h5>
+                                <h5><b style="color:blue">1. Mô tả vấn đề:</b>
+                                    <span>
+                                        <a href="{{ route("descriptions.edit", $description->id) }}"><i class="fa fa-pencil-square" aria-hidden="true"></i></a>
+                                    </span>
+                                </h5>
                                 <table style="width:100%">
                                     <tr>
                                         <th class="col-md-3">Có gì đã xảy ra?</th>
@@ -66,7 +70,7 @@
                                     </tr>
                                     <tr>
                                         <th class="col-md-3">Phát hiện ra ở đâu?</th>
-                                        <td class="col-md-4">{{$description->when}}</td>
+                                        <td class="col-md-4">{{$description->where}}</td>
                                     </tr>
                                     <tr>
                                         <th class="col-md-3">Bằng cách nào?</th>
