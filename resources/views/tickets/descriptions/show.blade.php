@@ -280,6 +280,22 @@
             </select>
             {!! Form::submit(__('Phê duyệt biện pháp'), ['class' => 'btn btn-primary form-control closebtn']) !!}
             {!! Form::close() !!}
+
+            <div class="activity-feed movedown">
+                @foreach($description->activity as $activity)
+                    <div class="feed-item">
+                        <div class="activity-date">{{date('d, F Y H:i', strTotime($activity->created_at))}}</div>
+                        <div class="activity-text">{{$activity->text}}</div>
+                    </div>
+                @endforeach
+
+                @foreach($troubleshoot->activity as $activity)
+                    <div class="feed-item">
+                        <div class="activity-date">{{date('d, F Y H:i', strTotime($activity->created_at))}}</div>
+                        <div class="activity-text">{{$activity->text}}</div>
+                    </div>
+                @endforeach
+            </div>
         </div>
     </div>
 @stop

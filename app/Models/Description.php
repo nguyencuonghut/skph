@@ -56,4 +56,9 @@ class Description extends Model
         return User::findOrFail($this->user_id);
     }
 
+    public function activity()
+    {
+        return $this->morphMany(Activity::class, 'source');
+    }
+
 }
