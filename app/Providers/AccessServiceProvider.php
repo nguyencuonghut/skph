@@ -59,5 +59,9 @@ class AccessServiceProvider extends ServiceProvider
             \App\Repositories\Description\DescriptionRepositoryContract::class,
             \App\Repositories\Description\DescriptionRepository::class
         );
+        $this->app->bind(
+            \App\Repositories\Troubleshoot\TroubleshootRepositoryContract::class,
+            \App\Repositories\Troubleshoot\TroubleshootRepository::class
+        );
     }
 }

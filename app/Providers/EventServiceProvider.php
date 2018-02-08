@@ -25,6 +25,10 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\DescriptionActionNotify',
             'App\Listeners\DescriptionActionLog',
         ],
+        'App\Events\TroubleshootAction' => [
+            'App\Listeners\TroubleshootActionNotify',
+            'App\Listeners\TroubleshootActionLog',
+        ],
         'App\Events\LeadAction' => [
             'App\Listeners\LeadActionNotify',
             'App\Listeners\LeadActionLog',

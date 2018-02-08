@@ -37,6 +37,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'tickets'], function () {
     });
     Route::patch('descriptions/leaderconfirm/{id}', 'DescriptionsController@leaderConfirm');
+    Route::patch('troubleshoots/assigntroubeshooter/{id}', 'TroubleshootsController@assignTroubleshooter');
+    Route::patch('troubleshoots/approve/{id}', 'TroubleshootsController@approve');
     Route::resource('descriptions', 'DescriptionsController');
     Route::resource('troubleshoots', 'TroubleshootsController');
     Route::resource('tickets', 'TicketsController');

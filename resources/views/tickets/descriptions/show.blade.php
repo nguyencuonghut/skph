@@ -90,38 +90,52 @@
                             </el-tab-pane>
                             <el-tab-pane label="Khắc phục" name="troubleshoot">
                                 @if(isset($troubleshoot))
-                                    <h5><b style="color:blue">2. Xác định trách nhiệm:</b></h5>
-                                    <h5><b>Lý do:</b><i> {!! $troubleshoot->reason !!}</i></h5>
-                                @endif
+                                    @if($troubleshoot->responsibility)
+                                        <h5><b style="color:blue">2. Xác định trách nhiệm:</b> {{$troubleshoot->responsibility->name}}</h5>
+                                    @endif
+                                    @if($troubleshoot->reason)
+                                        <h5><b>Lý do:</b></h5>
+                                            <p><i>{!! $troubleshoot->reason !!}</i></p>
+                                    @endif
                                 <h5><b style="color:blue">3. Thực hiện khắc phục sự không phù hợp trước khi tìm nguyên nhân gốc rễ:</b></h5>
                                 <div class="col-md-12">
                                     <div class="contactleft">
-                                        <p><b>Mức độ SKPH:</b> xxx</p>
-                                        <p><b>Thời hạn:</b> {{date('d F, Y', strtotime($description->created_at))}}</p>
+                                        @if($troubleshoot->level)
+                                            <p><b>Mức độ SKPH:</b> {{$troubleshoot->level->name}}</p>
+                                        @endif
+                                        @if($troubleshoot->deadline)
+                                            <p><b>Thời hạn:</b> {{date('d F, Y', strtotime($troubleshoot->deadline))}}</p>
+                                        @endif
                                     </div>
                                     <div class="contactright">
-                                        <p><b>Người thực hiện:</b> xxx</p>
-                                            <p><b>Phê duyệt: <b style="color: {{$description->confirmation_troubleshootsaction_id == 1 ? "blue" : "red"}}">xxx</b></b> (bởi xxx vào
-                                                @if(date_diff($description->created_at, $description->updated_at)->y)
-                                                    {{ date_diff($description->created_at, $description->updated_at)->y }} năm
+                                        @if($troubleshoot->troubleshooter)
+                                            <p><b>Người thực hiện:</b> {{$troubleshoot->troubleshooter->name}}</p>
+                                        @endif
+                                        @if($troubleshoot->approver)
+                                            <p><b>Phê duyệt: <b style="color: {{("Đồng ý" == $troubleshoot->approve_result) ? "blue":"red"}}"> {{$troubleshoot->approve_result}}</b></b> (bởi {{$troubleshoot->approver->name}} vào
+                                                @if(date_diff(new DateTime('now'), $troubleshoot->updated_at)->y)
+                                                    {{ date_diff(new DateTime('now'), $troubleshoot->updated_at)->y }} năm
                                                 @endif
-                                                @if(date_diff($description->created_at, $description->updated_at)->m)
-                                                    {{ date_diff($description->created_at, $description->updated_at)->m }} tháng
+                                                @if(date_diff(new DateTime('now'), $troubleshoot->updated_at)->m)
+                                                    {{ date_diff(new DateTime('now'), $troubleshoot->updated_at)->m }} tháng
                                                 @endif
-                                                @if(date_diff($description->created_at, $description->updated_at)->d)
-                                                    {{ date_diff($description->created_at, $description->updated_at)->d }} ngày
+                                                @if(date_diff(new DateTime('now'), $troubleshoot->updated_at)->d)
+                                                    {{ date_diff(new DateTime('now'), $troubleshoot->updated_at)->d }} ngày
                                                 @endif
-                                                @if(date_diff($description->created_at, $description->updated_at)->h)
-                                                    {{ date_diff($description->created_at, $description->updated_at)->h }} giờ
+                                                @if(date_diff(new DateTime('now'), $troubleshoot->updated_at)->h)
+                                                    {{ date_diff(new DateTime('now'), $troubleshoot->updated_at)->h }} giờ
                                                 @endif
-                                                @if(date_diff($description->created_at, $description->updated_at)->i)
-                                                    {{ date_diff($description->created_at, $description->updated_at)->i }} phút
+                                                @if(date_diff(new DateTime('now'), $troubleshoot->updated_at)->i)
+                                                    {{ date_diff(new DateTime('now'), $troubleshoot->updated_at)->i }} phút
+                                                @else
+                                                    0 phút
                                                 @endif
                                                 trước)
                                             </p>
+                                        @endif
                                     </div>
                                 </div>
-                                <p>xxx</p>
+                                @endif
                             </el-tab-pane>
                             <el-tab-pane label="Phòng ngừa" name="prevents">
                                 <h5><b style="color:blue">4. Hoạt động xử lý</b></h5>
@@ -236,11 +250,36 @@
                 <option>Không xác nhận</option>
             </select>
             {!! Form::submit(__('TBP xác nhận'), ['class' => 'btn btn-primary form-control closebtn']) !!}
-            <br>
-            <br>
-            <a href="{{route("troubleshoots.create", $description->id)}}"
+            {!! Form::close() !!}
+
+            {!! Form::model($troubleshoot, [
+                'method' => 'PATCH',
+                'url' => ['troubleshoots/assigntroubeshooter', $troubleshoot->id],
+            ]) !!}
+            <select name="troubleshooter_id" id="troubleshooter_id" class="form-control" style="width:100%">
+                <option disabled selected value> {{ __('Select a user') }} </option>
+                @foreach ($users as $user)
+                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                @endforeach
+            </select>
+            {!! Form::submit(__('Chuyển cho người khắc phục'), ['class' => 'btn btn-primary form-control closebtn']) !!}
+            {!! Form::close() !!}
+
+            <a href="{{route("troubleshoots.edit", $description->id)}}"
                class="btn btn-primary form-control closebtn" style="width:100%">Cập nhật biện pháp
             </a>
+
+            {!! Form::model($description, [
+                'method' => 'PATCH',
+                'url' => ['troubleshoots/approve', $description->id],
+            ]) !!}
+            <select id="approve_result" name="approve_result" style="width:100%">
+                <option disabled selected value> -- select an option -- </option>
+                <option>Đồng ý</option>
+                <option>Không đồng ý</option>
+            </select>
+            {!! Form::submit(__('Phê duyệt biện pháp'), ['class' => 'btn btn-primary form-control closebtn']) !!}
+            {!! Form::close() !!}
         </div>
     </div>
 @stop
@@ -253,8 +292,14 @@
         });
     </script>
     <script type="text/javascript">
-        $("#confirmation_troubleshootsaction_id").select2({
-            placeholder: "Duyệt",
+        $("#approve_result").select2({
+            placeholder: "Chọn",
+            allowClear: true
+        });
+    </script>
+    <script type="text/javascript">
+        $("#troubleshooter_id").select2({
+            placeholder: "Chọn",
             allowClear: true
         });
     </script>

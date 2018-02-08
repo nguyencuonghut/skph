@@ -23,5 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->call('AreasTableSeeder');
         $this->call('SourcesTableSeeder');
         $this->call('StatusesTableSeeder');
+        $this->call('LevelsTableSeeder');
+        $this->call('ResponsibilitiesTableSeeder');
     }
 }

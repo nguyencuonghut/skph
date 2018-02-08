@@ -2,6 +2,7 @@
 namespace App\Repositories\Description;
 
 use App\Models\Description;
+use App\Models\Troubleshoot;
 use Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Models\Ticket;
@@ -56,6 +57,10 @@ class DescriptionRepository implements DescriptionRepositoryContract
         $ticket->status_id = 1;
         $ticket->description_id = $description->id;
         $ticket->save();
+
+        // Create new troubleshoot according to this ticket description
+        $troublehoot = new Troubleshoot();
+        $troublehoot->save();
 
         $insertedId = $description->id;
         Session()->flash('flash_message', 'Ticket successfully added!');

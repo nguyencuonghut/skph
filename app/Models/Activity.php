@@ -41,6 +41,11 @@ class Activity extends model
         return $this->belongsTo(Description::class, 'description_id', 'id');
     }
 
+    public function troubleshoot()
+    {
+        return $this->belongsTo(Troubleshoot::class, 'troubleshoot_id', 'id');
+    }
+
     public function source() {
         return $this->morphTo();
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Troubleshoot;
 use Illuminate\Http\Request;
 use App\Models\Area;
 use App\Models\Source;
@@ -76,10 +77,13 @@ class DescriptionsController extends Controller
     public function show($id)
     {
         $description = Description::findOrFail($id);
+        $troubleshoot = Troubleshoot::findOrFail($id);
         $ticket = Ticket::findOrFail($id);
         return view('tickets.descriptions.show')
             ->withTicket($ticket)
-            ->withDescription($description);
+            ->withDescription($description)
+            ->withTroubleshoot($troubleshoot)
+            ->withUsers($this->users->getAllUsers());
     }
 
     /**
