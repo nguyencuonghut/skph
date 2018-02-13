@@ -11,6 +11,7 @@ class TroubleshootAction extends Model
     'user_id',
     'status',
     'deadline',
+    'description_id',
     ];
 
 

@@ -85,7 +85,7 @@ class DescriptionsController extends Controller
             ->withDescription($description)
             ->withTroubleshoot($troubleshoot)
             ->withUsers($this->users->getAllUsers())
-            ->withActions(TroubleshootAction::all());
+            ->withActions(TroubleshootAction::all()->where('description_id', $id));
     }
 
     /**

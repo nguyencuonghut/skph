@@ -40,6 +40,7 @@ class TroubleshootActionsController extends Controller
         $troubleshoot_action->user_id = $request->user_id;
         $troubleshoot_action->status = 'Open';
         $troubleshoot_action->deadline = $request->deadline;
+        $troubleshoot_action->description_id = $id;
         $troubleshoot_action->save();
 
         return redirect()->route("descriptions.show", $id);

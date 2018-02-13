@@ -18,6 +18,8 @@ class CreateTroubleshootActionsTable extends Migration
             $table->text('action');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
+            $table->integer('description_id')->unsigned();
+            $table->foreign('description_id')->references('id')->on('descriptions');
             $table->string('status');
             $table->date('deadline');
             $table->timestamps();
