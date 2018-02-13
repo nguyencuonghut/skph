@@ -29,14 +29,14 @@ class DescriptionActionLog
     {
         switch ($event->getAction()) {
             case 'created':
-                $text = __(':title was created by :creator and assigned to :assignee', [
+                $text = __(':title được tạo bởi :creator và giao cho :assignee', [
                         'title' => $event->getDescription()->title,
                         'creator' => $event->getDescription()->user->name,
                         'assignee' => $event->getDescription()->leader->name
                     ]);
                 break;
             case 'updated_status':
-                $text = __('Task was completed by :username', [
+                $text = __('Ticket được đánh dấu hoàn thành bởi :username', [
                         'username' => Auth()->user()->name,
                     ]);
                 break;

@@ -139,7 +139,7 @@ class DescriptionsController extends Controller
     public function leaderConfirm($id, Request $request)
     {
         $this->descriptions->leaderConfirm($id, $request);
-        Session()->flash('flash_message', 'Trưởng bộ phận đã xác nhận.');
+        Session()->flash('flash_message', 'Xác nhận thành công');
         return redirect()->back();
     }
 }

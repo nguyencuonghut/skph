@@ -89,7 +89,7 @@ class TroubleshootsController extends Controller
     public function update(Request $request, $id)
     {
         $this->troubleshoots->update($id, $request);
-        Session()->flash('flash_message', 'Troubleshoot successfully updated');
+        Session()->flash('flash_message', 'Sửa thành công!');
         return redirect()->route("descriptions.show", $id);
     }
 
@@ -112,7 +112,7 @@ class TroubleshootsController extends Controller
     public function assignTroubleshooter($id, Request $request)
     {
         $this->troubleshoots->assignTroubleshooter($id, $request);
-        Session()->flash('flash_message', 'Troubleshooter was assigned!');
+        Session()->flash('flash_message', 'Giao cho thành công!');
         return redirect()->back();
     }
 

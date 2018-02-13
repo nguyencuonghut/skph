@@ -141,7 +141,27 @@
                                 @endif
                             </el-tab-pane>
                             <el-tab-pane label="Phòng ngừa" name="prevents">
-                                <h5><b style="color:blue">4. Hoạt động xử lý</b></h5>
+                                <h5><b style="color:blue">4. Xem xét mức độ sự không phù hợp</b></h5>
+                                <p><b>Không nghiêm trọng => Dừng</b> (Bởi <b>xxx</b>) vào
+                                    @if(date_diff($description->created_at, $description->updated_at)->y)
+                                        {{ date_diff($description->created_at, $description->updated_at)->y }} năm
+                                    @endif
+                                    @if(date_diff($description->created_at, $description->updated_at)->m)
+                                        {{ date_diff($description->created_at, $description->updated_at)->m }} tháng
+                                    @endif
+                                    @if(date_diff($description->created_at, $description->updated_at)->d)
+                                        {{ date_diff($description->created_at, $description->updated_at)->d }} ngày
+                                    @endif
+                                    @if(date_diff($description->created_at, $description->updated_at)->h)
+                                        {{ date_diff($description->created_at, $description->updated_at)->h }} giờ
+                                    @endif
+                                    @if(date_diff($description->created_at, $description->updated_at)->i)
+                                        {{ date_diff($description->created_at, $description->updated_at)->i }} phút
+                                    @endif
+                                    trước
+                                </p>
+                                <hr style="color:#337ab7; border-color:#337ab7; background-color:#337ab7">
+                                <h5><b style="color:blue">5. Hoạt động xử lý</b></h5>
                                 <div class="col-md-12">
                                     <div class="contactleft">
                                         <p><b>Người đề xuất xử lý:</b> xxx</p>
@@ -188,26 +208,6 @@
                                         <td style="color:blue"><b>Đúng thời hạn</b></td>
                                     </tr>
                                 </table>
-                                <hr style="color:#337ab7; border-color:#337ab7; background-color:#337ab7">
-                                <h5><b style="color:blue">5. Xem xét mức độ sự không phù hợp</b></h5>
-                                <p><b>Không nghiêm trọng => Dừng</b> (Bởi <b>xxx</b>) vào
-                                    @if(date_diff($description->created_at, $description->updated_at)->y)
-                                        {{ date_diff($description->created_at, $description->updated_at)->y }} năm
-                                    @endif
-                                    @if(date_diff($description->created_at, $description->updated_at)->m)
-                                        {{ date_diff($description->created_at, $description->updated_at)->m }} tháng
-                                    @endif
-                                    @if(date_diff($description->created_at, $description->updated_at)->d)
-                                        {{ date_diff($description->created_at, $description->updated_at)->d }} ngày
-                                    @endif
-                                    @if(date_diff($description->created_at, $description->updated_at)->h)
-                                        {{ date_diff($description->created_at, $description->updated_at)->h }} giờ
-                                    @endif
-                                    @if(date_diff($description->created_at, $description->updated_at)->i)
-                                        {{ date_diff($description->created_at, $description->updated_at)->i }} phút
-                                    @endif
-                                    trước
-                                </p>
                                 <hr style="color:#337ab7; border-color:#337ab7; background-color:#337ab7">
                                 <h5><b style="color:blue">6. Đánh giá hiệu quả</b></h5>
                                 <p>Ticket được đánh giá  hiệu quả <b style="color:red">Trung bình</b> (Bởi <b>xxx</b>) vào

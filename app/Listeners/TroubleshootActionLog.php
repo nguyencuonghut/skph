@@ -29,26 +29,26 @@ class TroubleshootActionLog
     {
         switch ($event->getAction()) {
             case 'created':
-                $text = __(':title was created by :creator and assigned to :assignee', [
+                $text = __(':title được tạo bởi :creator và giao cho :assignee', [
                         'title' => $event->getTroubleshoot()->title,
                         'creator' => $event->getTroubleshoot()->user->name,
                         'assignee' => $event->getTroubleshoot()->troubleshooter->name
                     ]);
                 break;
             case 'assigned_troubleshooter':
-                $text = __(':username assigned troubleshoot to :assignee', [
+                $text = __(':username giao cho :assignee xử lý', [
                         'username' => Auth()->user()->name,
                         'assignee' => $event->getTroubleshoot()->troubleshooter->name
                     ]);
                 break;
             case 'request_to_approve':
-                $text = __(':username request :assignee to approve the troubleshoot action', [
+                $text = __(':username yêu cầu :assignee phê duyệt biện pháp khắc phục', [
                     'username' => Auth()->user()->name,
                     'assignee' => $event->getTroubleshoot()->approver->name
                 ]);
                 break;
             case 'approved':
-                $text = __(':assignee approved your troubleshoot action', [
+                $text = __(':assignee đã phê duyệt biện pháp khắc phục', [
                     'username' => Auth()->user()->name,
                     'assignee' => $event->getTroubleshoot()->approver->name
                 ]);

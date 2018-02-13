@@ -64,25 +64,25 @@ class TroubleshootActionNotification extends Notification
     {
         switch ($this->action) {
             case 'created':
-                $text = __(':title was created by :creator, and assigned to you', [
+                $text = __(':title được tạo bởi :creator, và giao cho bạn', [
                     'title' =>  $this->troubleshoot->title,
                     'creator' => $this->troubleshoot->user->name,
                     ]);
                 break;
             case 'assigned_troubleshooter':
-                $text = __(':username assigned a troubleshoot to you', [
+                $text = __(':username giao cho bạn xử lý vấn đề', [
                     'title' =>  $this->troubleshoot->troubleshooter->name,
                     'username' =>  Auth()->user()->name,
                     ]);
                 break;
             case 'request_to_approve':
-                $text = __(':username request you to approve the troubleshoot action', [
+                $text = __(':username yêu cầu bạn phê duyệt biện pháp khắc phục', [
                     'title' =>  $this->troubleshoot->troubleshooter->name,
                     'username' =>  Auth()->user()->name,
                 ]);
                 break;
             case 'approved':
-                $text = __(':approver approved your troubleshoot action', [
+                $text = __(':approver đã phê duyệt biện pháp khắc phục của bạn', [
                     'approver' =>  $this->troubleshoot->approver->name,
                     'username' =>  Auth()->user()->name,
                 ]);

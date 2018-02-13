@@ -64,13 +64,13 @@ class DescriptionActionNotification extends Notification
     {
         switch ($this->action) {
             case 'created':
-                $text = __(':title was created by :creator, and assigned to you', [
+                $text = __(':title được tạo bởi :creator, và giao cho bạn', [
                     'title' =>  $this->description->title,
                     'creator' => $this->description->user->name,
                     ]);
                 break;
             case 'updated_status':
-                $text = __(':title was completed by :username', [
+                $text = __(':title được đánh dấu hoàn thành bởi :username', [
                     'title' =>  $this->description->title,
                     'username' =>  Auth()->user()->name,
                     ]);
