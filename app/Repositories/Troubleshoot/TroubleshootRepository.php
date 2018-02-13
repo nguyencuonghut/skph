@@ -15,7 +15,7 @@ class TroubleshootRepository implements TroubleshootRepositoryContract
 {
     const CREATED = 'created';
     const ASSIGNED_TROUBLESHOOTER = 'assigned_troubleshooter';
-    const APPROVE_REQUEST = 'approve_request';
+    const REQUEST_TO_APPROVE = 'request_to_approve';
     const APPROVED = 'approved';
 
 
@@ -39,7 +39,7 @@ class TroubleshootRepository implements TroubleshootRepositoryContract
         $troubleshoot = Troubleshoot::findOrFail($id);
         $troubleshoot->fill($requestData->all())->save();
 
-        event(new \App\Events\TroubleshootAction($troubleshoot, self::APPROVE_REQUEST));
+        event(new \App\Events\TroubleshootAction($troubleshoot, self::REQUEST_TO_APPROVE));
     }
 
     /**

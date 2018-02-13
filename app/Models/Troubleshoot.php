@@ -46,6 +46,12 @@ class Troubleshoot extends Model
         return User::findOrFail($this->troubleshooter_id);
     }
 
+    public function getApprovedUserAttribute()
+    {
+        return User::findOrFail($this->approver_id);
+    }
+
+
     public function activity()
     {
         return $this->morphMany(Activity::class, 'source');

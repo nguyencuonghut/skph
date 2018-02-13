@@ -41,7 +41,7 @@ class TroubleshootActionLog
                         'assignee' => $event->getTroubleshoot()->troubleshooter->name
                     ]);
                 break;
-            case 'approve_request':
+            case 'request_to_approve':
                 $text = __(':username request :assignee to approve the troubleshoot action', [
                     'username' => Auth()->user()->name,
                     'assignee' => $event->getTroubleshoot()->approver->name

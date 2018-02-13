@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Troubleshoot;
+use App\Models\TroubleshootAction;
 use Illuminate\Http\Request;
 use App\Models\Area;
 use App\Models\Source;
@@ -83,7 +84,8 @@ class DescriptionsController extends Controller
             ->withTicket($ticket)
             ->withDescription($description)
             ->withTroubleshoot($troubleshoot)
-            ->withUsers($this->users->getAllUsers());
+            ->withUsers($this->users->getAllUsers())
+            ->withActions(TroubleshootAction::all());
     }
 
     /**

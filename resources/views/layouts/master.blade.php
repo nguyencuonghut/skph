@@ -43,7 +43,7 @@
         </div>
 
         <div class="dropdown" id="nav-toggle">
-            <a id="notification-clock" role="button" data-toggle="dropdown">
+            <a id="notification-clock" role="button" data-toggle="dropdown">{{Auth::user()->name}}
                 <i class="glyphicon glyphicon-bell"><span id="notifycount">{{ $notifications->count() }}</span></i>
             </a>
         </div>

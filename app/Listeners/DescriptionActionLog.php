@@ -32,7 +32,7 @@ class DescriptionActionLog
                 $text = __(':title was created by :creator and assigned to :assignee', [
                         'title' => $event->getDescription()->title,
                         'creator' => $event->getDescription()->user->name,
-                        'assignee' => $event->getDescription()->user->name
+                        'assignee' => $event->getDescription()->leader->name
                     ]);
                 break;
             case 'updated_status':

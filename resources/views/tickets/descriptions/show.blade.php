@@ -135,6 +135,9 @@
                                         @endif
                                     </div>
                                 </div>
+                                <div class="col-md-12">
+                                @include('tickets.troubleshoots.actions.create', ['subject' => $description])
+                                </div>
                                 @endif
                             </el-tab-pane>
                             <el-tab-pane label="Phòng ngừa" name="prevents">

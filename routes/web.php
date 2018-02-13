@@ -41,6 +41,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::patch('troubleshoots/approve/{id}', 'TroubleshootsController@approve');
     Route::resource('descriptions', 'DescriptionsController');
     Route::resource('troubleshoots', 'TroubleshootsController');
+    Route::post('troubleshootactions/{id}/store',
+        ['as' => 'troubleshootactions.store', 'uses' => 'TroubleshootActionsController@store']);
+    Route::resource('troubleshootactions', 'TroubleshootActionsController', ['except' => ['store'] ]);
     Route::resource('tickets', 'TicketsController');
 
 	 /**

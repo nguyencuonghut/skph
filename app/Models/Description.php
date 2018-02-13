@@ -53,7 +53,7 @@ class Description extends Model
 
     public function getAssignedUserAttribute()
     {
-        return User::findOrFail($this->user_id);
+        return User::findOrFail($this->leader_id);
     }
 
     public function activity()

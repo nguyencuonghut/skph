@@ -75,7 +75,7 @@ class TroubleshootActionNotification extends Notification
                     'username' =>  Auth()->user()->name,
                     ]);
                 break;
-            case 'approve_request':
+            case 'request_to_approve':
                 $text = __(':username request you to approve the troubleshoot action', [
                     'title' =>  $this->troubleshoot->troubleshooter->name,
                     'username' =>  Auth()->user()->name,
