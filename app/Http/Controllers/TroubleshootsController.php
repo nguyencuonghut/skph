@@ -127,4 +127,16 @@ class TroubleshootsController extends Controller
         Session()->flash('flash_message', 'Biện pháp khắc phục đã được phê duyệt!');
         return redirect()->back();
     }
+
+    /**
+     * @param $id
+     * @param Request $request
+     * @return mixed
+     */
+    public function evaluate($id, Request $request)
+    {
+        $this->troubleshoots->evaluate($id, $request);
+        Session()->flash('flash_message', 'Đánh giá thành công!');
+        return redirect()->back();
+    }
 }

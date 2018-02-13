@@ -26,6 +26,9 @@ class CreateTroubleshootsTable extends Migration
             $table->longText('reason');
             $table->string('approve_result');
             $table->dateTime('deadline');
+            $table->string('evaluate_result');
+            $table->integer('evaluater_id')->unsigned();
+            $table->foreign('evaluater_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

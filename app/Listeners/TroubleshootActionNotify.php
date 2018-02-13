@@ -41,6 +41,18 @@ class TroubleshootActionNotify
                     $action
                 ));
                 break;
+            case 'approved':
+                $troubleshoot->assignedUser->notify(new TroubleshootActionNotification(
+                    $troubleshoot,
+                    $action
+                ));
+                break;
+            case 'evaluated':
+                $troubleshoot->assignedUser->notify(new TroubleshootActionNotification(
+                    $troubleshoot,
+                    $action
+                ));
+                break;
             default:
                 $troubleshoot->assignedUser->notify(new TroubleshootActionNotification(
                     $troubleshoot,

@@ -53,6 +53,11 @@ class TroubleshootActionLog
                     'assignee' => $event->getTroubleshoot()->approver->name
                 ]);
                 break;
+            case 'evaluated':
+                $text = __(':username đã đánh giá SKPH', [
+                    'username' => Auth()->user()->name
+                ]);
+                break;
             default:
                 break;
         }

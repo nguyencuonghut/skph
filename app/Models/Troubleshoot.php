@@ -13,7 +13,9 @@ class Troubleshoot extends Model
         'approver_id',
         'reason',
         'deadline',
-        'approve_result'
+        'approve_result',
+        'evaluate_result',
+        'evaluater_id',
     ];
 
     public function responsibility()
@@ -34,6 +36,11 @@ class Troubleshoot extends Model
     public function approver()
     {
         return $this->belongsTo(User::class, 'approver_id');
+    }
+
+    public function evaluater()
+    {
+        return $this->belongsTo(User::class, 'evaluater_id');
     }
     public function desciption()
     {
