@@ -230,7 +230,7 @@
                 </div>
             </div>
 
-
+            @include('partials.comments', ['subject' => $description])
         </div>
         <div class="col-md-3">
             <div class="sidebarheader" style="margin-top: 0px; background-color:#337ab7;">

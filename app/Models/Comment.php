@@ -19,7 +19,12 @@ class Comment extends Model
     {
         return $this->morphTo('source');
     }
-    
+
+    public function description()
+    {
+        return $this->belongsTo(Description::class, 'description_id', 'id');
+    }
+
     public function task()
     {
         return $this->belongsTo(Task::class, 'task_id', 'id');

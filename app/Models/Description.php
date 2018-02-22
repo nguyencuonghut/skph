@@ -66,5 +66,14 @@ class Description extends Model
     {
         return $this->morphMany(Activity::class, 'source');
     }
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'source');
+    }
 
+    public function addComment($reply)
+    {
+        $reply = $this->comments()->create($reply);
+        return $reply;
+    }
 }
