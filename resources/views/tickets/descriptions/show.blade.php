@@ -100,18 +100,10 @@
                                 <h5><b style="color:blue">3. Thực hiện khắc phục sự không phù hợp trước khi tìm nguyên nhân gốc rễ:</b></h5>
                                 <div class="col-md-12">
                                     <div class="contactleft">
-                                        @if($troubleshoot->level)
-                                            <p><b>Mức độ SKPH:</b> {{$troubleshoot->level->name}}</p>
-                                        @endif
-                                        @if($troubleshoot->deadline)
-                                            <p><b>Thời hạn:</b> {{date('d F, Y', strtotime($troubleshoot->deadline))}}</p>
-                                        @endif
-                                    </div>
-                                    <div class="contactright">
                                         @if($troubleshoot->troubleshooter)
                                             <p><b>Người thực hiện:</b> {{$troubleshoot->troubleshooter->name}}</p>
                                         @endif
-                                        @if($troubleshoot->approver)
+                                        @if($troubleshoot->approve_result)
                                             <p><b>Phê duyệt: <b style="color: {{("Đồng ý" == $troubleshoot->approve_result) ? "blue":"red"}}"> {{$troubleshoot->approve_result}}</b></b> (bởi {{$troubleshoot->approver->name}} vào
                                                 @if(date_diff(new DateTime('now'), $troubleshoot->updated_at)->y)
                                                     {{ date_diff(new DateTime('now'), $troubleshoot->updated_at)->y }} năm
@@ -132,11 +124,23 @@
                                                 @endif
                                                 trước)
                                             </p>
+                                        @else
+                                                <p><b>Phê duyệt: <b style="color: {{("Đồng ý" == $troubleshoot->approve_result) ? "blue":"red"}}"> Chưa phê duyệt</b></b>
+                                        @endif
+                                    </div>
+                                    <div class="contactright">
+                                        @if($troubleshoot->level)
+                                            <p><b>Mức độ SKPH:</b> {{$troubleshoot->level->name}}</p>
+                                        @endif
+                                        @if($troubleshoot->deadline != 0)
+                                            <p><b>Thời hạn:</b> {{date('d F, Y', strtotime($troubleshoot->deadline))}}</p>
                                         @endif
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                @include('tickets.troubleshoots.actions.create', ['subject' => $description])
+                                    @if($troubleshoot->approver)
+                                        @include('tickets.troubleshoots.actions.create', ['subject' => $description])
+                                    @endif
                                 </div>
                                 @endif
                             </el-tab-pane>
@@ -145,36 +149,42 @@
                                 <p><b>
                                         @if('Không nghiêm trọng' == $troubleshoot->evaluate_result)
                                             {{$troubleshoot->evaluate_result}} => Dừng
-                                        @else
+                                        @elseif('Nghiêm trọng' == $troubleshoot->evaluate_result)
                                             <b style="color:red">Nghiêm trọng => Phân tích nguyên nhân gốc rễ và đưa ra giải pháp phòng ngừa</b>
                                         @endif
                                     </b>
-                                    (Bởi <b>{{$troubleshoot->evaluater->name}}</b>)
+                                    @if(isset($troubleshoot->evaluater))
+                                    `(Bởi <b>{{$troubleshoot->evaluater->name}}</b>)
+                                    @endif
                                 </p>
                                 <hr style="color:#337ab7; border-color:#337ab7; background-color:#337ab7">
                                 <h5><b style="color:blue">5. Hoạt động xử lý</b></h5>
                                 <div class="col-md-12">
                                     <div class="contactleft">
-                                        <p><b>Người đề xuất xử lý:</b> xxx</p>
+                                        @if($prevention->proposer)
+                                            <p><b>Người đề xuất xử lý:</b> {{$prevention->proposer->name}}</p>
+                                        @endif
                                     </div>
                                     <div class="contactright">
-                                        <p><b>Thẩm tra đề xuất xử lý:</b><b style="color: blue;"> Đạt</b> (Bởi <b>xxx</b>) vào
-                                            @if(date_diff($description->created_at, $description->updated_at)->y)
-                                                {{ date_diff($description->created_at, $description->updated_at)->y }} năm
-                                            @endif
-                                            @if(date_diff($description->created_at, $description->updated_at)->m)
-                                                {{ date_diff($description->created_at, $description->updated_at)->m }} tháng
-                                            @endif
-                                            @if(date_diff($description->created_at, $description->updated_at)->d)
-                                                {{ date_diff($description->created_at, $description->updated_at)->d }} ngày
-                                            @endif
-                                            @if(date_diff($description->created_at, $description->updated_at)->h)
-                                                {{ date_diff($description->created_at, $description->updated_at)->h }} giờ
-                                            @endif
-                                            @if(date_diff($description->created_at, $description->updated_at)->i)
-                                                {{ date_diff($description->created_at, $description->updated_at)->i }} phút
-                                            @endif
-                                            trước</p>
+                                        @if($prevention->approver)
+                                            <p><b>Thẩm tra đề xuất xử lý:</b><b style="color: blue;"> Đạt</b> (Bởi <b>xxx</b>) vào
+                                                @if(date_diff($description->created_at, $description->updated_at)->y)
+                                                    {{ date_diff($description->created_at, $description->updated_at)->y }} năm
+                                                @endif
+                                                @if(date_diff($description->created_at, $description->updated_at)->m)
+                                                    {{ date_diff($description->created_at, $description->updated_at)->m }} tháng
+                                                @endif
+                                                @if(date_diff($description->created_at, $description->updated_at)->d)
+                                                    {{ date_diff($description->created_at, $description->updated_at)->d }} ngày
+                                                @endif
+                                                @if(date_diff($description->created_at, $description->updated_at)->h)
+                                                    {{ date_diff($description->created_at, $description->updated_at)->h }} giờ
+                                                @endif
+                                                @if(date_diff($description->created_at, $description->updated_at)->i)
+                                                    {{ date_diff($description->created_at, $description->updated_at)->i }} phút
+                                                @endif
+                                                trước</p>
+                                        @endif
                                     </div>
                                 </div>
                                 <table class="table">
@@ -287,6 +297,19 @@
             {!! Form::submit(__('Đánh giá SKPH'), ['class' => 'btn btn-primary form-control closebtn']) !!}
             {!! Form::close() !!}
 
+            {!! Form::model($prevention, [
+                'method' => 'PATCH',
+                'url' => ['preventions/assignproposer', $prevention->id],
+            ]) !!}
+            <select name="proposer_id" id="proposer_id" class="form-control" style="width:100%">
+                <option disabled selected value> {{ __('Select a user') }} </option>
+                @foreach ($users as $user)
+                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                @endforeach
+            </select>
+            {!! Form::submit(__('Chuyển cho người đề xuất'), ['class' => 'btn btn-primary form-control closebtn']) !!}
+            {!! Form::close() !!}
+
             <div class="activity-feed movedown">
                 @foreach($description->activity as $activity)
                     <div class="feed-item">
@@ -321,6 +344,12 @@
     </script>
     <script type="text/javascript">
         $("#troubleshooter_id").select2({
+            placeholder: "Chọn",
+            allowClear: true
+        });
+    </script>
+    <script type="text/javascript">
+        $("#proposer_id").select2({
             placeholder: "Chọn",
             allowClear: true
         });

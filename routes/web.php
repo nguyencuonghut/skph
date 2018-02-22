@@ -40,8 +40,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::patch('troubleshoots/assigntroubeshooter/{id}', 'TroubleshootsController@assignTroubleshooter');
     Route::patch('troubleshoots/approve/{id}', 'TroubleshootsController@approve');
     Route::patch('troubleshoots/evaluate/{id}', 'TroubleshootsController@evaluate');
+    Route::patch('preventions/assignproposer/{id}', 'PreventionsController@assignProposer');
     Route::resource('descriptions', 'DescriptionsController');
     Route::resource('troubleshoots', 'TroubleshootsController');
+    Route::resource('preventions', 'PreventionsController');
     Route::post('troubleshootactions/{id}/store',
         ['as' => 'troubleshootactions.store', 'uses' => 'TroubleshootActionsController@store']);
     Route::resource('troubleshootactions', 'TroubleshootActionsController', ['except' => ['store'] ]);

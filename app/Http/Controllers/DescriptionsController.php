@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Prevention;
 use App\Models\Troubleshoot;
 use App\Models\TroubleshootAction;
 use Illuminate\Http\Request;
@@ -80,12 +81,14 @@ class DescriptionsController extends Controller
         $description = Description::findOrFail($id);
         $troubleshoot = Troubleshoot::findOrFail($id);
         $ticket = Ticket::findOrFail($id);
+        $prevention = Prevention::findOrFail($id);
         return view('tickets.descriptions.show')
             ->withTicket($ticket)
             ->withDescription($description)
             ->withTroubleshoot($troubleshoot)
             ->withUsers($this->users->getAllUsers())
-            ->withActions(TroubleshootAction::all()->where('description_id', $id));
+            ->withActions(TroubleshootAction::all()->where('description_id', $id))
+            ->withPrevention($prevention);
     }
 
     /**

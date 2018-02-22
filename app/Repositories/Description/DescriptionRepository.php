@@ -1,6 +1,7 @@
 <?php
 namespace App\Repositories\Description;
 
+use App\Models\Prevention;
 use App\Models\Description;
 use App\Models\Troubleshoot;
 use Carbon;
@@ -61,6 +62,10 @@ class DescriptionRepository implements DescriptionRepositoryContract
         // Create new troubleshoot according to this ticket description
         $troublehoot = new Troubleshoot();
         $troublehoot->save();
+
+        // Create new prevention according to this ticket description
+        $prevention = new Prevention();
+        $prevention->save();
 
         $insertedId = $description->id;
         Session()->flash('flash_message', 'Ticket successfully added!');
