@@ -3,9 +3,12 @@
     table, th, td {
         border: 1px solid black;
         border-collapse: collapse;
+        font-size: 12px;
     }
     th, td {
-        padding: 5px;
+        padding: 2px;
+        padding-top: 2px;
+        padding-bottom: 2px;
         text-align: left;
     }
 </style>

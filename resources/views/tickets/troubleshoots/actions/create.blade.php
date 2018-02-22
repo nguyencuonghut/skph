@@ -1,7 +1,7 @@
 @if($actions->count())
     <div class="row">
         <div class="col-md-12">
-            <table class="table">
+            <table class="table" style="font-size: 12px">
                 <thead>
                 <th>STT</th>
                 <th>Hành động khắc phục</th>
@@ -9,6 +9,7 @@
                 <th>Thời gian tạo</th>
                 <th>Thời hạn</th>
                 <th>Trạng thái</th>
+                <th>Sửa</th>
                 </thead>
 
                 <tbody>
@@ -20,7 +21,10 @@
                         <td>{{ $action->user->name }}</td>
                         <td>{{date('d, F Y H:i', strTotime($action->created_at))}}</td>
                         <td>{{date('d, F Y', strTotime($action->deadline))}}</td>
-                        <td>{{ $action->status}}</td>
+                        <td style="color: {{'Open' == $action->status ? "green": "black"}}">{{ $action->status}}</td>
+                        <td>
+                            <a class="btn btn-small btn-danger" href="{{ URL::to('troubleshootactions/' . $action->id . '/edit') }}">Sửa</a>
+                        </td>
                     </tr>
                 @endforeach
                 </tbody>

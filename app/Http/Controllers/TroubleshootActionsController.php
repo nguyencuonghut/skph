@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\TroubleshootAction;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class TroubleshootActionsController extends Controller
@@ -65,7 +66,10 @@ class TroubleshootActionsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $troubleshootaction = TroubleshootAction::findOrFail($id);
+        return view('tickets.troubleshoots.actions.edit')
+            ->withTroubleshootaction($troubleshootaction)
+            ->withUsers(User::all()->pluck('name', 'id'));
     }
 
     /**
@@ -77,7 +81,15 @@ class TroubleshootActionsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $troubleshootaction = TroubleshootAction::findOrFail($id);
+        $troubleshootaction->action = $request->action;
+        $troubleshootaction->user_id = $request->user_id;
+        $troubleshootaction->deadline = $request->deadline;
+        $troubleshootaction->status = $request->status;
+        $troubleshootaction->save();
+
+        Session()->flash('flash_message', 'Cập nhật biện pháp khắc phục thành công');
+        return redirect()->route("descriptions.show", $id);
     }
 
     /**
