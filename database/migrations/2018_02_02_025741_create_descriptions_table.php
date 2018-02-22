@@ -37,6 +37,9 @@ class CreateDescriptionsTable extends Migration
             $table->text('how_1');
             $table->integer('how_2')->unsigned();
             $table->text('leader_confirmation_result');
+            $table->string('effectiveness');
+            $table->integer('effectiveness_user_id')->unsigned();
+            $table->foreign('effectiveness_user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

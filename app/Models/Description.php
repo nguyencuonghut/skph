@@ -26,6 +26,8 @@ class Description extends Model
         'user_id',
         'leader_id',
         'leader_confirmation_result',
+        'effectiveness',
+        'effectiveness_user_id',
     ];
 
     protected $hidden = ['remember_token'];
@@ -33,6 +35,10 @@ class Description extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+    public function effectiveness_user()
+    {
+        return $this->belongsTo(User::class, 'effectiveness_user_id');
     }
     public function leader()
     {

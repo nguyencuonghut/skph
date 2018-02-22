@@ -35,6 +35,11 @@ class DescriptionActionLog
                         'assignee' => $event->getDescription()->leader->name
                     ]);
                 break;
+            case 'effectiveness_asset':
+                $text = __('Ticket được đánh giá hiệu quả bởi :username', [
+                    'username' => Auth()->user()->name,
+                ]);
+                break;
             case 'updated_status':
                 $text = __('Ticket được đánh dấu hoàn thành bởi :username', [
                         'username' => Auth()->user()->name,

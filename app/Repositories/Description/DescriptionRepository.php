@@ -17,6 +17,7 @@ class DescriptionRepository implements DescriptionRepositoryContract
 {
     const CREATED = 'created';
     const UPDATED_ASSIGN = 'updated_assign';
+    const EFFECTIVENESS_ASSET = 'effectiveness_asset';
 
     /**
      * @param $id
@@ -146,5 +147,23 @@ class DescriptionRepository implements DescriptionRepositoryContract
 
 
         $description->fill($input)->save();
+    }
+
+    /**
+     * @param $id
+     * @param $requestData
+     */
+    public function effectivenessAsset($id, $requestData)
+    {
+        $description = Description::with('user')->findOrFail($id);
+        $input = $requestData = array_merge(
+            $requestData->all(),
+            [   'effectiveness' => $requestData->effectiveness,
+                'effectiveness_user_id' => auth()->id()]
+        );
+
+        $description->fill($input)->save();
+        $description = $description->fresh();
+        event(new \App\Events\DescriptionAction($description, self::EFFECTIVENESS_ASSET));
     }
 }

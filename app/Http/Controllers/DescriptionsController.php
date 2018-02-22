@@ -147,4 +147,15 @@ class DescriptionsController extends Controller
         Session()->flash('flash_message', 'Xác nhận thành công');
         return redirect()->back();
     }
+    /**
+     * @param $id
+     * @param Request $request
+     * @return mixed
+     */
+    public function effectivenessAsset($id, Request $request)
+    {
+        $this->descriptions->effectivenessAsset($id, $request);
+        Session()->flash('flash_message', 'Đánh giá hiệu quả thành công');
+        return redirect()->back();
+    }
 }

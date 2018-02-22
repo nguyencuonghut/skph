@@ -185,7 +185,9 @@
                                                 @else
                                                     0 phút
                                                 @endif
-                                                trước</p>
+                                                trước)</p>
+                                        @else
+                                            <p><b>Thẩm tra đề xuất xử lý: <b style="color: red"> Chưa thẩm tra</b></b>
                                         @endif
                                     </div>
                                 </div>
@@ -197,24 +199,29 @@
                                 </div>
                                 <hr style="color:#337ab7; border-color:#337ab7; background-color:#337ab7">
                                 <h5><b style="color:blue">6. Đánh giá hiệu quả</b></h5>
-                                <p>Ticket được đánh giá  hiệu quả <b style="color:red">Trung bình</b> (Bởi <b>xxx</b>) vào
-                                    @if(date_diff($description->created_at, $description->updated_at)->y)
-                                        {{ date_diff($description->created_at, $description->updated_at)->y }} năm
-                                    @endif
-                                    @if(date_diff($description->created_at, $description->updated_at)->m)
-                                        {{ date_diff($description->created_at, $description->updated_at)->m }} tháng
-                                    @endif
-                                    @if(date_diff($description->created_at, $description->updated_at)->d)
-                                        {{ date_diff($description->created_at, $description->updated_at)->d }} ngày
-                                    @endif
-                                    @if(date_diff($description->created_at, $description->updated_at)->h)
-                                        {{ date_diff($description->created_at, $description->updated_at)->h }} giờ
-                                    @endif
-                                    @if(date_diff($description->created_at, $description->updated_at)->i)
-                                        {{ date_diff($description->created_at, $description->updated_at)->i }} phút
-                                    @endif
-                                    trước
-                                </p>
+                                @if($description->effectiveness)
+                                    <p><b>Ticket được đánh giá hiệu quả <b style="color: {{("Thấp" == $description->effectiveness) ? "red":"blue"}}"> {{$description->effectiveness}}</b></b> (bởi {{$description->effectiveness_user->name}} vào
+                                        @if(date_diff(new DateTime('now'), $description->updated_at)->y)
+                                            {{ date_diff(new DateTime('now'), $description->updated_at)->y }} năm
+                                        @endif
+                                        @if(date_diff(new DateTime('now'), $description->updated_at)->m)
+                                            {{ date_diff(new DateTime('now'), $description->updated_at)->m }} tháng
+                                        @endif
+                                        @if(date_diff(new DateTime('now'), $description->updated_at)->d)
+                                            {{ date_diff(new DateTime('now'), $description->updated_at)->d }} ngày
+                                        @endif
+                                        @if(date_diff(new DateTime('now'), $description->updated_at)->h)
+                                            {{ date_diff(new DateTime('now'), $description->updated_at)->h }} giờ
+                                        @endif
+                                        @if(date_diff(new DateTime('now'), $description->updated_at)->i)
+                                            {{ date_diff(new DateTime('now'), $description->updated_at)->i }} phút
+                                        @else
+                                            0 phút
+                                        @endif
+                                        trước)</p>
+                                @else
+                                    <p><b>Ticket <b style="color: red">chưa</b> được đánh giá hiệu quả.</b>
+                                @endif
                             </el-tab-pane>
                         </el-tabs>
                     </div>
@@ -321,12 +328,27 @@
             {!! Form::submit(__('Duyệt biện pháp phòng ngừa'), ['class' => 'btn btn-primary form-control closebtn']) !!}
             {!! Form::close() !!}
 
+            {!! Form::model($description, [
+                'method' => 'PATCH',
+                'url' => ['descriptions/effectivenessasset', $description->id],
+            ]) !!}
+            <select id="effectiveness" name="effectiveness" style="width:100%">
+                <option disabled selected value> -- select an option -- </option>
+                <option>Cao</option>
+                <option>Trung bình</option>
+                <option>Thấp</option>
+            </select>
+            {!! Form::submit(__('Đánh giá hiệu quả'), ['class' => 'btn btn-primary form-control closebtn']) !!}
+            {!! Form::close() !!}
+
             <div class="activity-feed movedown">
                 @foreach($description->activity as $activity)
-                    <div class="feed-item">
-                        <div class="activity-date">{{date('d, F Y H:i', strTotime($activity->created_at))}}</div>
-                        <div class="activity-text">{{$activity->text}}</div>
-                    </div>
+                    @if($activity->action != 'effectiveness_asset')
+                        <div class="feed-item">
+                            <div class="activity-date">{{date('d, F Y H:i', strTotime($activity->created_at))}}</div>
+                            <div class="activity-text">{{$activity->text}}</div>
+                        </div>
+                    @endif
                 @endforeach
 
                 @foreach($troubleshoot->activity as $activity)
@@ -341,6 +363,15 @@
                         <div class="activity-date">{{date('d, F Y H:i', strTotime($activity->created_at))}}</div>
                         <div class="activity-text">{{$activity->text}}</div>
                     </div>
+                @endforeach
+
+                @foreach($description->activity as $activity)
+                    @if($activity->action == 'effectiveness_asset')
+                        <div class="feed-item">
+                            <div class="activity-date">{{date('d, F Y H:i', strTotime($activity->created_at))}}</div>
+                            <div class="activity-text">{{$activity->text}}</div>
+                        </div>
+                    @endif
                 @endforeach
             </div>
         </div>
@@ -386,6 +417,12 @@
     </script>
     <script type="text/javascript">
         $("#evaluate_result").select2({
+            placeholder: "Chọn",
+            allowClear: true
+        });
+    </script>
+    <script type="text/javascript">
+        $("#effectiveness").select2({
             placeholder: "Chọn",
             allowClear: true
         });

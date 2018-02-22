@@ -69,6 +69,12 @@ class DescriptionActionNotification extends Notification
                     'creator' => $this->description->user->name,
                     ]);
                 break;
+            case 'effectiveness_asset':
+                $text = __(':title được đánh giá hiệu quả bởi :username', [
+                    'title' =>  $this->description->title,
+                    'creator' => $this->description->effectiveness_user->name,
+                ]);
+                break;
             case 'updated_status':
                 $text = __(':title được đánh dấu hoàn thành bởi :username', [
                     'title' =>  $this->description->title,
