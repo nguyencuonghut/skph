@@ -38,7 +38,7 @@ class PreventionActionsController extends Controller
         $prevention_action = new PreventionAction();
         $prevention_action->action = $request->action;
         $prevention_action->budget = $request->budget;
-        $prevention_action->user_id = $request->user_id;
+        $prevention_action->user_id = $request->user_incharge_id;
         $prevention_action->where = $request->where;
         $prevention_action->when = $request->when;
         $prevention_action->how = $request->how;

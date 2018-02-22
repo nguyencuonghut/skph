@@ -45,7 +45,7 @@
                 {!! Form::number('budget', null, ['class' => 'form-control', 'id' => 'action']) !!}
 
                 {!! Form::label('user_id', __('Ai làm ?'), ['class' => 'control-label']) !!}
-                <select name="user_id" id="user_id" class="form-control" style="width:100%">
+                <select name="user_incharge_id" id="user_incharge_id" class="form-control" style="width:100%">
                     <option disabled selected value> {{ __('Chọn') }} </option>
                     @foreach ($users as $user)
                         <option value="{{ $user->id }}">{{ $user->name }}</option>
@@ -63,6 +63,7 @@
         {!! Form::label('how', __('Làm như thế nào ?'), ['class' => 'control-label']) !!}
         {!! Form::text('how', null, ['class' => 'form-control', 'id' => 'action']) !!}
 
+        <br>
         {!! Form::submit( __('Thêm') , ['class' => 'btn btn-primary']) !!}
     </div>
     {!! Form::close() !!}
@@ -70,7 +71,7 @@
 
 @push('scripts')
     <script type="text/javascript">
-        $("#user_id").select2({
+        $("#user_incharge_id").select2({
             placeholder: "Chọn",
             allowClear: true
         });
