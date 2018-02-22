@@ -168,20 +168,22 @@
                                     <div class="contactright">
                                         @if($prevention->approve_result)
                                             <p><b>Thẩm tra đề xuất xử lý: <b style="color: {{("Đồng ý" == $prevention->approve_result) ? "blue":"red"}}"> {{$prevention->approve_result}}</b></b> (bởi {{$prevention->approver->name}} vào
-                                            @if(date_diff($prevention->created_at, $prevention->updated_at)->y)
-                                                    {{ date_diff($prevention->created_at, $prevention->updated_at)->y }} năm
+                                            @if(date_diff(new DateTime('now'), $prevention->updated_at)->y)
+                                                    {{ date_diff(new DateTime('now'), $prevention->updated_at)->y }} năm
                                                 @endif
-                                                @if(date_diff($prevention->created_at, $prevention->updated_at)->m)
-                                                    {{ date_diff($prevention->created_at, $prevention->updated_at)->m }} tháng
+                                                @if(date_diff(new DateTime('now'), $prevention->updated_at)->m)
+                                                    {{ date_diff(new DateTime('now'), $prevention->updated_at)->m }} tháng
                                                 @endif
-                                                @if(date_diff($prevention->created_at, $prevention->updated_at)->d)
-                                                    {{ date_diff($prevention->created_at, $prevention->updated_at)->d }} ngày
+                                                @if(date_diff(new DateTime('now'), $prevention->updated_at)->d)
+                                                    {{ date_diff(new DateTime('now'), $prevention->updated_at)->d }} ngày
                                                 @endif
-                                                @if(date_diff($prevention->created_at, $prevention->updated_at)->h)
-                                                    {{ date_diff($prevention->created_at, $prevention->updated_at)->h }} giờ
+                                                @if(date_diff(new DateTime('now'), $prevention->updated_at)->h)
+                                                    {{ date_diff(new DateTime('now'), $prevention->updated_at)->h }} giờ
                                                 @endif
-                                                @if(date_diff($prevention->created_at, $prevention->updated_at)->i)
-                                                    {{ date_diff($prevention->created_at, $prevention->updated_at)->i }} phút
+                                                @if(date_diff(new DateTime('now'), $prevention->updated_at)->i)
+                                                    {{ date_diff(new DateTime('now'), $prevention->updated_at)->i }} phút
+                                                @else
+                                                    0 phút
                                                 @endif
                                                 trước</p>
                                         @endif
