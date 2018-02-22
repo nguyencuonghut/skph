@@ -3,19 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Repositories\Prevention\PreventionRepositoryContract;
-class PreventionsController extends Controller
+use App\Models\PreventionAction;
+
+class PreventionActionsController extends Controller
 {
-    protected $request;
-    protected $preventions;
-
-    public function __construct(
-        PreventionRepositoryContract $preventions
-    )
-    {
-        $this->preventions = $preventions;
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -42,9 +33,20 @@ class PreventionsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        //
+        $prevention_action = new PreventionAction();
+        $prevention_action->action = $request->action;
+        $prevention_action->budget = $request->budget;
+        $prevention_action->user_id = $request->user_id;
+        $prevention_action->where = $request->where;
+        $prevention_action->when = $request->when;
+        $prevention_action->how = $request->how;
+        $prevention_action->description_id = $id;
+        $prevention_action->status = 'Open';
+        $prevention_action->save();
+
+        return redirect()->route("descriptions.show", $id);
     }
 
     /**
@@ -90,39 +92,5 @@ class PreventionsController extends Controller
     public function destroy($id)
     {
         //
-    }
-    /**
-     * @param $id
-     * @param Request $request
-     * @return mixed
-     */
-    public function assignProposer($id, Request $request)
-    {
-        $this->preventions->assignProposer($id, $request);
-        Session()->flash('flash_message', 'Giao cho thành công!');
-        return redirect()->back();
-    }
-    /**
-     * @param $id
-     * @param Request $request
-     * @return mixed
-     */
-    public function assignApprover($id, Request $request)
-    {
-        $this->preventions->assignApprover($id, $request);
-        Session()->flash('flash_message', 'Giao cho thành công!');
-        return redirect()->back();
-    }
-
-    /**
-     * @param $id
-     * @param Request $request
-     * @return mixed
-     */
-    public function approve($id, Request $request)
-    {
-        $this->preventions->approve($id, $request);
-        Session()->flash('flash_message', 'Biện pháp phòng ngừa đã được phê duyệt!');
-        return redirect()->back();
     }
 }

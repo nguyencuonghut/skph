@@ -64,19 +64,19 @@ class PreventionActionNotification extends Notification
     {
         switch ($this->action) {
             case 'assigned_proposer':
-                $text = __(':username giao cho bạn xử lý vấn đề', [
+                $text = __(':username giao cho bạn đề xuất biện pháp phòng ngừa', [
                     'title' =>  $this->prevention->proposer->name,
                     'username' =>  Auth()->user()->name,
                     ]);
                 break;
             case 'request_to_approve':
-                $text = __(':username yêu cầu bạn phê duyệt biện pháp khắc phục', [
+                $text = __(':username yêu cầu bạn phê duyệt biện pháp phòng ngừa', [
                     'title' =>  $this->prevention->proposer->name,
                     'username' =>  Auth()->user()->name,
                 ]);
                 break;
             case 'approved':
-                $text = __(':approver đã phê duyệt biện pháp khắc phục của bạn', [
+                $text = __(':approver đã phê duyệt biện pháp phòng ngừa của bạn', [
                     'approver' =>  $this->prevention->approver->name,
                     'username' =>  Auth()->user()->name,
                 ]);

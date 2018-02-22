@@ -166,49 +166,33 @@
                                         @endif
                                     </div>
                                     <div class="contactright">
-                                        @if($prevention->approver)
-                                            <p><b>Thẩm tra đề xuất xử lý:</b><b style="color: blue;"> Đạt</b> (Bởi <b>xxx</b>) vào
-                                                @if(date_diff($description->created_at, $description->updated_at)->y)
-                                                    {{ date_diff($description->created_at, $description->updated_at)->y }} năm
+                                        @if($prevention->approve_result)
+                                            <p><b>Thẩm tra đề xuất xử lý: <b style="color: {{("Đồng ý" == $prevention->approve_result) ? "blue":"red"}}"> {{$prevention->approve_result}}</b></b> (bởi {{$prevention->approver->name}} vào
+                                            @if(date_diff($prevention->created_at, $prevention->updated_at)->y)
+                                                    {{ date_diff($prevention->created_at, $prevention->updated_at)->y }} năm
                                                 @endif
-                                                @if(date_diff($description->created_at, $description->updated_at)->m)
-                                                    {{ date_diff($description->created_at, $description->updated_at)->m }} tháng
+                                                @if(date_diff($prevention->created_at, $prevention->updated_at)->m)
+                                                    {{ date_diff($prevention->created_at, $prevention->updated_at)->m }} tháng
                                                 @endif
-                                                @if(date_diff($description->created_at, $description->updated_at)->d)
-                                                    {{ date_diff($description->created_at, $description->updated_at)->d }} ngày
+                                                @if(date_diff($prevention->created_at, $prevention->updated_at)->d)
+                                                    {{ date_diff($prevention->created_at, $prevention->updated_at)->d }} ngày
                                                 @endif
-                                                @if(date_diff($description->created_at, $description->updated_at)->h)
-                                                    {{ date_diff($description->created_at, $description->updated_at)->h }} giờ
+                                                @if(date_diff($prevention->created_at, $prevention->updated_at)->h)
+                                                    {{ date_diff($prevention->created_at, $prevention->updated_at)->h }} giờ
                                                 @endif
-                                                @if(date_diff($description->created_at, $description->updated_at)->i)
-                                                    {{ date_diff($description->created_at, $description->updated_at)->i }} phút
+                                                @if(date_diff($prevention->created_at, $prevention->updated_at)->i)
+                                                    {{ date_diff($prevention->created_at, $prevention->updated_at)->i }} phút
                                                 @endif
                                                 trước</p>
                                         @endif
                                     </div>
                                 </div>
-                                <table class="table">
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Mô tả hành động</th>
-                                        <th>Ngân sách dự kiến</th>
-                                        <th>Ai làm ?</th>
-                                        <th>Làm ở đâu ?</th>
-                                        <th>Làm khi nào ?</th>
-                                        <th>Làm như thế nào ?</th>
-                                        <th>Đánh giá tình trạng</th>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A beatae, debitis dolorem doloremque dolorum enim impedit in, ipsa laudantium magni minima modi quo quod, repellat rerum tempore temporibus tenetur voluptatibus.</td>
-                                        <td>50,000,000 VNĐ</td>
-                                        <td>xxx</td>
-                                        <td>Nhà máy</td>
-                                        <td>{{$description->created_at}}</td>
-                                        <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A beatae, debitis dolorem doloremque dolorum enim impedit in, ipsa laudantium magni minima modi quo quod, repellat rerum tempore temporibus tenetur voluptatibus.</td>
-                                        <td style="color:blue"><b>Đúng thời hạn</b></td>
-                                    </tr>
-                                </table>
+
+                                <div class="col-md-12">
+                                    @if($prevention->proposer)
+                                        @include('tickets.preventions.actions.create', ['subject' => $prevention])
+                                    @endif
+                                </div>
                                 <hr style="color:#337ab7; border-color:#337ab7; background-color:#337ab7">
                                 <h5><b style="color:blue">6. Đánh giá hiệu quả</b></h5>
                                 <p>Ticket được đánh giá  hiệu quả <b style="color:red">Trung bình</b> (Bởi <b>xxx</b>) vào
@@ -282,7 +266,7 @@
                 <option>Đồng ý</option>
                 <option>Không đồng ý</option>
             </select>
-            {!! Form::submit(__('Phê duyệt biện pháp'), ['class' => 'btn btn-primary form-control closebtn']) !!}
+            {!! Form::submit(__('Duyệt biện pháp khắc phục'), ['class' => 'btn btn-primary form-control closebtn']) !!}
             {!! Form::close() !!}
 
             {!! Form::model($description, [
@@ -310,6 +294,31 @@
             {!! Form::submit(__('Chuyển cho người đề xuất'), ['class' => 'btn btn-primary form-control closebtn']) !!}
             {!! Form::close() !!}
 
+            {!! Form::model($prevention, [
+                            'method' => 'PATCH',
+                            'url' => ['preventions/assignapprover', $prevention->id],
+                        ]) !!}
+            <select name="approver_id" id="approver_id" class="form-control" style="width:100%">
+                <option disabled selected value> {{ __('Select a user') }} </option>
+                @foreach ($users as $user)
+                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                @endforeach
+            </select>
+            {!! Form::submit(__('Giao cho người phê duyệt'), ['class' => 'btn btn-primary form-control closebtn']) !!}
+            {!! Form::close() !!}
+
+            {!! Form::model($prevention, [
+                'method' => 'PATCH',
+                'url' => ['preventions/approve', $prevention->id],
+            ]) !!}
+            <select id="approve_prevention_result" name="approve_prevention_result" style="width:100%">
+                <option disabled selected value> -- select an option -- </option>
+                <option>Đồng ý</option>
+                <option>Không đồng ý</option>
+            </select>
+            {!! Form::submit(__('Duyệt biện pháp phòng ngừa'), ['class' => 'btn btn-primary form-control closebtn']) !!}
+            {!! Form::close() !!}
+
             <div class="activity-feed movedown">
                 @foreach($description->activity as $activity)
                     <div class="feed-item">
@@ -319,6 +328,13 @@
                 @endforeach
 
                 @foreach($troubleshoot->activity as $activity)
+                    <div class="feed-item">
+                        <div class="activity-date">{{date('d, F Y H:i', strTotime($activity->created_at))}}</div>
+                        <div class="activity-text">{{$activity->text}}</div>
+                    </div>
+                @endforeach
+
+                @foreach($prevention->activity as $activity)
                     <div class="feed-item">
                         <div class="activity-date">{{date('d, F Y H:i', strTotime($activity->created_at))}}</div>
                         <div class="activity-text">{{$activity->text}}</div>
@@ -350,6 +366,18 @@
     </script>
     <script type="text/javascript">
         $("#proposer_id").select2({
+            placeholder: "Chọn",
+            allowClear: true
+        });
+    </script>
+    <script type="text/javascript">
+        $("#approver_id").select2({
+            placeholder: "Chọn",
+            allowClear: true
+        });
+    </script>
+    <script type="text/javascript">
+        $("#approve_prevention_result").select2({
             placeholder: "Chọn",
             allowClear: true
         });

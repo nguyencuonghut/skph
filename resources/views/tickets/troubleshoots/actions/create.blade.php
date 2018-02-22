@@ -15,8 +15,8 @@
                 <?php $i = 1 ?>
                 @foreach($actions as $action)
                     <tr>
-                        <th>{{$i++}}</th>
-                        <th>{{ $action->action }}</th>
+                        <td>{{$i++}}</td>
+                        <td>{{ $action->action }}</td>
                         <td>{{ $action->user->name }}</td>
                         <td>{{date('d, F Y H:i', strTotime($action->created_at))}}</td>
                         <td>{{date('d, F Y', strTotime($action->deadline))}}</td>
@@ -29,7 +29,7 @@
     </div>
 @endif
 
-    <button type="button" class="btn btn-success" data-toggle="collapse" data-target="#action_id"><span class="glyphicon glyphicon-plus"></span> Thêm biện pháp</button>
+    <button type="button" class="btn btn-success" data-toggle="collapse" data-target="#action_id"><span class="glyphicon glyphicon-plus"></span> Thêm biện pháp khắc phục</button>
     {!! Form::open([
             'route' => ['troubleshootactions.store', $subject->id],
             ]) !!}

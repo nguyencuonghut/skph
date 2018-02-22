@@ -34,10 +34,14 @@ class PreventionRepository implements PreventionRepositoryContract
         event(new \App\Events\PreventionAction($prevention, self::ASSIGNED_PROPOSER));
     }
 
-    public function update($id, $requestData)
+    public function assignApprover($id, $requestData)
     {
         $prevention = Prevention::findOrFail($id);
-        $prevention->fill($requestData->all())->save();
+
+        $prevention->approver_id = $requestData->approver_id;
+        $prevention->save();
+
+        $prevention = $prevention->fresh();
 
         event(new \App\Events\PreventionAction($prevention, self::REQUEST_TO_APPROVE));
     }
@@ -51,7 +55,7 @@ class PreventionRepository implements PreventionRepositoryContract
         $prevention = Prevention::findOrFail($id);
         $input = $requestData = array_merge(
             $requestData->all(),
-            [   'approve_result' => $requestData->approve_result]
+            [   'approve_result' => $requestData->approve_prevention_result]
         );
 
         $prevention->fill($input)->save();

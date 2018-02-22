@@ -32,4 +32,9 @@ class Prevention extends Model
     {
         return User::findOrFail($this->approver_id);
     }
+
+    public function activity()
+    {
+        return $this->morphMany(Activity::class, 'source');
+    }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Prevention;
 use App\Models\Troubleshoot;
 use App\Models\TroubleshootAction;
+use App\Models\PreventionAction;
 use Illuminate\Http\Request;
 use App\Models\Area;
 use App\Models\Source;
@@ -88,7 +89,8 @@ class DescriptionsController extends Controller
             ->withTroubleshoot($troubleshoot)
             ->withUsers($this->users->getAllUsers())
             ->withActions(TroubleshootAction::all()->where('description_id', $id))
-            ->withPrevention($prevention);
+            ->withPrevention($prevention)
+            ->withPreventionactions(PreventionAction::all()->where('description_id', $id));
     }
 
     /**

@@ -29,19 +29,19 @@ class PreventionActionLog
     {
         switch ($event->getAction()) {
             case 'assigned_proposer':
-                $text = __(':username giao cho :assignee xử lý', [
+                $text = __(':username giao cho :assignee đề xuất biện pháp phòng ngừa', [
                         'username' => Auth()->user()->name,
                         'assignee' => $event->getPrevention()->proposer->name
                     ]);
                 break;
             case 'request_to_approve':
-                $text = __(':username yêu cầu :assignee phê duyệt biện pháp khắc phục', [
+                $text = __(':username yêu cầu :assignee phê duyệt biện pháp phòng ngừa', [
                     'username' => Auth()->user()->name,
                     'assignee' => $event->getPrevention()->approver->name
                 ]);
                 break;
             case 'approved':
-                $text = __(':assignee đã phê duyệt biện pháp khắc phục', [
+                $text = __(':assignee đã phê duyệt biện pháp phòng ngừa', [
                     'username' => Auth()->user()->name,
                     'assignee' => $event->getPrevention()->approver->name
                 ]);
