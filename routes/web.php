@@ -38,12 +38,16 @@ Route::group(['middleware' => ['auth']], function () {
     });
     Route::patch('descriptions/leaderconfirm/{id}', 'DescriptionsController@leaderConfirm');
     Route::patch('descriptions/effectivenessasset/{id}', 'DescriptionsController@effectivenessAsset');
+    Route::get('descriptions/data', 'DescriptionsController@anyData')->name('descriptions.data');
+
     Route::patch('troubleshoots/assigntroubeshooter/{id}', 'TroubleshootsController@assignTroubleshooter');
     Route::patch('troubleshoots/approve/{id}', 'TroubleshootsController@approve');
     Route::patch('troubleshoots/evaluate/{id}', 'TroubleshootsController@evaluate');
+
     Route::patch('preventions/assignproposer/{id}', 'PreventionsController@assignProposer');
     Route::patch('preventions/assignapprover/{id}', 'PreventionsController@assignApprover');
     Route::patch('preventions/approve/{id}', 'PreventionsController@approve');
+
     Route::resource('descriptions', 'DescriptionsController');
     Route::resource('troubleshoots', 'TroubleshootsController');
     Route::resource('preventions', 'PreventionsController');

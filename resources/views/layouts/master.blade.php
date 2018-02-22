@@ -128,6 +128,7 @@
                     <a href="{{ route('tasks.create')}}" class="list-group-item childlist">{{ __('New Task') }}</a>
                 @endif
             </div>
+            -->
 
             <a href="#user" class=" list-group-item" data-toggle="collapse" data-parent="#MainMenu"><i
                         class="sidebar-icon fa fa-users"></i><span id="menu-txt">{{ __('Users') }}</span>
@@ -140,6 +141,7 @@
                 @endif
             </div>
 
+            <!--
             <a href="#leads" class=" list-group-item" data-toggle="collapse" data-parent="#MainMenu"><i
                         class="glyphicon sidebar-icon glyphicon-hourglass"></i><span id="menu-txt">{{ __('Leads') }}</span>
                 <i class="ion-chevron-up  arrow-up sidebar-arrow"></i></a>
@@ -151,7 +153,7 @@
                 @endif
             </div>
             -->
-            
+
             <a href="#departments" class=" list-group-item" data-toggle="collapse" data-parent="#MainMenu"><i
                         class="sidebar-icon glyphicon glyphicon-list-alt"></i><span id="menu-txt">{{ __('Departments') }}</span>
                 <i class="ion-chevron-up  arrow-up sidebar-arrow"></i></a>

@@ -15,6 +15,8 @@ use App\Models\Description;
 use App\Models\Ticket;
 use App\Repositories\Description\DescriptionRepositoryContract;
 use App\Repositories\User\UserRepositoryContract;
+use Datatables;
+use Carbon\Carbon;
 
 class DescriptionsController extends Controller
 {
@@ -41,7 +43,7 @@ class DescriptionsController extends Controller
      */
     public function index()
     {
-        //
+        return view('tickets.descriptions.index');
     }
 
     /**
@@ -157,5 +159,30 @@ class DescriptionsController extends Controller
         $this->descriptions->effectivenessAsset($id, $request);
         Session()->flash('flash_message', 'Đánh giá hiệu quả thành công');
         return redirect()->back();
+    }
+
+    public function anyData()
+    {
+        $descriptions = Description::select(
+            ['id', 'title', 'issue_date', 'answer_date', 'source_id', 'user_id']
+        );
+        return Datatables::of($descriptions)
+            ->addColumn('titlelink', function ($descriptions) {
+                return '<a href="descriptions/' . $descriptions->id . '" ">' . $descriptions->title . '</a>';
+            })
+            ->editColumn('issue_date', function ($descriptions) {
+                return $descriptions->issue_date ? with(new Carbon($descriptions->issue_date))
+                    ->format('d/m/Y') : '';
+            })
+            ->editColumn('answer_date', function ($descriptions) {
+                return $descriptions->answer_date ? with(new Carbon($descriptions->answer_date))
+                    ->format('d/m/Y') : '';
+            })
+            ->editColumn('source_id', function ($descriptions) {
+                return $descriptions->source->name;
+            })
+            ->editColumn('user_id', function ($descriptions) {
+                return $descriptions->user->name;
+            })->make(true);
     }
 }
