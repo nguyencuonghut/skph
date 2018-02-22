@@ -106,6 +106,7 @@
                 </a>
             </div>
 
+            <!--
             <a href="#clients" class=" list-group-item" data-toggle="collapse" data-parent="#MainMenu"><i
                         class="glyphicon sidebar-icon glyphicon-tag"></i><span id="menu-txt">{{ __('Clients') }}</span>
                 <i class="ion-chevron-up  arrow-up sidebar-arrow"></i></a>
@@ -149,6 +150,8 @@
                        class="list-group-item childlist">{{ __('New Lead') }}</a>
                 @endif
             </div>
+            -->
+            
             <a href="#departments" class=" list-group-item" data-toggle="collapse" data-parent="#MainMenu"><i
                         class="sidebar-icon glyphicon glyphicon-list-alt"></i><span id="menu-txt">{{ __('Departments') }}</span>
                 <i class="ion-chevron-up  arrow-up sidebar-arrow"></i></a>
