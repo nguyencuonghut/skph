@@ -158,7 +158,7 @@ class DescriptionsController extends Controller
     {
         $this->descriptions->effectivenessAsset($id, $request);
         Session()->flash('flash_message', 'Đánh giá hiệu quả thành công');
-        return redirect()->back();
+        return redirect()->back()->with('tab', 'prevents');
     }
 
     public function anyData()

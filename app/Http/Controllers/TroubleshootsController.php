@@ -90,7 +90,7 @@ class TroubleshootsController extends Controller
     {
         $this->troubleshoots->update($id, $request);
         Session()->flash('flash_message', 'Sửa thành công!');
-        return redirect()->route("descriptions.show", $id);
+        return redirect()->route("descriptions.show", $id)->with('tab', 'troubleshoot');
     }
 
     /**
@@ -113,7 +113,7 @@ class TroubleshootsController extends Controller
     {
         $this->troubleshoots->assignTroubleshooter($id, $request);
         Session()->flash('flash_message', 'Giao cho thành công!');
-        return redirect()->back();
+        return redirect()->back()->with('tab', 'troubleshoot');
     }
 
     /**
@@ -125,7 +125,7 @@ class TroubleshootsController extends Controller
     {
         $this->troubleshoots->approve($id, $request);
         Session()->flash('flash_message', 'Biện pháp khắc phục đã được phê duyệt!');
-        return redirect()->back();
+        return redirect()->back()->with('tab', 'troubleshoot');
     }
 
     /**
@@ -137,6 +137,6 @@ class TroubleshootsController extends Controller
     {
         $this->troubleshoots->evaluate($id, $request);
         Session()->flash('flash_message', 'Đánh giá thành công!');
-        return redirect()->back();
+        return redirect()->back()->with('tab', 'prevents');
     }
 }

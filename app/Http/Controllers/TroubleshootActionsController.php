@@ -44,7 +44,7 @@ class TroubleshootActionsController extends Controller
         $troubleshoot_action->description_id = $id;
         $troubleshoot_action->save();
 
-        return redirect()->route("descriptions.show", $id);
+        return redirect()->route("descriptions.show", $id)->with('tab', 'troubleshoot');;
     }
 
     /**
@@ -89,7 +89,7 @@ class TroubleshootActionsController extends Controller
         $troubleshootaction->save();
 
         Session()->flash('flash_message', 'Cập nhật biện pháp khắc phục thành công');
-        return redirect()->route("descriptions.show", $id);
+        return redirect()->route("descriptions.show", $troubleshootaction->description_id)->with('tab', 'troubleshoot');
     }
 
     /**

@@ -47,7 +47,7 @@ class PreventionActionsController extends Controller
         $prevention_action->status = 'Open';
         $prevention_action->save();
 
-        return redirect()->route("descriptions.show", $id);
+        return redirect()->route("descriptions.show", $id)->with('tab', 'prevents');
     }
 
     /**
@@ -95,7 +95,7 @@ class PreventionActionsController extends Controller
         $preventionaction->save();
 
         Session()->flash('flash_message', 'Cập nhật biện pháp phòng ngừa thành công');
-        return redirect()->route("descriptions.show", $id);
+        return redirect()->route("descriptions.show", $preventionaction->description_id)->with('tab', 'prevents');
     }
 
     /**

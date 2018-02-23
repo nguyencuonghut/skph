@@ -34,7 +34,22 @@
 
                     <!-- Tab for each ticket -->
                     <div class="col-md-12">
-                        <el-tabs active-name="description" style="width:100%">
+                        <el-tabs active-name=<?php
+                                switch (Session::get('tab')) {
+                                    case 'description':
+                                        echo("description");
+                                        break;
+                                    case 'troubleshoot':
+                                        echo("troubleshoot");
+                                        break;
+                                    case 'prevents':
+                                        echo("prevents");
+                                        break;
+                                    default:
+                                        echo("description");
+                                        break;
+                                }
+                        ?> style="width:100%">
                             <el-tab-pane label="Mô tả vấn đề" name="description">
                                 <div class="col-md-12 col-md-6"></div>
                                 <div class="contactleft">
@@ -166,6 +181,8 @@
                                     <div class="contactleft">
                                         @if($prevention->proposer)
                                             <p><b>Người đề xuất xử lý:</b> {{$prevention->proposer->name}}</p>
+                                        @else
+                                            <p><b>Người đề xuất xử lý:</b> <b style="color:red">Chưa được giao</b></p>
                                         @endif
                                     </div>
                                     <div class="contactright">

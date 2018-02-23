@@ -100,7 +100,7 @@ class PreventionsController extends Controller
     {
         $this->preventions->assignProposer($id, $request);
         Session()->flash('flash_message', 'Giao cho thành công!');
-        return redirect()->back();
+        return redirect()->back()->with('tab', 'prevents');
     }
     /**
      * @param $id
@@ -111,7 +111,7 @@ class PreventionsController extends Controller
     {
         $this->preventions->assignApprover($id, $request);
         Session()->flash('flash_message', 'Giao cho thành công!');
-        return redirect()->back();
+        return redirect()->back()->with('tab', 'prevents');
     }
 
     /**
@@ -123,6 +123,6 @@ class PreventionsController extends Controller
     {
         $this->preventions->approve($id, $request);
         Session()->flash('flash_message', 'Biện pháp phòng ngừa đã được phê duyệt!');
-        return redirect()->back();
+        return redirect()->back()->with('tab', 'prevents');
     }
 }
