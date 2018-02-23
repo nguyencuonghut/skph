@@ -56,6 +56,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('troubleshootactions', 'TroubleshootActionsController', ['except' => ['store'] ]);
     Route::post('preventionactions/{id}/store',
         ['as' => 'preventionactions.store', 'uses' => 'PreventionActionsController@store']);
+    Route::get('preventionactions/{id}/edit',
+        ['as' => 'preventionactions.edit', 'uses' => 'PreventionActionsController@edit']);
     Route::resource('preventiontactions', 'PreventionActionsController', ['except' => ['store'] ]);
     Route::resource('tickets', 'TicketsController');
 

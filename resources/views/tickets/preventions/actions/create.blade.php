@@ -11,6 +11,7 @@
                 <th>Làm khi nào ?</th>
                 <th>Làm như thế nào ?</th>
                 <th>Trạng thái</th>
+                <th>Sửa</th>
                 </thead>
 
                 <tbody>
@@ -19,11 +20,15 @@
                     <tr>
                         <td>{{$i++}}</td>
                         <td>{{ $prevention->action }}</td>
-                        <td align="right">{{ number_format($prevention->budget, 0, ',', ',') . ' ' . 'VNĐ'}}</td>                        <td>{{ $prevention->user->name }}</td>
+                        <td align="right">{{ number_format($prevention->budget, 0, ',', ',') . ' ' . 'VNĐ'}}</td>
+                        <td>{{ $prevention->user->name }}</td>
                         <td>{{ $prevention->where }}</td>
                         <td>{{ $prevention->when }}</td>
                         <td>{{ $prevention->how }}</td>
-                        <td>{{ $prevention->status}}</td>
+                        <td style="color: {{'Open' == $prevention->status ? "green": "black"}}">{{ $prevention->status}}</td>
+                        <td>
+                            <a class="btn btn-small btn-danger" href="{{ URL::to('preventionactions/' . $prevention->id . '/edit') }}">Sửa</a>
+                        </td>
                     </tr>
                 @endforeach
                 </tbody>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\PreventionAction;
+use App\Models\User;
 
 class PreventionActionsController extends Controller
 {
@@ -68,7 +69,10 @@ class PreventionActionsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $preventionaction = PreventionAction::findOrFail($id);
+        return view('tickets.preventions.actions.edit')
+            ->withPreventionaction($preventionaction)
+            ->withUsers(User::all()->pluck('name', 'id'));
     }
 
     /**
@@ -80,7 +84,18 @@ class PreventionActionsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $preventionaction = PreventionAction::findOrFail($id);
+        $preventionaction->action = $request->action;
+        $preventionaction->budget = $request->budget;
+        $preventionaction->user_id = $request->user_id;
+        $preventionaction->where = $request->where;
+        $preventionaction->when = $request->when;
+        $preventionaction->how = $request->how;
+        $preventionaction->status = $request->status;
+        $preventionaction->save();
+
+        Session()->flash('flash_message', 'Cập nhật biện pháp phòng ngừa thành công');
+        return redirect()->route("descriptions.show", $id);
     }
 
     /**
