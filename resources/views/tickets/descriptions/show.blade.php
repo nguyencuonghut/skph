@@ -307,7 +307,7 @@
                 <option>Nghiêm trọng</option>
                 <option>Không nghiêm trọng</option>
             </select>
-            {!! Form::submit(__('Đánh giá SKPH'), ['class' => 'btn btn-primary form-control closebtn']) !!}
+            {!! Form::submit(__('Đánh giá mức độ SKPH'), ['class' => 'btn btn-primary form-control closebtn']) !!}
             {!! Form::close() !!}
 
             {!! Form::model($prevention, [
@@ -320,7 +320,7 @@
                     <option value="{{ $user->id }}">{{ $user->name }}</option>
                 @endforeach
             </select>
-            {!! Form::submit(__('Chuyển cho người đề xuất'), ['class' => 'btn btn-primary form-control closebtn']) !!}
+            {!! Form::submit(__('Người đề xuất HĐ phòng ngừa'), ['class' => 'btn btn-primary form-control closebtn']) !!}
             {!! Form::close() !!}
 
             {!! Form::model($prevention, [
@@ -333,7 +333,7 @@
                     <option value="{{ $user->id }}">{{ $user->name }}</option>
                 @endforeach
             </select>
-            {!! Form::submit(__('Giao cho người phê duyệt'), ['class' => 'btn btn-primary form-control closebtn']) !!}
+            {!! Form::submit(__('Người duyệt HĐ phòng ngừa'), ['class' => 'btn btn-primary form-control closebtn']) !!}
             {!! Form::close() !!}
 
             {!! Form::model($prevention, [
