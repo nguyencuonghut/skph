@@ -62,6 +62,11 @@ class Description extends Model
         return User::findOrFail($this->leader_id);
     }
 
+    public function getCreatedUserAttribute()
+    {
+        return User::findOrFail($this->user_id);
+    }
+
     public function activity()
     {
         return $this->morphMany(Activity::class, 'source');

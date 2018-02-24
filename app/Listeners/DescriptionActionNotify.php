@@ -28,9 +28,19 @@ class DescriptionActionNotify
     {
         $description = $event->getDescription();
         $action = $event->getAction();
-        $description->assignedUser->notify(new DescriptionActionNotification(
-            $description,
-            $action
-        ));
+        switch ($event->getAction()) {
+            case 'effectiveness_asset':
+                $description->createdUser->notify(new DescriptionActionNotification(
+                    $description,
+                    $action
+                ));
+                break;
+            default:
+                $description->assignedUser->notify(new DescriptionActionNotification(
+                    $description,
+                    $action
+                ));
+                break;
+        }
     }
 }

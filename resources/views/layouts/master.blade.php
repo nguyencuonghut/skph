@@ -43,7 +43,7 @@
         </div>
 
         <div class="dropdown" id="nav-toggle">
-            <a style="color: white" href="{{url('/users/', \Auth::id())}}"><b>{{Auth::user()->name}}</b></a><span><img style="margin-top: -13px; margin-right:5px" src="{{url(\Auth::user()->avatar)}}" class="notification-profile-image"></span>
+            <a style="color: white" href="{{url('/users', \Auth::id())}}"><b>{{Auth::user()->name}}</b></a><span><img style="margin-top: -13px; margin-right:5px" src="{{url(\Auth::user()->avatar)}}" class="notification-profile-image"></span>
             <a id="notification-clock" role="button" data-toggle="dropdown">
                 <i class="glyphicon glyphicon-bell"><span id="notifycount">{{ $notifications->count() }}</span></i>
             </a>
