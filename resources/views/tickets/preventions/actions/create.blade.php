@@ -37,7 +37,8 @@
     </div>
 @endif
 
-    <button type="button" class="btn btn-success" data-toggle="collapse" data-target="#prevention_id"><span class="glyphicon glyphicon-plus"></span> Thêm biện pháp phòng ngừa</button>
+    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse" data-target="#prevention_id"><i class="fa fa-plus-circle"><b> Thêm biện pháp phòng ngừa</b></i></button>
+
     {!! Form::open([
             'route' => ['preventionactions.store', $subject->id],
             ]) !!}

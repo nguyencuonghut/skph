@@ -180,7 +180,7 @@
                                         <p><b>Nguyên nhân gốc rễ:</b>
                                             <span>
                                                 <a href="{{ route("preventions.edit", $prevention->id) }}">
-                                                    <button type="button" class="btn btn-warning btn-sm"><i class="fa fa-check-circle"><b> Cập nhật</b></i></button>
+                                                    <button type="button" class="btn btn-warning btn-xs"><i class="fa fa-check-circle"><b> Cập nhật</b></i></button>
                                                 </a>
                                             </span>
                                             <i>{!! $prevention->root_cause !!}</i>
@@ -195,10 +195,10 @@
                                     <hr style="color:#337ab7; border-color:#337ab7; background-color:#337ab7">
                                     <p><b>Thẩm tra nguyên nhân gốc rễ:</b>
                                         <span>
-                                            <button type="button" class="btn btn-success btn-sm"><i class="fa fa-check-circle"><b> Chấp nhận</b></i></button>
+                                            <button type="button" class="btn btn-success btn-xs"><i class="fa fa-check-circle"><b> Chấp nhận</b></i></button>
                                         </span>
                                         <span>
-                                            <button type="button" class="btn btn-danger btn-sm"><i class="fa fa-times-circle"><b> Từ chối</b></i></button>
+                                            <button type="button" class="btn btn-danger btn-xs"><i class="fa fa-times-circle"><b> Từ chối</b></i></button>
                                         </span>
                                         @if($prevention->root_cause_approve_result)
                                             {{$prevention->root_cause_approve_result}}
@@ -206,8 +206,6 @@
                                         <p><b style="color:red">Chưa thẩm tra</b></p>
                                         @endif
                                     </p>
-                                    <br>
-                                    <br>
                                 </div>
 
                                 <hr style="color:#337ab7; border-color:#337ab7; background-color:#337ab7">

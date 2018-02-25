@@ -33,7 +33,8 @@
     </div>
 @endif
 
-    <button type="button" class="btn btn-success" data-toggle="collapse" data-target="#action_id"><span class="glyphicon glyphicon-plus"></span> Thêm biện pháp khắc phục</button>
+    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse" data-target="#action_id"><i class="fa fa-plus-circle"><b> Thêm biện pháp khắc phục</b></i></button>
+
     {!! Form::open([
             'route' => ['troubleshootactions.store', $subject->id],
             ]) !!}
