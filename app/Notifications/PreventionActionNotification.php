@@ -75,6 +75,12 @@ class PreventionActionNotification extends Notification
                     'username' =>  Auth()->user()->name,
                 ]);
                 break;
+            case 'request_to_approve_root_cause':
+                $text = __(':username yêu cầu bạn phê duyệt nguyên nhân gốc rễ', [
+                    'title' =>  $this->prevention->proposer->name,
+                    'username' =>  Auth()->user()->name,
+                ]);
+                break;
             case 'approved':
                 $text = __(':approver đã phê duyệt biện pháp phòng ngừa của bạn', [
                     'approver' =>  $this->prevention->approver->name,

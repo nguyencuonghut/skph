@@ -243,6 +243,11 @@
             height: 300,
         });
     });
+    $(document).ready(function() {
+        $('#root_cause').summernote({
+            height: 300,
+        });
+    });
 </script>
 
 </html>

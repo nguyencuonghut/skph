@@ -41,6 +41,12 @@ class PreventionActionNotify
                     $action
                 ));
                 break;
+            case 'request_to_approve_root_cause':
+                $prevention->rootcauseapprovedUser->notify(new PreventionActionNotification(
+                    $prevention,
+                    $action
+                ));
+                break;
             case 'approved':
                 $prevention->assignedUser->notify(new PreventionActionNotification(
                     $prevention,

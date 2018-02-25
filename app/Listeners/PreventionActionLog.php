@@ -40,6 +40,12 @@ class PreventionActionLog
                     'assignee' => $event->getPrevention()->approver->name
                 ]);
                 break;
+            case 'request_to_approve_root_cause':
+                $text = __(':username yêu cầu :assignee phê duyệt nguyên nhân gốc rễ', [
+                    'username' => Auth()->user()->name,
+                    'assignee' => $event->getPrevention()->root_cause_approver->name
+                ]);
+                break;
             case 'approved':
                 $text = __(':assignee đã phê duyệt biện pháp phòng ngừa', [
                     'username' => Auth()->user()->name,

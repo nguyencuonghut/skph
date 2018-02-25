@@ -120,30 +120,30 @@
                                     <div class="contactleft">
                                         @if($troubleshoot->troubleshooter)
                                             <p><b>Người thực hiện:</b> {{$troubleshoot->troubleshooter->name}}</p>
-                                        @endif
-                                        @if($troubleshoot->approve_result)
-                                            <p><b>Phê duyệt: <b style="color: {{("Đồng ý" == $troubleshoot->approve_result) ? "blue":"red"}}"> {{$troubleshoot->approve_result}}</b></b> (bởi {{$troubleshoot->approver->name}} vào
-                                                @if(date_diff(new DateTime('now'), $troubleshoot->updated_at)->y)
-                                                    {{ date_diff(new DateTime('now'), $troubleshoot->updated_at)->y }} năm
-                                                @endif
-                                                @if(date_diff(new DateTime('now'), $troubleshoot->updated_at)->m)
-                                                    {{ date_diff(new DateTime('now'), $troubleshoot->updated_at)->m }} tháng
-                                                @endif
-                                                @if(date_diff(new DateTime('now'), $troubleshoot->updated_at)->d)
-                                                    {{ date_diff(new DateTime('now'), $troubleshoot->updated_at)->d }} ngày
-                                                @endif
-                                                @if(date_diff(new DateTime('now'), $troubleshoot->updated_at)->h)
-                                                    {{ date_diff(new DateTime('now'), $troubleshoot->updated_at)->h }} giờ
-                                                @endif
-                                                @if(date_diff(new DateTime('now'), $troubleshoot->updated_at)->i)
-                                                    {{ date_diff(new DateTime('now'), $troubleshoot->updated_at)->i }} phút
-                                                @else
-                                                    0 phút
-                                                @endif
-                                                trước)
-                                            </p>
-                                        @else
-                                                <p><b>Phê duyệt: <b style="color: {{("Đồng ý" == $troubleshoot->approve_result) ? "blue":"red"}}"> Chưa phê duyệt</b></b>
+                                            @if($troubleshoot->approve_result)
+                                                <p><b>Phê duyệt: <b style="color: {{("Đồng ý" == $troubleshoot->approve_result) ? "blue":"red"}}"> {{$troubleshoot->approve_result}}</b></b> (bởi {{$troubleshoot->approver->name}} vào
+                                                    @if(date_diff(new DateTime('now'), $troubleshoot->updated_at)->y)
+                                                        {{ date_diff(new DateTime('now'), $troubleshoot->updated_at)->y }} năm
+                                                    @endif
+                                                    @if(date_diff(new DateTime('now'), $troubleshoot->updated_at)->m)
+                                                        {{ date_diff(new DateTime('now'), $troubleshoot->updated_at)->m }} tháng
+                                                    @endif
+                                                    @if(date_diff(new DateTime('now'), $troubleshoot->updated_at)->d)
+                                                        {{ date_diff(new DateTime('now'), $troubleshoot->updated_at)->d }} ngày
+                                                    @endif
+                                                    @if(date_diff(new DateTime('now'), $troubleshoot->updated_at)->h)
+                                                        {{ date_diff(new DateTime('now'), $troubleshoot->updated_at)->h }} giờ
+                                                    @endif
+                                                    @if(date_diff(new DateTime('now'), $troubleshoot->updated_at)->i)
+                                                        {{ date_diff(new DateTime('now'), $troubleshoot->updated_at)->i }} phút
+                                                    @else
+                                                        0 phút
+                                                    @endif
+                                                    trước)
+                                                </p>
+                                            @else
+                                                    <p><b>Phê duyệt: <b style="color: {{("Đồng ý" == $troubleshoot->approve_result) ? "blue":"red"}}"> Chưa phê duyệt</b></b>
+                                            @endif
                                         @endif
                                     </div>
                                     <div class="contactright">
@@ -164,17 +164,52 @@
                             </el-tab-pane>
                             <el-tab-pane label="Phòng ngừa" name="prevents">
                                 <h5><b style="color:blue">4. Xem xét mức độ sự không phù hợp</b></h5>
-                                <p><b>
-                                        @if('Không nghiêm trọng' == $troubleshoot->evaluate_result)
-                                            {{$troubleshoot->evaluate_result}} => Dừng
-                                        @elseif('Nghiêm trọng' == $troubleshoot->evaluate_result)
-                                            <b style="color:red">Nghiêm trọng => Phân tích nguyên nhân gốc rễ và đưa ra giải pháp phòng ngừa</b>
+                                <div class="col-md-12">
+                                    <p><b>
+                                            @if('Không nghiêm trọng' == $troubleshoot->evaluate_result)
+                                                {{$troubleshoot->evaluate_result}} => Dừng
+                                            @elseif('Nghiêm trọng' == $troubleshoot->evaluate_result)
+                                                <b style="color:red">Nghiêm trọng => Phân tích nguyên nhân gốc rễ và đưa ra giải pháp phòng ngừa</b>
+                                            @endif
+                                        </b>
+                                        @if(isset($troubleshoot->evaluater))
+                                            (Bởi <b>{{$troubleshoot->evaluater->name}}</b>)
                                         @endif
-                                    </b>
-                                    @if(isset($troubleshoot->evaluater))
-                                    `(Bởi <b>{{$troubleshoot->evaluater->name}}</b>)
+                                    </p>
+                                    @if($prevention->root_cause)
+                                        <p><b>Nguyên nhân gốc rễ:</b>
+                                            <span>
+                                                <a href="{{ route("preventions.edit", $prevention->id) }}">
+                                                    <button type="button" class="btn btn-warning btn-sm"><i class="fa fa-check-circle"><b> Cập nhật</b></i></button>
+                                                </a>
+                                            </span>
+                                            <i>{!! $prevention->root_cause !!}</i>
+                                        </p>
+                                    @else
+                                        <h5><b>Cập nhật nguyên nhân gốc rễ:</b>
+                                            <span>
+                                                <a href="{{ route("preventions.edit", $prevention->id) }}"><i class="fa fa-pencil-square" aria-hidden="true"></i></a>
+                                            </span>
+                                        </h5>
                                     @endif
-                                </p>
+                                    <hr style="color:#337ab7; border-color:#337ab7; background-color:#337ab7">
+                                    <p><b>Thẩm tra nguyên nhân gốc rễ:</b>
+                                        <span>
+                                            <button type="button" class="btn btn-success btn-sm"><i class="fa fa-check-circle"><b> Chấp nhận</b></i></button>
+                                        </span>
+                                        <span>
+                                            <button type="button" class="btn btn-danger btn-sm"><i class="fa fa-times-circle"><b> Từ chối</b></i></button>
+                                        </span>
+                                        @if($prevention->root_cause_approve_result)
+                                            {{$prevention->root_cause_approve_result}}
+                                        @else
+                                        <p><b style="color:red">Chưa thẩm tra</b></p>
+                                        @endif
+                                    </p>
+                                    <br>
+                                    <br>
+                                </div>
+
                                 <hr style="color:#337ab7; border-color:#337ab7; background-color:#337ab7">
                                 <h5><b style="color:blue">5. Hoạt động xử lý</b></h5>
                                 <div class="col-md-12">

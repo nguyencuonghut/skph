@@ -16,7 +16,9 @@ class PreventionRepository implements PreventionRepositoryContract
     const CREATED = 'created';
     const ASSIGNED_PROPOSER = 'assigned_proposer';
     const REQUEST_TO_APPROVE = 'request_to_approve';
+    const REQUEST_TO_APPROVE_ROOT_CAUSE = 'request_to_approve_root_cause';
     const APPROVED = 'approved';
+    const APPROVED_ROOT_CAUSE = 'approved_root_cause';
 
 
     /**
@@ -62,5 +64,14 @@ class PreventionRepository implements PreventionRepositoryContract
         $prevention = $prevention->fresh();
 
         event(new \App\Events\PreventionAction($prevention, self::APPROVED));
+    }
+
+
+    public function update($id, $requestData)
+    {
+        $prevention = Prevention::findOrFail($id);
+        $prevention->fill($requestData->all())->save();
+
+        event(new \App\Events\PreventionAction($prevention, self::REQUEST_TO_APPROVE_ROOT_CAUSE));
     }
 }

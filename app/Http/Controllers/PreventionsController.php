@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Prevention;
 use Illuminate\Http\Request;
 use App\Repositories\Prevention\PreventionRepositoryContract;
 class PreventionsController extends Controller
@@ -66,7 +68,10 @@ class PreventionsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $prevention = Prevention::findOrFail($id);
+        return view('tickets.preventions.edit')
+            ->withPrevention($prevention)
+            ->withUsers(User::all()->pluck('name', 'id'));
     }
 
     /**
@@ -78,7 +83,9 @@ class PreventionsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->preventions->update($id, $request);
+        Session()->flash('flash_message', 'Cập nhật thành công!');
+        return redirect()->route("descriptions.show", $id)->with('tab', 'prevents');
     }
 
     /**
