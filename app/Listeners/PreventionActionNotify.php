@@ -53,6 +53,18 @@ class PreventionActionNotify
                     $action
                 ));
                 break;
+            case 'approved_root_cause':
+                $prevention->rootcauseapprovedUser->notify(new PreventionActionNotification(
+                    $prevention,
+                    $action
+                ));
+                break;
+            case 'rejected_root_cause':
+                $prevention->rootcauseapprovedUser->notify(new PreventionActionNotification(
+                    $prevention,
+                    $action
+                ));
+                break;
             default:
                 $prevention->assignedUser->notify(new PreventionActionNotification(
                     $prevention,

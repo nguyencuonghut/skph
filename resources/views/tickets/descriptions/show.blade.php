@@ -180,7 +180,7 @@
                                         <p><b>Nguyên nhân gốc rễ:</b>
                                             <span>
                                                 <a href="{{ route("preventions.edit", $prevention->id) }}">
-                                                    <button type="button" class="btn btn-warning btn-xs"><i class="fa fa-check-circle"><b> Cập nhật</b></i></button>
+                                                    <button type="button" class="btn btn-warning btn-xs"><i class="fa fa-edit"><b> Cập nhật</b></i></button>
                                                 </a>
                                             </span>
                                             <i>{!! $prevention->root_cause !!}</i>
@@ -193,18 +193,29 @@
                                         </h5>
                                     @endif
                                     <hr style="color:#337ab7; border-color:#337ab7; background-color:#337ab7">
-                                    <p><b>Thẩm tra nguyên nhân gốc rễ:</b>
-                                        <span>
-                                            <button type="button" class="btn btn-success btn-xs"><i class="fa fa-check-circle"><b> Chấp nhận</b></i></button>
+                                    <p><b style="float: left;">Thẩm tra nguyên nhân gốc rễ:</b>
+                                        <span style="float: left;">
+                                            @if($prevention->root_cause_approve_result)
+                                                <b style="color: {{'Đồng ý' == $prevention->root_cause_approve_result ? "blue":"red"}}">&nbsp; {{$prevention->root_cause_approve_result}}</b> (Bởi {{$prevention->root_cause_approver->name}})&nbsp;
+                                @else
+                                                <p><b style="color:red"> Chưa thẩm tra</b></p>
+                                            @endif
                                         </span>
                                         <span>
-                                            <button type="button" class="btn btn-danger btn-xs"><i class="fa fa-times-circle"><b> Từ chối</b></i></button>
+                                            <form style="float: left;" action="{{ route('approvedRootcause', $prevention->id) }}" method="POST">
+                                                {{ csrf_field() }}
+                                                {{ method_field('PATCH') }}
+                                                <button type="submit"  class="btn btn-success btn-xs"><i class="fa fa-check-circle"> Chấp nhận</i></button>
+                                            </form>
                                         </span>
-                                        @if($prevention->root_cause_approve_result)
-                                            {{$prevention->root_cause_approve_result}}
-                                        @else
-                                        <p><b style="color:red">Chưa thẩm tra</b></p>
-                                        @endif
+                                        <span style="float: left;">&nbsp; </span>
+                                        <span>
+                                            <form action="{{ route('rejectedRootcause', $prevention->id) }}" method="POST">
+                                                {{ csrf_field() }}
+                                                {{ method_field('PATCH') }}
+                                                <button type="submit" class="btn btn-danger btn-xs"><i class="fa fa-check-circle"> Từ chối</i></button>
+                                            </form>
+                                        </span>
                                     </p>
                                 </div>
 

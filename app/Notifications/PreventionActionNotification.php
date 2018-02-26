@@ -87,6 +87,18 @@ class PreventionActionNotification extends Notification
                     'username' =>  Auth()->user()->name,
                 ]);
                 break;
+            case 'approved_root_cause':
+                $text = __(':approver đã đồng ý nguyên nhân gốc rễ của bạn', [
+                    'approver' =>  $this->prevention->approver->name,
+                    'username' =>  Auth()->user()->name,
+                ]);
+                break;
+            case 'rejected_root_cause':
+                $text = __(':approver đã từ chối nguyên nhân gốc rễ của bạn', [
+                    'approver' =>  $this->prevention->approver->name,
+                    'username' =>  Auth()->user()->name,
+                ]);
+                break;
             default:
                 break;
         }

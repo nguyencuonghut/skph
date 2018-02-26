@@ -52,6 +52,18 @@ class PreventionActionLog
                     'assignee' => $event->getPrevention()->approver->name
                 ]);
                 break;
+            case 'approved_root_cause':
+                $text = __(':assignee đã đồng ý nguyên nhân gốc rễ', [
+                    'username' => Auth()->user()->name,
+                    'assignee' => $event->getPrevention()->root_cause_approver->name
+                ]);
+                break;
+            case 'rejected_root_cause':
+                $text = __(':assignee đã từ chối nguyên nhân gốc rễ', [
+                    'username' => Auth()->user()->name,
+                    'assignee' => $event->getPrevention()->root_cause_approver->name
+                ]);
+                break;
             default:
                 break;
         }

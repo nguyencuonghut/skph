@@ -132,4 +132,30 @@ class PreventionsController extends Controller
         Session()->flash('flash_message', 'Biện pháp phòng ngừa đã được phê duyệt!');
         return redirect()->back()->with('tab', 'prevents');
     }
+
+    /**
+     * @param $id
+     * @param Request $request
+     * @return mixed
+     */
+    public function approvedRootcause($id, Request $request)
+    {
+
+        $this->preventions->approvedRootcause($id, $request);
+        Session()->flash('flash_message', 'Nguyên nhân gốc rễ đã được đồng ý!');
+        return redirect()->back()->with('tab', 'prevents');
+    }
+
+    /**
+     * @param $id
+     * @param Request $request
+     * @return mixed
+     */
+    public function rejectedRootcause($id, Request $request)
+    {
+
+        $this->preventions->rejectedRootcause($id, $request);
+        Session()->flash('flash_message', 'Nguyên nhân gốc rễ đã bị từ chối!');
+        return redirect()->back()->with('tab', 'prevents');
+    }
 }
