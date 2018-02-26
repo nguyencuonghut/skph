@@ -41,7 +41,7 @@ class PreventionsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -52,7 +52,7 @@ class PreventionsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -63,7 +63,7 @@ class PreventionsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -77,8 +77,8 @@ class PreventionsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -91,13 +91,14 @@ class PreventionsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         //
     }
+
     /**
      * @param $id
      * @param Request $request
@@ -109,6 +110,7 @@ class PreventionsController extends Controller
         Session()->flash('flash_message', 'Giao cho thành công!');
         return redirect()->back()->with('tab', 'prevents');
     }
+
     /**
      * @param $id
      * @param Request $request
@@ -126,10 +128,14 @@ class PreventionsController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function approvedPrevention($id, Request $request)
+    public function approvePrevention($id, $result)
     {
-        $this->preventions->approvedPrevention($id, $request);
-        Session()->flash('flash_message', 'Biện pháp phòng ngừa đã được phê duyệt!');
+        $this->preventions->approvePrevention($id, $result);
+        if('Đồng ý' == $result){
+            Session()->flash('flash_message', 'Biện pháp phòng ngừa đã được phê duyệt!');
+        }else {
+            Session()->flash('flash_message', 'Biện pháp phòng ngừa đã bị từ chối!');
+        }
         return redirect()->back()->with('tab', 'prevents');
     }
 
@@ -138,36 +144,14 @@ class PreventionsController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function rejectedPrevention($id, Request $request)
+    public function approveRootcause($id, $result)
     {
-        $this->preventions->rejectedPrevention($id, $request);
-        Session()->flash('flash_message', 'Biện pháp phòng ngừa đã bị từ chối!');
-        return redirect()->back()->with('tab', 'prevents');
-    }
-
-    /**
-     * @param $id
-     * @param Request $request
-     * @return mixed
-     */
-    public function approvedRootcause($id, Request $request)
-    {
-
-        $this->preventions->approvedRootcause($id, $request);
-        Session()->flash('flash_message', 'Nguyên nhân gốc rễ đã được đồng ý!');
-        return redirect()->back()->with('tab', 'prevents');
-    }
-
-    /**
-     * @param $id
-     * @param Request $request
-     * @return mixed
-     */
-    public function rejectedRootcause($id, Request $request)
-    {
-
-        $this->preventions->rejectedRootcause($id, $request);
-        Session()->flash('flash_message', 'Nguyên nhân gốc rễ đã bị từ chối!');
+        $this->preventions->approveRootcause($id, $result);
+        if('Đồng ý' == $result){
+            Session()->flash('flash_message', 'Nguyên nhân gốc rễ đã được phê duyệt!');
+        }else {
+            Session()->flash('flash_message', 'Nguyên nhân gốc rễ đã bị từ chối!');
+        }
         return redirect()->back()->with('tab', 'prevents');
     }
 }

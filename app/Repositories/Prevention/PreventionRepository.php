@@ -54,36 +54,22 @@ class PreventionRepository implements PreventionRepositoryContract
      * @param $id
      * @param $requestData
      */
-    public function approvedPrevention($id, $requestData)
+    public function approvePrevention($id, $result)
     {
         $prevention = Prevention::findOrFail($id);
         $input = $requestData = array_merge(
-            $requestData->all(),
-            [   'approve_result' => 'Đồng ý']
+            [   'approve_result' => $result]
         );
 
         $prevention->fill($input)->save();
         $prevention = $prevention->fresh();
 
-        event(new \App\Events\PreventionAction($prevention, self::APPROVED_PREVENTION));
-    }
+        if('Đồng ý' == $result) {
+            event(new \App\Events\PreventionAction($prevention, self::APPROVED_PREVENTION));
 
-    /**
-     * @param $id
-     * @param $requestData
-     */
-    public function rejectedPrevention($id, $requestData)
-    {
-        $prevention = Prevention::findOrFail($id);
-        $input = $requestData = array_merge(
-            $requestData->all(),
-            [   'approve_result' => 'Không đồng ý']
-        );
-
-        $prevention->fill($input)->save();
-        $prevention = $prevention->fresh();
-
-        event(new \App\Events\PreventionAction($prevention, self::REJECTED_PREVENTION));
+        } else {
+            event(new \App\Events\PreventionAction($prevention, self::REJECTED_PREVENTION));
+        }
     }
 
     public function update($id, $requestData)
@@ -98,35 +84,21 @@ class PreventionRepository implements PreventionRepositoryContract
      * @param $id
      * @param $requestData
      */
-    public function approvedRootcause($id, $requestData)
+    public function approveRootcause($id, $result)
     {
         $prevention = Prevention::findOrFail($id);
         $input = $requestData = array_merge(
-            $requestData->all(),
-            [   'root_cause_approve_result' => 'Đồng ý']
+            [   'root_cause_approve_result' => $result]
         );
 
         $prevention->fill($input)->save();
         $prevention = $prevention->fresh();
 
-        event(new \App\Events\PreventionAction($prevention, self::APPROVED_ROOT_CAUSE));
-    }
+        if('Đồng ý' == $result) {
+            event(new \App\Events\PreventionAction($prevention, self::APPROVED_ROOT_CAUSE));
 
-    /**
-     * @param $id
-     * @param $requestData
-     */
-    public function rejectedRootcause($id, $requestData)
-    {
-        $prevention = Prevention::findOrFail($id);
-        $input = $requestData = array_merge(
-            $requestData->all(),
-            [   'root_cause_approve_result' => 'Không đồng ý']
-        );
-
-        $prevention->fill($input)->save();
-        $prevention = $prevention->fresh();
-
-        event(new \App\Events\PreventionAction($prevention, self::REJECTED_ROOT_CAUSE));
+        } else {
+            event(new \App\Events\PreventionAction($prevention, self::REJECTED_ROOT_CAUSE));
+        }
     }
 }

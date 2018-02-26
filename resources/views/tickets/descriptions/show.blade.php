@@ -205,15 +205,15 @@
                                             @endif
                                         </span>
                                         <span>
-                                            <form style="float: left;" action="{{ route('approvedRootcause', $prevention->id) }}" method="POST">
+                                            <form style="float: left;" action="{{ route('approveRootcause', [$prevention->id, 'Đồng ý']) }}" method="POST">
                                                 {{ csrf_field() }}
                                                 {{ method_field('PATCH') }}
-                                                <button type="submit"  class="btn btn-success btn-xs"><i class="fa fa-check-circle"> Chấp nhận</i></button>
+                                                <button type="submit" class="btn btn-success btn-xs"><i class="fa fa-times-circle"> Chấp nhận</i></button>
                                             </form>
                                         </span>
                                         <span style="float: left;">&nbsp; </span>
                                         <span>
-                                            <form action="{{ route('rejectedRootcause', $prevention->id) }}" method="POST">
+                                            <form action="{{ route('approveRootcause', [$prevention->id, 'Không đồng ý']) }}" method="POST">
                                                 {{ csrf_field() }}
                                                 {{ method_field('PATCH') }}
                                                 <button type="submit" class="btn btn-danger btn-xs"><i class="fa fa-times-circle"> Từ chối</i></button>
@@ -240,7 +240,7 @@
                                                 @endif
                                             </span>
                                             <span>
-                                                <form style="float: left;" action="{{ route('approvedPrevention', $prevention->id) }}" method="POST">
+                                                <form style="float: left;" action="{{ route('approvePrevention', [$prevention->id, 'Đồng ý']) }}" method="POST">
                                                     {{ csrf_field() }}
                                                     {{ method_field('PATCH') }}
                                                     <button type="submit"  class="btn btn-success btn-xs"><i class="fa fa-check-circle"> Chấp nhận</i></button>
@@ -248,7 +248,7 @@
                                             </span>
                                             <span style="float: left;">&nbsp; </span>
                                             <span>
-                                                <form action="{{ route('rejectedPrevention', $prevention->id) }}" method="POST">
+                                                <form action="{{ route('approvePrevention', [$prevention->id, 'Không đồng ý']) }}" method="POST">
                                                     {{ csrf_field() }}
                                                     {{ method_field('PATCH') }}
                                                     <button type="submit" class="btn btn-danger btn-xs"><i class="fa fa-times-circle"> Từ chối</i></button>
