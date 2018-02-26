@@ -126,10 +126,22 @@ class PreventionsController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function approve($id, Request $request)
+    public function approvedPrevention($id, Request $request)
     {
-        $this->preventions->approve($id, $request);
+        $this->preventions->approvedPrevention($id, $request);
         Session()->flash('flash_message', 'Biện pháp phòng ngừa đã được phê duyệt!');
+        return redirect()->back()->with('tab', 'prevents');
+    }
+
+    /**
+     * @param $id
+     * @param Request $request
+     * @return mixed
+     */
+    public function rejectedPrevention($id, Request $request)
+    {
+        $this->preventions->rejectedPrevention($id, $request);
+        Session()->flash('flash_message', 'Biện pháp phòng ngừa đã bị từ chối!');
         return redirect()->back()->with('tab', 'prevents');
     }
 

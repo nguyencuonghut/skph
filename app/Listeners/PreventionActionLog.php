@@ -46,8 +46,14 @@ class PreventionActionLog
                     'assignee' => $event->getPrevention()->root_cause_approver->name
                 ]);
                 break;
-            case 'approved':
+            case 'approved_prevention':
                 $text = __(':assignee đã phê duyệt biện pháp phòng ngừa', [
+                    'username' => Auth()->user()->name,
+                    'assignee' => $event->getPrevention()->approver->name
+                ]);
+                break;
+            case 'rejected_prevention':
+                $text = __(':assignee đã bị từ chối biện pháp phòng ngừa', [
                     'username' => Auth()->user()->name,
                     'assignee' => $event->getPrevention()->approver->name
                 ]);

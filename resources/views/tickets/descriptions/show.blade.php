@@ -197,7 +197,7 @@
                                         <span style="float: left;">
                                             @if($prevention->root_cause_approve_result)
                                                 <b style="color: {{'Đồng ý' == $prevention->root_cause_approve_result ? "blue":"red"}}">&nbsp; {{$prevention->root_cause_approve_result}}</b> (Bởi {{$prevention->root_cause_approver->name}})&nbsp;
-                                @else
+                                            @else
                                                 <p><b style="color:red"> Chưa thẩm tra</b></p>
                                             @endif
                                         </span>
@@ -213,47 +213,48 @@
                                             <form action="{{ route('rejectedRootcause', $prevention->id) }}" method="POST">
                                                 {{ csrf_field() }}
                                                 {{ method_field('PATCH') }}
-                                                <button type="submit" class="btn btn-danger btn-xs"><i class="fa fa-check-circle"> Từ chối</i></button>
+                                                <button type="submit" class="btn btn-danger btn-xs"><i class="fa fa-times-circle"> Từ chối</i></button>
                                             </form>
                                         </span>
                                     </p>
                                 </div>
 
                                 <hr style="color:#337ab7; border-color:#337ab7; background-color:#337ab7">
-                                <h5><b style="color:blue">5. Hoạt động xử lý</b></h5>
+                                <h5><b style="color:blue">5. Hoạt động phòng ngừa</b></h5>
                                 <div class="col-md-12">
-                                    <div class="contactleft">
-                                        @if($prevention->proposer)
-                                            <p><b>Người đề xuất xử lý:</b> {{$prevention->proposer->name}}</p>
-                                        @else
-                                            <p><b>Người đề xuất xử lý:</b> <b style="color:red">Chưa được giao</b></p>
-                                        @endif
-                                    </div>
-                                    <div class="contactright">
-                                        @if($prevention->approve_result)
-                                            <p><b>Thẩm tra đề xuất xử lý: <b style="color: {{("Đồng ý" == $prevention->approve_result) ? "blue":"red"}}"> {{$prevention->approve_result}}</b></b> (bởi {{$prevention->approver->name}} vào
-                                            @if(date_diff(new DateTime('now'), $prevention->updated_at)->y)
-                                                    {{ date_diff(new DateTime('now'), $prevention->updated_at)->y }} năm
-                                                @endif
-                                                @if(date_diff(new DateTime('now'), $prevention->updated_at)->m)
-                                                    {{ date_diff(new DateTime('now'), $prevention->updated_at)->m }} tháng
-                                                @endif
-                                                @if(date_diff(new DateTime('now'), $prevention->updated_at)->d)
-                                                    {{ date_diff(new DateTime('now'), $prevention->updated_at)->d }} ngày
-                                                @endif
-                                                @if(date_diff(new DateTime('now'), $prevention->updated_at)->h)
-                                                    {{ date_diff(new DateTime('now'), $prevention->updated_at)->h }} giờ
-                                                @endif
-                                                @if(date_diff(new DateTime('now'), $prevention->updated_at)->i)
-                                                    {{ date_diff(new DateTime('now'), $prevention->updated_at)->i }} phút
+                                    @if($prevention->proposer)
+                                        <p><b>Người đề xuất xử lý:</b> {{$prevention->proposer->name}}</p>
+                                    @else
+                                        <p><b>Người đề xuất xử lý:</b> <b style="color:red">Chưa được giao</b></p>
+                                    @endif
+                                    @if($prevention->approve_result)
+                                        <p><b style="float: left;">Thẩm tra đề xuất xử lý:</b>
+                                            <span style="float: left;">
+                                                @if($prevention->approve_result)
+                                                    <b style="color: {{'Đồng ý' == $prevention->approve_result ? "blue":"red"}}">&nbsp; {{$prevention->approve_result}}</b> (Bởi {{$prevention->approver->name}})&nbsp;
                                                 @else
-                                                    0 phút
+                                                    <p><b style="color:red"> Chưa thẩm tra</b></p>
                                                 @endif
-                                                trước)</p>
-                                        @else
-                                            <p><b>Thẩm tra đề xuất xử lý: <b style="color: red"> Chưa thẩm tra</b></b>
-                                        @endif
-                                    </div>
+                                            </span>
+                                            <span>
+                                                <form style="float: left;" action="{{ route('approvedPrevention', $prevention->id) }}" method="POST">
+                                                    {{ csrf_field() }}
+                                                    {{ method_field('PATCH') }}
+                                                    <button type="submit"  class="btn btn-success btn-xs"><i class="fa fa-check-circle"> Chấp nhận</i></button>
+                                                </form>
+                                            </span>
+                                            <span style="float: left;">&nbsp; </span>
+                                            <span>
+                                                <form action="{{ route('rejectedPrevention', $prevention->id) }}" method="POST">
+                                                    {{ csrf_field() }}
+                                                    {{ method_field('PATCH') }}
+                                                    <button type="submit" class="btn btn-danger btn-xs"><i class="fa fa-times-circle"> Từ chối</i></button>
+                                                </form>
+                                            </span>
+                                        </p>
+                                    @else
+                                        <p><b>Thẩm tra đề xuất xử lý:</b> <b style="color: red"> Chưa thẩm tra</b></p>
+                                    @endif
                                 </div>
 
                                 <div class="col-md-12">
@@ -380,18 +381,6 @@
             {!! Form::submit(__('Người duyệt HĐ phòng ngừa'), ['class' => 'btn btn-primary form-control closebtn']) !!}
             {!! Form::close() !!}
 
-            {!! Form::model($prevention, [
-                'method' => 'PATCH',
-                'url' => ['preventions/approve', $prevention->id],
-            ]) !!}
-            <select id="approve_prevention_result" name="approve_prevention_result" style="width:100%">
-                <option disabled selected value> -- select an option -- </option>
-                <option>Đồng ý</option>
-                <option>Không đồng ý</option>
-            </select>
-            {!! Form::submit(__('Duyệt biện pháp phòng ngừa'), ['class' => 'btn btn-primary form-control closebtn']) !!}
-            {!! Form::close() !!}
-
             {!! Form::model($description, [
                 'method' => 'PATCH',
                 'url' => ['descriptions/effectivenessasset', $description->id],
@@ -469,12 +458,6 @@
     </script>
     <script type="text/javascript">
         $("#approver_id").select2({
-            placeholder: "Chọn",
-            allowClear: true
-        });
-    </script>
-    <script type="text/javascript">
-        $("#approve_prevention_result").select2({
             placeholder: "Chọn",
             allowClear: true
         });

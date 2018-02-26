@@ -47,7 +47,13 @@ class PreventionActionNotify
                     $action
                 ));
                 break;
-            case 'approved':
+            case 'approved_prevention':
+                $prevention->assignedUser->notify(new PreventionActionNotification(
+                    $prevention,
+                    $action
+                ));
+                break;
+            case 'rejected_prevention':
                 $prevention->assignedUser->notify(new PreventionActionNotification(
                     $prevention,
                     $action

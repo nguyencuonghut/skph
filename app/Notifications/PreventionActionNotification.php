@@ -81,8 +81,14 @@ class PreventionActionNotification extends Notification
                     'username' =>  Auth()->user()->name,
                 ]);
                 break;
-            case 'approved':
+            case 'approved_prevention':
                 $text = __(':approver đã phê duyệt biện pháp phòng ngừa của bạn', [
+                    'approver' =>  $this->prevention->approver->name,
+                    'username' =>  Auth()->user()->name,
+                ]);
+                break;
+            case 'rejected_prevention':
+                $text = __(':approver đã từ chối biện pháp phòng ngừa của bạn', [
                     'approver' =>  $this->prevention->approver->name,
                     'username' =>  Auth()->user()->name,
                 ]);

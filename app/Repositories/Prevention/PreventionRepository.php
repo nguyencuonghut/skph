@@ -17,7 +17,8 @@ class PreventionRepository implements PreventionRepositoryContract
     const ASSIGNED_PROPOSER = 'assigned_proposer';
     const REQUEST_TO_APPROVE = 'request_to_approve';
     const REQUEST_TO_APPROVE_ROOT_CAUSE = 'request_to_approve_root_cause';
-    const APPROVED = 'approved';
+    const APPROVED_PREVENTION = 'approved_prevention';
+    const REJECTED_PREVENTION = 'rejected_prevention';
     const APPROVED_ROOT_CAUSE = 'approved_root_cause';
     const REJECTED_ROOT_CAUSE = 'rejected_root_cause';
 
@@ -53,20 +54,37 @@ class PreventionRepository implements PreventionRepositoryContract
      * @param $id
      * @param $requestData
      */
-    public function approve($id, $requestData)
+    public function approvedPrevention($id, $requestData)
     {
         $prevention = Prevention::findOrFail($id);
         $input = $requestData = array_merge(
             $requestData->all(),
-            [   'approve_result' => $requestData->approve_prevention_result]
+            [   'approve_result' => 'Đồng ý']
         );
 
         $prevention->fill($input)->save();
         $prevention = $prevention->fresh();
 
-        event(new \App\Events\PreventionAction($prevention, self::APPROVED));
+        event(new \App\Events\PreventionAction($prevention, self::APPROVED_PREVENTION));
     }
 
+    /**
+     * @param $id
+     * @param $requestData
+     */
+    public function rejectedPrevention($id, $requestData)
+    {
+        $prevention = Prevention::findOrFail($id);
+        $input = $requestData = array_merge(
+            $requestData->all(),
+            [   'approve_result' => 'Không đồng ý']
+        );
+
+        $prevention->fill($input)->save();
+        $prevention = $prevention->fresh();
+
+        event(new \App\Events\PreventionAction($prevention, self::REJECTED_PREVENTION));
+    }
 
     public function update($id, $requestData)
     {

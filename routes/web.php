@@ -48,7 +48,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::patch('preventions/assignproposer/{id}', 'PreventionsController@assignProposer');
     Route::patch('preventions/assignapprover/{id}', 'PreventionsController@assignApprover');
-    Route::patch('preventions/approve/{id}', 'PreventionsController@approve');
+    Route::patch('preventions/approvedprevention/{id}', 'PreventionsController@approvedPrevention')->name('approvedPrevention');
+    Route::patch('preventions/rejectedprevention/{id}', 'PreventionsController@rejectedPrevention')->name('rejectedPrevention');
     Route::patch('preventions/approvedrootcause/{id}', 'PreventionsController@approvedRootcause')->name('approvedRootcause');
     Route::patch('preventions/rejectedrootcause/{id}', 'PreventionsController@rejectedRootcause')->name('rejectedRootcause');
 
