@@ -64,8 +64,11 @@
                                     <br>
                                 </div>
                                 <h5><b style="color:blue">1. Mô tả vấn đề:</b>
+
                                     <span>
-                                        <a href="{{ route("descriptions.edit", $description->id) }}"><i class="fa fa-pencil-square" aria-hidden="true"></i></a>
+                                        <a href="{{ route("descriptions.edit", $description->id) }}">
+                                            <button type="button" class="btn btn-warning btn-xs"><i class="fa fa-edit"><b> Cập nhật</b></i></button>
+                                        </a>
                                     </span>
                                 </h5>
                                 <table style="width:100%">
