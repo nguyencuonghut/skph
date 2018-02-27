@@ -365,18 +365,20 @@
                 <p>{{ __('Cập nhật Ticket') }}</p>
             </div>
 
-            {!! Form::model($troubleshoot, [
-                'method' => 'PATCH',
-                'url' => ['troubleshoots/assigntroubeshooter', $troubleshoot->id],
-            ]) !!}
-            <select name="troubleshooter_id" id="troubleshooter_id" class="form-control" style="width:100%">
-                <option disabled selected value> {{ __('Select a user') }} </option>
-                @foreach ($users as $user)
-                    <option value="{{ $user->id }}">{{ $user->name }}</option>
-                @endforeach
-            </select>
-            {!! Form::submit(__('Chuyển cho người khắc phục'), ['class' => 'btn btn-primary form-control closebtn']) !!}
-            {!! Form::close() !!}
+            @if(\Auth::id() == $description->leader_id)
+                {!! Form::model($troubleshoot, [
+                    'method' => 'PATCH',
+                    'url' => ['troubleshoots/assigntroubeshooter', $troubleshoot->id],
+                ]) !!}
+                <select name="troubleshooter_id" id="troubleshooter_id" class="form-control" style="width:100%">
+                    <option disabled selected value> {{ __('Select a user') }} </option>
+                    @foreach ($users as $user)
+                        <option value="{{ $user->id }}">{{ $user->name }}</option>
+                    @endforeach
+                </select>
+                {!! Form::submit(__('Chuyển cho người khắc phục'), ['class' => 'btn btn-primary form-control closebtn']) !!}
+                {!! Form::close() !!}
+            @endif
 
             {!! Form::model($prevention, [
                 'method' => 'PATCH',
