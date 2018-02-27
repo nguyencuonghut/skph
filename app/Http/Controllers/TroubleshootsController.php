@@ -133,9 +133,9 @@ class TroubleshootsController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function evaluate($id, Request $request)
+    public function evaluate($id, $result)
     {
-        $this->troubleshoots->evaluate($id, $request);
+        $this->troubleshoots->evaluate($id, $result);
         Session()->flash('flash_message', 'Đánh giá thành công!');
         return redirect()->back()->with('tab', 'prevents');
     }

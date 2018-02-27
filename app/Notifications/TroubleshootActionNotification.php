@@ -93,8 +93,13 @@ class TroubleshootActionNotification extends Notification
                     'username' =>  Auth()->user()->name,
                 ]);
                 break;
-            case 'evaluated':
-                $text = __(':approver đã đánh giá SKPH của bạn', [
+            case 'seriously':
+                $text = __(':approver đã đánh giá SKPH của bạn là nghiêm trọng', [
+                    'approver' =>  $this->troubleshoot->evaluater->name,
+                ]);
+                break;
+            case 'normally':
+                $text = __(':approver đã đánh giá SKPH của bạn là không nghiêm trọng', [
                     'approver' =>  $this->troubleshoot->evaluater->name,
                 ]);
                 break;

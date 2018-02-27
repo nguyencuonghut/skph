@@ -59,8 +59,13 @@ class TroubleshootActionLog
                     'assignee' => $event->getTroubleshoot()->approver->name
                 ]);
                 break;
-            case 'evaluated':
-                $text = __(':username đã đánh giá SKPH', [
+            case 'seriously':
+                $text = __(':username đã đánh giá SKPH là nghiêm trọng', [
+                    'username' => Auth()->user()->name
+                ]);
+                break;
+            case 'normally':
+                $text = __(':username đã đánh giá SKPH là không nghiêm trọng', [
                     'username' => Auth()->user()->name
                 ]);
                 break;

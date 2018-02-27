@@ -18,7 +18,8 @@ class TroubleshootRepository implements TroubleshootRepositoryContract
     const REQUEST_TO_APPROVE = 'request_to_approve';
     const APPROVED = 'approved';
     const REJECTED = 'rejected';
-    const EVALUATED = 'evaluated';
+    const SERIOUSLY = 'seriously';
+    const NORMALLY = 'normally';
 
 
     /**
@@ -69,18 +70,21 @@ class TroubleshootRepository implements TroubleshootRepositoryContract
      * @param $id
      * @param $requestData
      */
-    public function evaluate($id, $requestData)
+    public function evaluate($id, $result)
     {
         $troubleshoot = Troubleshoot::findOrFail($id);
         $input = $requestData = array_merge(
-            $requestData->all(),
-            [   'evaluate_result' => $requestData->evaluate_result,
+            [   'evaluate_result' => $result,
                 'evaluater_id' => auth()->id()]
         );
 
         $troubleshoot->fill($input)->save();
         $troubleshoot = $troubleshoot->fresh();
 
-        event(new \App\Events\TroubleshootAction($troubleshoot, self::EVALUATED));
+        if('Nghiêm trọng' == $result){
+            event(new \App\Events\TroubleshootAction($troubleshoot, self::SERIOUSLY));
+        } else {
+            event(new \App\Events\TroubleshootAction($troubleshoot, self::NORMALLY));
+        }
     }
 }

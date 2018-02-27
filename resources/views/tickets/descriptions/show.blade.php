@@ -184,11 +184,28 @@
                                 @endif
                             </el-tab-pane>
                             <el-tab-pane label="Phòng ngừa" name="prevents">
-                                <h5><b style="color:blue">4. Xem xét mức độ sự không phù hợp</b></h5>
+                                <h5><b style="color:blue; float: left">4. Xem xét mức độ sự không phù hợp:</b></h5>
+                                <span style="float: left;">&nbsp; </span>
+                                <span>
+                                    <form style="float: left;" action="{{ route('evaluate', [$troubleshoot->id, 'Nghiêm trọng']) }}" method="POST">
+                                        {{ csrf_field() }}
+                                        {{ method_field('PATCH') }}
+                                        <button type="submit" class="btn btn-danger btn-xs"><i class="fa fa-exclamation-triangle"> Nghiêm trọng</i></button>
+                                    </form>
+                                </span>
+                                <span style="float: left;">&nbsp; </span>
+                                <span>
+                                    <form action="{{ route('evaluate', [$troubleshoot->id, 'Không nghiêm trọng']) }}" method="POST">
+                                        {{ csrf_field() }}
+                                        {{ method_field('PATCH') }}
+                                        <button type="submit" class="btn btn-success btn-xs"><i class="fa fa-stop-circle"> Không nghiêm trọng</i></button>
+                                    </form>
+                                </span>
+
                                 <div class="col-md-12">
                                     <p><b>
                                             @if('Không nghiêm trọng' == $troubleshoot->evaluate_result)
-                                                {{$troubleshoot->evaluate_result}} => Dừng
+                                                <b style="color:green">{{$troubleshoot->evaluate_result}}</b> => Dừng
                                             @elseif('Nghiêm trọng' == $troubleshoot->evaluate_result)
                                                 <b style="color:red">Nghiêm trọng => Phân tích nguyên nhân gốc rễ và đưa ra giải pháp phòng ngừa</b>
                                             @endif
@@ -359,18 +376,6 @@
                 @endforeach
             </select>
             {!! Form::submit(__('Chuyển cho người khắc phục'), ['class' => 'btn btn-primary form-control closebtn']) !!}
-            {!! Form::close() !!}
-
-            {!! Form::model($description, [
-                'method' => 'PATCH',
-                'url' => ['troubleshoots/evaluate', $description->id],
-            ]) !!}
-            <select id="evaluate_result" name="evaluate_result" style="width:100%">
-                <option disabled selected value> -- select an option -- </option>
-                <option>Nghiêm trọng</option>
-                <option>Không nghiêm trọng</option>
-            </select>
-            {!! Form::submit(__('Đánh giá mức độ SKPH'), ['class' => 'btn btn-primary form-control closebtn']) !!}
             {!! Form::close() !!}
 
             {!! Form::model($prevention, [

@@ -53,7 +53,13 @@ class TroubleshootActionNotify
                     $action
                 ));
                 break;
-            case 'evaluated':
+            case 'seriously':
+                $troubleshoot->assignedUser->notify(new TroubleshootActionNotification(
+                    $troubleshoot,
+                    $action
+                ));
+                break;
+            case 'normally':
                 $troubleshoot->assignedUser->notify(new TroubleshootActionNotification(
                     $troubleshoot,
                     $action
