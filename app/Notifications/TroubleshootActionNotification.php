@@ -77,7 +77,6 @@ class TroubleshootActionNotification extends Notification
                 break;
             case 'request_to_approve':
                 $text = __(':username yêu cầu bạn phê duyệt biện pháp khắc phục', [
-                    'title' =>  $this->troubleshoot->troubleshooter->name,
                     'username' =>  Auth()->user()->name,
                 ]);
                 break;
