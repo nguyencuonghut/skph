@@ -43,7 +43,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('descriptions/myconfirmeddata', 'DescriptionsController@myConfirmedData')->name('descriptions.myconfirmeddata');
 
     Route::patch('troubleshoots/assigntroubeshooter/{id}', 'TroubleshootsController@assignTroubleshooter');
-    Route::patch('troubleshoots/approve/{id}', 'TroubleshootsController@approve');
+    Route::patch('troubleshoots/approve/{id}/{result}', 'TroubleshootsController@approve')->name('approve');
     Route::patch('troubleshoots/evaluate/{id}', 'TroubleshootsController@evaluate');
 
     Route::patch('preventions/assignproposer/{id}', 'PreventionsController@assignProposer');

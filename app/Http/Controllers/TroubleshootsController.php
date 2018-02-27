@@ -121,9 +121,9 @@ class TroubleshootsController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function approve($id, Request $request)
+    public function approve($id, $result)
     {
-        $this->troubleshoots->approve($id, $request);
+        $this->troubleshoots->approve($id, $result);
         Session()->flash('flash_message', 'Biện pháp khắc phục đã được phê duyệt!');
         return redirect()->back()->with('tab', 'troubleshoot');
     }

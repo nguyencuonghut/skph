@@ -82,7 +82,13 @@ class TroubleshootActionNotification extends Notification
                 ]);
                 break;
             case 'approved':
-                $text = __(':approver đã phê duyệt biện pháp khắc phục của bạn', [
+                $text = __(':approver đã đồng ý biện pháp khắc phục của bạn', [
+                    'approver' =>  $this->troubleshoot->approver->name,
+                    'username' =>  Auth()->user()->name,
+                ]);
+                break;
+            case 'rejected':
+                $text = __(':approver đã từ chối biện pháp khắc phục của bạn', [
                     'approver' =>  $this->troubleshoot->approver->name,
                     'username' =>  Auth()->user()->name,
                 ]);

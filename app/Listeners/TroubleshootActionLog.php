@@ -48,7 +48,13 @@ class TroubleshootActionLog
                 ]);
                 break;
             case 'approved':
-                $text = __(':assignee đã phê duyệt biện pháp khắc phục', [
+                $text = __(':assignee đã đồng ý biện pháp khắc phục', [
+                    'username' => Auth()->user()->name,
+                    'assignee' => $event->getTroubleshoot()->approver->name
+                ]);
+                break;
+            case 'rejected':
+                $text = __(':assignee đã từ chối biện pháp khắc phục', [
                     'username' => Auth()->user()->name,
                     'assignee' => $event->getTroubleshoot()->approver->name
                 ]);

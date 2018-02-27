@@ -47,6 +47,12 @@ class TroubleshootActionNotify
                     $action
                 ));
                 break;
+            case 'rejected':
+                $troubleshoot->assignedUser->notify(new TroubleshootActionNotification(
+                    $troubleshoot,
+                    $action
+                ));
+                break;
             case 'evaluated':
                 $troubleshoot->assignedUser->notify(new TroubleshootActionNotification(
                     $troubleshoot,

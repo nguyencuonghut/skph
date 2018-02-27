@@ -123,42 +123,45 @@
                                 </table>
                             </el-tab-pane>
                             <el-tab-pane label="Khắc phục" name="troubleshoot">
+                                <h5><b style="color:blue; float: left;">2. Xác định trách nhiệm:</b></h5>
+                                    <span>
+                                        <a href="{{ route("troubleshoots.edit", $description->id) }}">
+                                            <button type="button" class="btn btn-warning btn-xs"><i class="fa fa-edit"><b> Cập nhật</b></i></button>
+                                        </a>
+                                    </span>
                                 @if(isset($troubleshoot))
-                                    @if($troubleshoot->responsibility)
-                                        <h5><b style="color:blue">2. Xác định trách nhiệm:</b> {{$troubleshoot->responsibility->name}}</h5>
-                                    @endif
-                                    @if($troubleshoot->reason)
-                                        <div class="col-md-12">
+                                    <div class="col-md-12">
+                                        @if($troubleshoot->responsibility)
+                                            <h5><b>Trách nhiệm:</b> {{$troubleshoot->responsibility->name}}</h5>
+                                        @endif
+                                        @if($troubleshoot->reason)
                                             <h5><b>Lý do:</b></h5>
                                             <p><i>{!! $troubleshoot->reason !!}</i></p>
-                                        </div>
-                                    @endif
-                                <h5><b style="color:blue">3. Thực hiện khắc phục sự không phù hợp trước khi tìm nguyên nhân gốc rễ:</b></h5>
+                                    </div>
+                                @endif
+                                <h5><b style="color:blue;float: left;">3. Thực hiện biện pháp khắc phục:</b></h5>
+                                <span>
+                                    <form style="float: left;" action="{{ route('approve', [$troubleshoot->id, 'Đồng ý']) }}" method="POST">
+                                        {{ csrf_field() }}
+                                        {{ method_field('PATCH') }}
+                                        <button type="submit" class="btn btn-success btn-xs"><i class="fa fa-check-circle"> Chấp nhận</i></button>
+                                    </form>
+                                </span>
+                                <span style="float: left;">&nbsp; </span>
+                                <span>
+                                    <form action="{{ route('approve', [$troubleshoot->id, 'Không đồng ý']) }}" method="POST">
+                                        {{ csrf_field() }}
+                                        {{ method_field('PATCH') }}
+                                        <button type="submit" class="btn btn-danger btn-xs"><i class="fa fa-times-circle"> Từ chối</i></button>
+                                    </form>
+                                </span>
+
                                 <div class="col-md-12">
                                     <div class="contactleft">
                                         @if($troubleshoot->troubleshooter)
                                             <p><b>Người thực hiện:</b> {{$troubleshoot->troubleshooter->name}}</p>
                                             @if($troubleshoot->approve_result)
-                                                <p><b>Phê duyệt: <b style="color: {{("Đồng ý" == $troubleshoot->approve_result) ? "blue":"red"}}"> {{$troubleshoot->approve_result}}</b></b> (bởi {{$troubleshoot->approver->name}} vào
-                                                    @if(date_diff(new DateTime('now'), $troubleshoot->updated_at)->y)
-                                                        {{ date_diff(new DateTime('now'), $troubleshoot->updated_at)->y }} năm
-                                                    @endif
-                                                    @if(date_diff(new DateTime('now'), $troubleshoot->updated_at)->m)
-                                                        {{ date_diff(new DateTime('now'), $troubleshoot->updated_at)->m }} tháng
-                                                    @endif
-                                                    @if(date_diff(new DateTime('now'), $troubleshoot->updated_at)->d)
-                                                        {{ date_diff(new DateTime('now'), $troubleshoot->updated_at)->d }} ngày
-                                                    @endif
-                                                    @if(date_diff(new DateTime('now'), $troubleshoot->updated_at)->h)
-                                                        {{ date_diff(new DateTime('now'), $troubleshoot->updated_at)->h }} giờ
-                                                    @endif
-                                                    @if(date_diff(new DateTime('now'), $troubleshoot->updated_at)->i)
-                                                        {{ date_diff(new DateTime('now'), $troubleshoot->updated_at)->i }} phút
-                                                    @else
-                                                        0 phút
-                                                    @endif
-                                                    trước)
-                                                </p>
+                                                <p><b>Phê duyệt: <b style="color: {{("Đồng ý" == $troubleshoot->approve_result) ? "blue":"red"}}"> {{$troubleshoot->approve_result}}</b></b> (bởi {{$troubleshoot->approver->name}}</p>
                                             @else
                                                     <p><b>Phê duyệt: <b style="color: {{("Đồng ý" == $troubleshoot->approve_result) ? "blue":"red"}}"> Chưa phê duyệt</b></b>
                                             @endif
@@ -210,7 +213,6 @@
                                             </span>
                                         </h5>
                                     @endif
-                                    <hr style="color:#337ab7; border-color:#337ab7; background-color:#337ab7">
                                     <p><b style="float: left;">Thẩm tra nguyên nhân gốc rễ:</b>
                                         <span style="float: left;">
                                             @if($prevention->root_cause_approve_result)
@@ -357,22 +359,6 @@
                 @endforeach
             </select>
             {!! Form::submit(__('Chuyển cho người khắc phục'), ['class' => 'btn btn-primary form-control closebtn']) !!}
-            {!! Form::close() !!}
-
-            <a href="{{route("troubleshoots.edit", $description->id)}}"
-               class="btn btn-primary form-control closebtn" style="width:100%">Cập nhật biện pháp
-            </a>
-
-            {!! Form::model($description, [
-                'method' => 'PATCH',
-                'url' => ['troubleshoots/approve', $description->id],
-            ]) !!}
-            <select id="approve_result" name="approve_result" style="width:100%">
-                <option disabled selected value> -- select an option -- </option>
-                <option>Đồng ý</option>
-                <option>Không đồng ý</option>
-            </select>
-            {!! Form::submit(__('Duyệt biện pháp khắc phục'), ['class' => 'btn btn-primary form-control closebtn']) !!}
             {!! Form::close() !!}
 
             {!! Form::model($description, [

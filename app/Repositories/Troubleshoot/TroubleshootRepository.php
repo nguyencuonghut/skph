@@ -17,6 +17,7 @@ class TroubleshootRepository implements TroubleshootRepositoryContract
     const ASSIGNED_TROUBLESHOOTER = 'assigned_troubleshooter';
     const REQUEST_TO_APPROVE = 'request_to_approve';
     const APPROVED = 'approved';
+    const REJECTED = 'rejected';
     const EVALUATED = 'evaluated';
 
 
@@ -47,18 +48,21 @@ class TroubleshootRepository implements TroubleshootRepositoryContract
      * @param $id
      * @param $requestData
      */
-    public function approve($id, $requestData)
+    public function approve($id, $result)
     {
         $troubleshoot = Troubleshoot::findOrFail($id);
         $input = $requestData = array_merge(
-            $requestData->all(),
-            [   'approve_result' => $requestData->approve_result]
+            [   'approve_result' => $result]
         );
 
         $troubleshoot->fill($input)->save();
         $troubleshoot = $troubleshoot->fresh();
 
-        event(new \App\Events\TroubleshootAction($troubleshoot, self::APPROVED));
+        if('Đồng ý' == $result) {
+            event(new \App\Events\TroubleshootAction($troubleshoot, self::APPROVED));
+        } else {
+            event(new \App\Events\TroubleshootAction($troubleshoot, self::REJECTED));
+        }
     }
 
     /**
