@@ -102,4 +102,20 @@ class TroubleshootActionsController extends Controller
     {
         //
     }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function markComplete($id)
+    {
+        $troubleshootaction = TroubleshootAction::findOrFail($id);
+        $troubleshootaction->status = 'Closed';
+        $troubleshootaction->save();
+
+        Session()->flash('flash_message', 'Đã hoàn thành một hành động khắc phục!');
+        return redirect()->route("descriptions.show", $troubleshootaction->description_id)->with('tab', 'troubleshoot');
+    }
 }

@@ -108,4 +108,20 @@ class PreventionActionsController extends Controller
     {
         //
     }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function markComplete($id)
+    {
+        $preventionaction = PreventionAction::findOrFail($id);
+        $preventionaction->status = 'Closed';
+        $preventionaction->save();
+
+        Session()->flash('flash_message', 'Đã hoàn thành một hành động khắc phục!');
+        return redirect()->route("descriptions.show", $preventionaction->description_id)->with('tab', 'prevents');
+    }
 }

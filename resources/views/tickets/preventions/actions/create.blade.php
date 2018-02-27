@@ -1,6 +1,15 @@
 @if($preventionactions->count())
     <div class="row">
         <div class="col-md-12">
+            <h5><b style="float: left">Tiến độ:</b></h5>
+            <span style="float: left">&nbsp;</span>
+            <span>
+                <div class="progress">
+                    <div class="progress-bar-success" role="progressbar" aria-valuenow="{{($completed_preventions->count()/$preventionactions->count()) * 100}}" aria-valuemin="0" aria-valuemax="100" style="width: {{($completed_preventions->count()/$preventionactions->count()) * 100}}%;">
+                        {{(int)(($completed_preventions->count()/$preventionactions->count()) * 100)}}%
+                    </div>
+                </div>
+            </span>
             <table class="table">
                 <thead>
                 <th>STT</th>
@@ -12,6 +21,7 @@
                 <th>Làm như thế nào ?</th>
                 <th>Trạng thái</th>
                 <th>Sửa</th>
+                <th>Đánh dấu hoàn thành</th>
                 </thead>
 
                 <tbody>
@@ -26,8 +36,17 @@
                         <td>{{ $prevention->when }}</td>
                         <td>{{ $prevention->how }}</td>
                         <td style="color: {{'Open' == $prevention->status ? "green": "black"}}">{{ $prevention->status}}</td>
-                        <td>
-                            <a class="btn btn-small btn-danger" href="{{ URL::to('preventionactions/' . $prevention->id . '/edit') }}">Sửa</a>
+                        <td style="text-align: center">
+                            <a class="btn btn-small btn-warning" href="{{ URL::to('preventionactions/' . $prevention->id . '/edit') }}"><i class="fa fa-edit"></i></a>
+                        </td>
+                        <td style="text-align: center">
+                            <span>
+                                <form action="{{ route('preventionActionMarkComplete', $prevention->id) }}" method="POST">
+                                    {{ csrf_field() }}
+                                    {{ method_field('PATCH') }}
+                                    <button type="submit" class="btn btn-success"><i class="fa fa-check-circle"></i></button>
+                                </form>
+                            </span>
                         </td>
                     </tr>
                 @endforeach

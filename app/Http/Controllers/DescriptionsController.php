@@ -91,8 +91,10 @@ class DescriptionsController extends Controller
             ->withTroubleshoot($troubleshoot)
             ->withUsers($this->users->getAllUsers())
             ->withActions(TroubleshootAction::all()->where('description_id', $id))
+            ->withCompletedActions(TroubleshootAction::all()->where('description_id', $id)->where('status', 'Closed'))
             ->withPrevention($prevention)
-            ->withPreventionactions(PreventionAction::all()->where('description_id', $id));
+            ->withPreventionactions(PreventionAction::all()->where('description_id', $id))
+            ->withCompletedPreventions(PreventionAction::all()->where('description_id', $id)->where('status', 'Closed'));
     }
 
     /**

@@ -51,6 +51,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::patch('preventions/approveprevention/{id}/{result}', 'PreventionsController@approvePrevention')->name('approvePrevention');
     Route::patch('preventions/approverootcause/{id}/{result}', 'PreventionsController@approveRootcause')->name('approveRootcause');
 
+    Route::patch('troubleshootactions/markcomplete/{id}', 'TroubleshootActionsController@markComplete')->name('troubleshootActionMarkComplete');
+    Route::patch('preventionactions/markcomplete/{id}', 'PreventionActionsController@markComplete')->name('preventionActionMarkComplete');
 
     Route::resource('descriptions', 'DescriptionsController');
     Route::resource('troubleshoots', 'TroubleshootsController');
