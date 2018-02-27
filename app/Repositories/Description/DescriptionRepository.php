@@ -18,6 +18,8 @@ class DescriptionRepository implements DescriptionRepositoryContract
     const CREATED = 'created';
     const UPDATED_ASSIGN = 'updated_assign';
     const EFFECTIVENESS_ASSET = 'effectiveness_asset';
+    const LEADER_APPROVED = 'leader_approved';
+    const LEADER_REJECTED = 'leader_rejected';
 
     /**
      * @param $id
@@ -105,16 +107,20 @@ class DescriptionRepository implements DescriptionRepositoryContract
      * @param $id
      * @param $requestData
      */
-    public function leaderConfirm($id, $requestData)
+    public function leaderConfirm($id, $result)
     {
         $description = Description::with('user')->findOrFail($id);
         $input = $requestData = array_merge(
-            $requestData->all(),
-            [   'leader_confirmation_result' => $requestData->leader_confirmation_result]
+            [   'leader_confirmation_result' => $result]
         );
 
         $description->fill($input)->save();
         $description = $description->fresh();
+        if('Xác nhận' == $result){
+            event(new \App\Events\DescriptionAction($description, self::LEADER_APPROVED));
+        } else {
+            event(new \App\Events\DescriptionAction($description, self::LEADER_REJECTED));
+        }
     }
 
     /**

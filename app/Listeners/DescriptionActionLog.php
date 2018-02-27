@@ -35,6 +35,18 @@ class DescriptionActionLog
                         'assignee' => $event->getDescription()->leader->name
                     ]);
                 break;
+            case 'leader_approved':
+                $text = __(':title được xác nhận bởi :leader', [
+                    'title' => $event->getDescription()->title,
+                    'leader' => $event->getDescription()->leader->name
+                ]);
+                break;
+            case 'leader_rejected':
+                $text = __(':title bị từ chối xác nhận bởi :leader', [
+                    'title' => $event->getDescription()->title,
+                    'leader' => $event->getDescription()->leader->name
+                ]);
+                break;
             case 'effectiveness_asset':
                 $text = __('Ticket được đánh giá hiệu quả bởi :username', [
                     'username' => Auth()->user()->name,

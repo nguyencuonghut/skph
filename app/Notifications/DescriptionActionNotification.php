@@ -69,6 +69,18 @@ class DescriptionActionNotification extends Notification
                     'creator' => $this->description->user->name,
                     ]);
                 break;
+            case 'leader_approved':
+                $text = __(':title được xác nhận bởi :leader', [
+                    'title' =>  $this->description->title,
+                    'leader' => $this->description->leader->name,
+                ]);
+                break;
+            case 'leader_rejected':
+                $text = __(':title bị từ chối xác nhận bởi :leader', [
+                    'title' =>  $this->description->title,
+                    'leader' => $this->description->leader->name,
+                ]);
+                break;
             case 'effectiveness_asset':
                 $text = __(':title được đánh giá hiệu quả bởi :username', [
                     'title' =>  $this->description->title,

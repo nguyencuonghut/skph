@@ -122,7 +122,7 @@ class DescriptionsController extends Controller
     public function update(Request $request, $id)
     {
         $this->descriptions->update($id, $request);
-        Session()->flash('flash_message', 'Ticket successfully updated');
+        Session()->flash('flash_message', 'Ticket được cập nhật thành công');
         return redirect()->route("descriptions.show", $id);
     }
 
@@ -143,9 +143,9 @@ class DescriptionsController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function leaderConfirm($id, Request $request)
+    public function leaderConfirm($id, $result)
     {
-        $this->descriptions->leaderConfirm($id, $request);
+        $this->descriptions->leaderConfirm($id, $result);
         Session()->flash('flash_message', 'Xác nhận thành công');
         return redirect()->back();
     }

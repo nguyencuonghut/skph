@@ -63,12 +63,25 @@
                                     <br>
                                     <br>
                                 </div>
-                                <h5><b style="color:blue">1. Mô tả vấn đề:</b>
-
+                                <h5><b style="color:blue;float: left;">1. Mô tả vấn đề:</b>
                                     <span>
-                                        <a href="{{ route("descriptions.edit", $description->id) }}">
+                                        <a style="float: left;" href="{{ route("descriptions.edit", $description->id) }}">
                                             <button type="button" class="btn btn-warning btn-xs"><i class="fa fa-edit"><b> Cập nhật</b></i></button>
                                         </a>
+                                    </span>
+                                    <span>
+                                        <form style="float: left;" action="{{ route('leaderConfirm', [$description->id, 'Xác nhận']) }}" method="POST">
+                                            {{ csrf_field() }}
+                                            {{ method_field('PATCH') }}
+                                            <button type="submit" class="btn btn-success btn-xs"><i class="fa fa-check-circle"> Chấp nhận</i></button>
+                                        </form>
+                                    </span>
+                                    <span>
+                                        <form action="{{ route('leaderConfirm', [$description->id, 'Không xác nhận']) }}" method="POST">
+                                            {{ csrf_field() }}
+                                            {{ method_field('PATCH') }}
+                                            <button type="submit" class="btn btn-danger btn-xs"><i class="fa fa-times-circle"> Từ chối</i></button>
+                                        </form>
                                     </span>
                                 </h5>
                                 <table style="width:100%">
@@ -115,8 +128,10 @@
                                         <h5><b style="color:blue">2. Xác định trách nhiệm:</b> {{$troubleshoot->responsibility->name}}</h5>
                                     @endif
                                     @if($troubleshoot->reason)
-                                        <h5><b>Lý do:</b></h5>
+                                        <div class="col-md-12">
+                                            <h5><b>Lý do:</b></h5>
                                             <p><i>{!! $troubleshoot->reason !!}</i></p>
+                                        </div>
                                     @endif
                                 <h5><b style="color:blue">3. Thực hiện khắc phục sự không phù hợp trước khi tìm nguyên nhân gốc rễ:</b></h5>
                                 <div class="col-md-12">
@@ -208,7 +223,7 @@
                                             <form style="float: left;" action="{{ route('approveRootcause', [$prevention->id, 'Đồng ý']) }}" method="POST">
                                                 {{ csrf_field() }}
                                                 {{ method_field('PATCH') }}
-                                                <button type="submit" class="btn btn-success btn-xs"><i class="fa fa-times-circle"> Chấp nhận</i></button>
+                                                <button type="submit" class="btn btn-success btn-xs"><i class="fa fa-check-circle"> Chấp nhận</i></button>
                                             </form>
                                         </span>
                                         <span style="float: left;">&nbsp; </span>
@@ -331,18 +346,6 @@
                 <p>{{ __('Cập nhật Ticket') }}</p>
             </div>
 
-            {!! Form::model($description, [
-                'method' => 'PATCH',
-                'url' => ['descriptions/leaderconfirm', $description->id],
-            ]) !!}
-            <select id="leader_confirmation_result" name="leader_confirmation_result" style="width:100%">
-                <option disabled selected value> -- select an option -- </option>
-                <option>Xác nhận</option>
-                <option>Không xác nhận</option>
-            </select>
-            {!! Form::submit(__('TBP xác nhận'), ['class' => 'btn btn-primary form-control closebtn']) !!}
-            {!! Form::close() !!}
-
             {!! Form::model($troubleshoot, [
                 'method' => 'PATCH',
                 'url' => ['troubleshoots/assigntroubeshooter', $troubleshoot->id],
@@ -448,12 +451,6 @@
 @stop
 
 @push('scripts')
-    <script type="text/javascript">
-        $("#leader_confirmation_result").select2({
-            placeholder: "Chọn",
-            allowClear: true
-        });
-    </script>
     <script type="text/javascript">
         $("#approve_result").select2({
             placeholder: "Chọn",
