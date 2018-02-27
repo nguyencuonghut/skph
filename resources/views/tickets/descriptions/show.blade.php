@@ -127,39 +127,24 @@
                                 </table>
                             </el-tab-pane>
                             <el-tab-pane label="Khắc phục" name="troubleshoot">
-                                <h5><b style="color:blue; float: left;">2. Xác định trách nhiệm:</b></h5>
+                                <h5><b style="color:blue;float: left;">2. Thực hiện biện pháp khắc phục:</b></h5>
+                                @if(\Auth::id() == $troubleshoot->approver_id)
                                     <span>
-                                        <a href="{{ route("troubleshoots.edit", $description->id) }}">
-                                            <button type="button" class="btn btn-warning btn-xs"><i class="fa fa-edit"><b> Cập nhật</b></i></button>
-                                        </a>
+                                        <form style="float: left;" action="{{ route('approve', [$troubleshoot->id, 'Đồng ý']) }}" method="POST">
+                                            {{ csrf_field() }}
+                                            {{ method_field('PATCH') }}
+                                            <button type="submit" class="btn btn-success btn-xs"><i class="fa fa-check-circle"> Chấp nhận</i></button>
+                                        </form>
                                     </span>
-                                @if(isset($troubleshoot))
-                                    <div class="col-md-12">
-                                        @if($troubleshoot->responsibility)
-                                            <h5><b>Trách nhiệm:</b> {{$troubleshoot->responsibility->name}}</h5>
-                                        @endif
-                                        @if($troubleshoot->reason)
-                                            <h5><b>Lý do:</b></h5>
-                                            <p><i>{!! $troubleshoot->reason !!}</i></p>
-                                        @endif
-                                    </div>
+                                    <span style="float: left;">&nbsp; </span>
+                                    <span>
+                                        <form action="{{ route('approve', [$troubleshoot->id, 'Không đồng ý']) }}" method="POST">
+                                            {{ csrf_field() }}
+                                            {{ method_field('PATCH') }}
+                                            <button type="submit" class="btn btn-danger btn-xs"><i class="fa fa-times-circle"> Từ chối</i></button>
+                                        </form>
+                                    </span>
                                 @endif
-                                <h5><b style="color:blue;float: left;">3. Thực hiện biện pháp khắc phục:</b></h5>
-                                <span>
-                                    <form style="float: left;" action="{{ route('approve', [$troubleshoot->id, 'Đồng ý']) }}" method="POST">
-                                        {{ csrf_field() }}
-                                        {{ method_field('PATCH') }}
-                                        <button type="submit" class="btn btn-success btn-xs"><i class="fa fa-check-circle"> Chấp nhận</i></button>
-                                    </form>
-                                </span>
-                                <span style="float: left;">&nbsp; </span>
-                                <span>
-                                    <form action="{{ route('approve', [$troubleshoot->id, 'Không đồng ý']) }}" method="POST">
-                                        {{ csrf_field() }}
-                                        {{ method_field('PATCH') }}
-                                        <button type="submit" class="btn btn-danger btn-xs"><i class="fa fa-times-circle"> Từ chối</i></button>
-                                    </form>
-                                </span>
 
                                 <div class="col-md-12">
                                     <div class="contactleft">
@@ -168,7 +153,7 @@
                                             @if($troubleshoot->approve_result)
                                                 <p><b>Phê duyệt: <b style="color: {{("Đồng ý" == $troubleshoot->approve_result) ? "blue":"red"}}"> {{$troubleshoot->approve_result}}</b></b> (bởi {{$troubleshoot->approver->name}})</p>
                                             @else
-                                                    <p><b>Phê duyệt: <b style="color: {{("Đồng ý" == $troubleshoot->approve_result) ? "blue":"red"}}"> Chưa phê duyệt</b></b>
+                                                <p><b>Phê duyệt: <b style="color: {{("Đồng ý" == $troubleshoot->approve_result) ? "blue":"red"}}"> Chưa phê duyệt</b></b>
                                             @endif
                                         @endif
                                     </div>
@@ -186,6 +171,26 @@
                                         @include('tickets.troubleshoots.actions.create', ['subject' => $description])
                                     @endif
                                 </div>
+
+                                <h5><b style="color:blue; float: left;">3. Xác định trách nhiệm:</b></h5>
+                                @if(\Auth::id() == $troubleshoot->troubleshooter_id && ('Đồng ý' != $troubleshoot->approve_result))
+                                    <span>
+                                        <a href="{{ route("troubleshoots.edit", $description->id) }}">
+                                            <button type="button" class="btn btn-warning btn-xs"><i class="fa fa-edit"><b> Cập nhật</b></i></button>
+                                        </a>
+                                    </span>
+                                @endif
+                                @if(isset($troubleshoot))
+                                    <div class="col-md-12">
+                                        @if($troubleshoot->responsibility)
+                                            <h5><b>Trách nhiệm:</b> {{$troubleshoot->responsibility->name}}</h5>
+                                        @endif
+                                        @if($troubleshoot->reason)
+                                            <h5><b>Lý do:</b></h5>
+                                            <p><i>{!! $troubleshoot->reason !!}</i></p>
+                                        @endif
+                                    </div>
+                                @endif
                             </el-tab-pane>
                             <el-tab-pane label="Phòng ngừa" name="prevents">
                                 <h5><b style="color:blue; float: left">4. Xem xét mức độ sự không phù hợp:</b></h5>
