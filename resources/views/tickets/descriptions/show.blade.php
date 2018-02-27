@@ -64,25 +64,29 @@
                                     <br>
                                 </div>
                                 <h5><b style="color:blue;float: left;">1. Mô tả vấn đề:</b>
-                                    <span>
-                                        <a style="float: left;" href="{{ route("descriptions.edit", $description->id) }}">
-                                            <button type="button" class="btn btn-warning btn-xs"><i class="fa fa-edit"><b> Cập nhật</b></i></button>
-                                        </a>
-                                    </span>
-                                    <span>
-                                        <form style="float: left;" action="{{ route('leaderConfirm', [$description->id, 'Xác nhận']) }}" method="POST">
-                                            {{ csrf_field() }}
-                                            {{ method_field('PATCH') }}
-                                            <button type="submit" class="btn btn-success btn-xs"><i class="fa fa-check-circle"> Chấp nhận</i></button>
-                                        </form>
-                                    </span>
-                                    <span>
-                                        <form action="{{ route('leaderConfirm', [$description->id, 'Không xác nhận']) }}" method="POST">
-                                            {{ csrf_field() }}
-                                            {{ method_field('PATCH') }}
-                                            <button type="submit" class="btn btn-danger btn-xs"><i class="fa fa-times-circle"> Từ chối</i></button>
-                                        </form>
-                                    </span>
+                                    @if(\Auth::id() == $description->user_id && !('Xác nhận' == $description->leader_confirmation_result))
+                                        <span>
+                                            <a style="float: left;" href="{{ route("descriptions.edit", $description->id) }}">
+                                                <button type="button" class="btn btn-warning btn-xs"><i class="fa fa-edit"><b> Cập nhật</b></i></button>
+                                            </a>
+                                        </span>
+                                    @endif
+                                    @if(\Auth::id() == $description->leader_id)
+                                        <span>
+                                            <form style="float: left;" action="{{ route('leaderConfirm', [$description->id, 'Xác nhận']) }}" method="POST">
+                                                {{ csrf_field() }}
+                                                {{ method_field('PATCH') }}
+                                                <button type="submit" class="btn btn-success btn-xs"><i class="fa fa-check-circle"> Chấp nhận</i></button>
+                                            </form>
+                                        </span>
+                                        <span>
+                                            <form action="{{ route('leaderConfirm', [$description->id, 'Không xác nhận']) }}" method="POST">
+                                                {{ csrf_field() }}
+                                                {{ method_field('PATCH') }}
+                                                <button type="submit" class="btn btn-danger btn-xs"><i class="fa fa-times-circle"> Từ chối</i></button>
+                                            </form>
+                                        </span>
+                                    @endif
                                 </h5>
                                 <table style="width:100%">
                                     <tr>

@@ -35,6 +35,18 @@ class DescriptionActionNotify
                     $action
                 ));
                 break;
+            case 'leader_approved':
+                $description->createdUser->notify(new DescriptionActionNotification(
+                    $description,
+                    $action
+                ));
+                break;
+            case 'leader_rejected':
+                $description->createdUser->notify(new DescriptionActionNotification(
+                    $description,
+                    $action
+                ));
+                break;
             default:
                 $description->assignedUser->notify(new DescriptionActionNotification(
                     $description,

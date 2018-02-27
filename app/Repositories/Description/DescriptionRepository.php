@@ -151,8 +151,9 @@ class DescriptionRepository implements DescriptionRepositoryContract
             ['image' => $filename]
         );
 
-
         $description->fill($input)->save();
+        event(new \App\Events\DescriptionAction($description, self::CREATED));
+
     }
 
     /**
