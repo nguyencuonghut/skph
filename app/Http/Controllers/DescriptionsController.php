@@ -154,9 +154,9 @@ class DescriptionsController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function effectivenessAsset($id, Request $request)
+    public function effectivenessAsset($id, $result)
     {
-        $this->descriptions->effectivenessAsset($id, $request);
+        $this->descriptions->effectivenessAsset($id, $result);
         Session()->flash('flash_message', 'Đánh giá hiệu quả thành công');
         return redirect()->back()->with('tab', 'prevents');
     }

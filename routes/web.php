@@ -37,7 +37,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'tickets'], function () {
     });
     Route::patch('descriptions/leaderconfirm/{id}', 'DescriptionsController@leaderConfirm');
-    Route::patch('descriptions/effectivenessasset/{id}', 'DescriptionsController@effectivenessAsset');
+    Route::patch('descriptions/effectivenessasset/{id}/{value}', 'DescriptionsController@effectivenessAsset')->name('effectivenessAsset');
     Route::get('descriptions/data', 'DescriptionsController@anyData')->name('descriptions.data');
     Route::get('descriptions/mycreateddata', 'DescriptionsController@myCreatedData')->name('descriptions.mycreateddata');
     Route::get('descriptions/myconfirmeddata', 'DescriptionsController@myConfirmedData')->name('descriptions.myconfirmeddata');

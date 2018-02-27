@@ -266,30 +266,56 @@
                                     @endif
                                 </div>
                                 <hr style="color:#337ab7; border-color:#337ab7; background-color:#337ab7">
-                                <h5><b style="color:blue">6. Đánh giá hiệu quả</b></h5>
-                                @if($description->effectiveness)
-                                    <p><b>Ticket được đánh giá hiệu quả <b style="color: {{("Thấp" == $description->effectiveness) ? "red":"blue"}}"> {{$description->effectiveness}}</b></b> (bởi {{$description->effectiveness_user->name}} vào
-                                        @if(date_diff(new DateTime('now'), $description->updated_at)->y)
-                                            {{ date_diff(new DateTime('now'), $description->updated_at)->y }} năm
-                                        @endif
-                                        @if(date_diff(new DateTime('now'), $description->updated_at)->m)
-                                            {{ date_diff(new DateTime('now'), $description->updated_at)->m }} tháng
-                                        @endif
-                                        @if(date_diff(new DateTime('now'), $description->updated_at)->d)
-                                            {{ date_diff(new DateTime('now'), $description->updated_at)->d }} ngày
-                                        @endif
-                                        @if(date_diff(new DateTime('now'), $description->updated_at)->h)
-                                            {{ date_diff(new DateTime('now'), $description->updated_at)->h }} giờ
-                                        @endif
-                                        @if(date_diff(new DateTime('now'), $description->updated_at)->i)
-                                            {{ date_diff(new DateTime('now'), $description->updated_at)->i }} phút
-                                        @else
-                                            0 phút
-                                        @endif
-                                        trước)</p>
-                                @else
-                                    <p><b>Ticket <b style="color: red">chưa</b> được đánh giá hiệu quả.</b>
-                                @endif
+                                <h5><b style="color:blue;float: left;">6. Đánh giá hiệu quả: &nbsp;</b></h5>
+                                    <span>
+                                        <form style="float: left;" action="{{ route('effectivenessAsset', [$description->id, 'Cao']) }}" method="POST">
+                                            {{ csrf_field() }}
+                                            {{ method_field('PATCH') }}
+                                            <button type="submit"  class="btn btn-success btn-xs"><i class="fa fa-thumbs-up"> Cao</i></button>
+                                        </form>
+                                    </span>
+                                    <span style="float: left;">&nbsp; </span>
+                                    <span>
+                                        <form  style="float: left;" action="{{ route('effectivenessAsset', [$description->id, 'Trung bình']) }}" method="POST">
+                                            {{ csrf_field() }}
+                                            {{ method_field('PATCH') }}
+                                            <button type="submit" class="btn btn-warning btn-xs"><i class="fa fa-hand-o-right"> Trung bình</i></button>
+                                        </form>
+                                    </span>
+                                    <span style="float: left;">&nbsp; </span>
+                                    <span>
+                                        <form action="{{ route('effectivenessAsset', [$description->id, 'Thấp']) }}" method="POST">
+                                            {{ csrf_field() }}
+                                            {{ method_field('PATCH') }}
+                                            <button type="submit" class="btn btn-danger btn-xs"><i class="fa fa-thumbs-down"> Thấp</i></button>
+                                        </form>
+                                    </span>
+
+                                <div class="col-md-12">
+                                    @if($description->effectiveness)
+                                        <p><b>Ticket được đánh giá hiệu quả <b style="color: {{("Thấp" == $description->effectiveness) ? "red":"blue"}}"> {{$description->effectiveness}}</b></b> (bởi {{$description->effectiveness_user->name}} vào
+                                            @if(date_diff(new DateTime('now'), $description->updated_at)->y)
+                                                {{ date_diff(new DateTime('now'), $description->updated_at)->y }} năm
+                                            @endif
+                                            @if(date_diff(new DateTime('now'), $description->updated_at)->m)
+                                                {{ date_diff(new DateTime('now'), $description->updated_at)->m }} tháng
+                                            @endif
+                                            @if(date_diff(new DateTime('now'), $description->updated_at)->d)
+                                                {{ date_diff(new DateTime('now'), $description->updated_at)->d }} ngày
+                                            @endif
+                                            @if(date_diff(new DateTime('now'), $description->updated_at)->h)
+                                                {{ date_diff(new DateTime('now'), $description->updated_at)->h }} giờ
+                                            @endif
+                                            @if(date_diff(new DateTime('now'), $description->updated_at)->i)
+                                                {{ date_diff(new DateTime('now'), $description->updated_at)->i }} phút
+                                            @else
+                                                0 phút
+                                            @endif
+                                            trước)</p>
+                                    @else
+                                        <p><b>Ticket <b style="color: red">chưa</b> được đánh giá hiệu quả.</b>
+                                    @endif
+                                </div>
                             </el-tab-pane>
                         </el-tabs>
                     </div>
@@ -382,19 +408,6 @@
                 @endforeach
             </select>
             {!! Form::submit(__('Người duyệt HĐ phòng ngừa'), ['class' => 'btn btn-primary form-control closebtn']) !!}
-            {!! Form::close() !!}
-
-            {!! Form::model($description, [
-                'method' => 'PATCH',
-                'url' => ['descriptions/effectivenessasset', $description->id],
-            ]) !!}
-            <select id="effectiveness" name="effectiveness" style="width:100%">
-                <option disabled selected value> -- select an option -- </option>
-                <option>Cao</option>
-                <option>Trung bình</option>
-                <option>Thấp</option>
-            </select>
-            {!! Form::submit(__('Đánh giá hiệu quả'), ['class' => 'btn btn-primary form-control closebtn']) !!}
             {!! Form::close() !!}
 
             <div class="activity-feed movedown">

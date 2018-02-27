@@ -153,12 +153,11 @@ class DescriptionRepository implements DescriptionRepositoryContract
      * @param $id
      * @param $requestData
      */
-    public function effectivenessAsset($id, $requestData)
+    public function effectivenessAsset($id, $result)
     {
         $description = Description::with('user')->findOrFail($id);
         $input = $requestData = array_merge(
-            $requestData->all(),
-            [   'effectiveness' => $requestData->effectiveness,
+            [   'effectiveness' => $result,
                 'effectiveness_user_id' => auth()->id()]
         );
 
