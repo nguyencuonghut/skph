@@ -161,7 +161,7 @@
                                         @if($troubleshoot->troubleshooter)
                                             <p><b>Người thực hiện:</b> {{$troubleshoot->troubleshooter->name}}</p>
                                             @if($troubleshoot->approve_result)
-                                                <p><b>Phê duyệt: <b style="color: {{("Đồng ý" == $troubleshoot->approve_result) ? "blue":"red"}}"> {{$troubleshoot->approve_result}}</b></b> (bởi {{$troubleshoot->approver->name}}</p>
+                                                <p><b>Phê duyệt: <b style="color: {{("Đồng ý" == $troubleshoot->approve_result) ? "blue":"red"}}"> {{$troubleshoot->approve_result}}</b></b> (bởi {{$troubleshoot->approver->name}})</p>
                                             @else
                                                     <p><b>Phê duyệt: <b style="color: {{("Đồng ý" == $troubleshoot->approve_result) ? "blue":"red"}}"> Chưa phê duyệt</b></b>
                                             @endif
