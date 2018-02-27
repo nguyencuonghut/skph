@@ -137,6 +137,7 @@
                                         @if($troubleshoot->reason)
                                             <h5><b>Lý do:</b></h5>
                                             <p><i>{!! $troubleshoot->reason !!}</i></p>
+                                        @endif
                                     </div>
                                 @endif
                                 <h5><b style="color:blue;float: left;">3. Thực hiện biện pháp khắc phục:</b></h5>
@@ -181,7 +182,6 @@
                                         @include('tickets.troubleshoots.actions.create', ['subject' => $description])
                                     @endif
                                 </div>
-                                @endif
                             </el-tab-pane>
                             <el-tab-pane label="Phòng ngừa" name="prevents">
                                 <h5><b style="color:blue; float: left">4. Xem xét mức độ sự không phù hợp:</b></h5>
@@ -442,12 +442,6 @@
 @stop
 
 @push('scripts')
-    <script type="text/javascript">
-        $("#approve_result").select2({
-            placeholder: "Chọn",
-            allowClear: true
-        });
-    </script>
     <script type="text/javascript">
         $("#troubleshooter_id").select2({
             placeholder: "Chọn",
