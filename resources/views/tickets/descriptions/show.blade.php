@@ -344,25 +344,7 @@
 
                                 <div class="col-md-12">
                                     @if($description->effectiveness)
-                                        <p><b>Ticket được đánh giá hiệu quả <b style="color: {{("Thấp" == $description->effectiveness) ? "red":"blue"}}"> {{$description->effectiveness}}</b></b> (bởi {{$description->effectiveness_user->name}} vào
-                                            @if(date_diff(new DateTime('now'), $description->updated_at)->y)
-                                                {{ date_diff(new DateTime('now'), $description->updated_at)->y }} năm
-                                            @endif
-                                            @if(date_diff(new DateTime('now'), $description->updated_at)->m)
-                                                {{ date_diff(new DateTime('now'), $description->updated_at)->m }} tháng
-                                            @endif
-                                            @if(date_diff(new DateTime('now'), $description->updated_at)->d)
-                                                {{ date_diff(new DateTime('now'), $description->updated_at)->d }} ngày
-                                            @endif
-                                            @if(date_diff(new DateTime('now'), $description->updated_at)->h)
-                                                {{ date_diff(new DateTime('now'), $description->updated_at)->h }} giờ
-                                            @endif
-                                            @if(date_diff(new DateTime('now'), $description->updated_at)->i)
-                                                {{ date_diff(new DateTime('now'), $description->updated_at)->i }} phút
-                                            @else
-                                                0 phút
-                                            @endif
-                                            trước)</p>
+                                        <p><b>Ticket được đánh giá hiệu quả <b style="color: {{("Thấp" == $description->effectiveness) ? "red":"blue"}}"> {{$description->effectiveness}}</b></b> (bởi {{$description->effectiveness_user->name}})</p>
                                     @else
                                         <p><b>Ticket <b style="color: red">chưa</b> được đánh giá hiệu quả.</b>
                                     @endif
