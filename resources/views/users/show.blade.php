@@ -38,18 +38,40 @@
         </div>
 
         <div class="panel panel-primary">
-            <div class="panel-heading">Dòng sự kiện</div>
+            <div class="panel-heading">Tất cả ticket</div>
             <div class="panel-body">
                 @foreach($descriptions as $description)
                 <div class="media">
                     <div class="media-left">
-                        <a href="#">
-                            <img class="media-object col-md-10" src={{url('/upload/' . $description->image)}} alt="...">
+                        <a href="{{route('descriptions.show', $description->id)}}">
+                            <img class="media-object" style="width: 50px;" src={{url('/upload/' . $description->image)}} alt="...">
                         </a>
                     </div>
                     <div class="media-body">
-                        <h4 class="media-heading">Media heading</h4>
-                        ...
+                        <a href="{{route('descriptions.show', $description->id)}}"><h5 class="media-heading">{{str_limit($description->title, 50)}}</h5></a>
+                        <i class="fa fa-check-circle" style="color:green">
+                            <i style="color: #333333">
+                                Tạo
+                                @if(date_diff(new DateTime('now'), $description->created_at)->y)
+                                    {{ date_diff(new DateTime('now'), $description->created_at)->y }} năm
+                                @endif
+                                @if(date_diff(new DateTime('now'), $description->created_at)->m)
+                                    {{ date_diff(new DateTime('now'), $description->created_at)->m }} tháng
+                                @endif
+                                @if(date_diff(new DateTime('now'), $description->created_at)->d)
+                                    {{ date_diff(new DateTime('now'), $description->created_at)->d }} ngày
+                                @endif
+                                @if(date_diff(new DateTime('now'), $description->created_at)->h)
+                                    {{ date_diff(new DateTime('now'), $description->created_at)->h }} giờ
+                                @endif
+                                @if(date_diff(new DateTime('now'), $description->created_at)->i)
+                                    {{ date_diff(new DateTime('now'), $description->created_at)->i }} phút
+                                @else
+                                    0 phút
+                                @endif
+                                trước bởi <b>{{$description->user->name}}</b>
+                            </i>
+                        </i>
                     </div>
                 </div>
                 @endforeach
