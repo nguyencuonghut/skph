@@ -29,26 +29,27 @@ class DescriptionActionLog
     {
         switch ($event->getAction()) {
             case 'created':
-                $text = __(':title được tạo bởi :creator và giao cho :assignee', [
+                $text = __('<b><i> :title </i></b> được tạo bởi :creator và giao cho :assignee', [
                         'title' => $event->getDescription()->title,
                         'creator' => $event->getDescription()->user->name,
                         'assignee' => $event->getDescription()->leader->name
                     ]);
                 break;
             case 'leader_approved':
-                $text = __(':title được xác nhận bởi :leader', [
+                $text = __('<b><i> :title </i></b> được <b style="color:blue"><i>đồng ý</i></b> xác nhận bởi :leader', [
                     'title' => $event->getDescription()->title,
                     'leader' => $event->getDescription()->leader->name
                 ]);
                 break;
             case 'leader_rejected':
-                $text = __(':title bị từ chối xác nhận bởi :leader', [
+                $text = __('<b><i> :title </i></b> bị <b style="color:red"><i>từ chối</i></b> xác nhận bởi :leader', [
                     'title' => $event->getDescription()->title,
                     'leader' => $event->getDescription()->leader->name
                 ]);
                 break;
             case 'effectiveness_asset':
-                $text = __('Ticket được đánh giá hiệu quả bởi :username', [
+                $text = __('<b><i> :title </i></b>, được đánh giá hiệu quả bởi :username', [
+                    'title' => $event->getDescription()->title,
                     'username' => Auth()->user()->name,
                 ]);
                 break;

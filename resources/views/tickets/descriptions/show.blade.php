@@ -412,7 +412,7 @@
                     @if($activity->action != 'effectiveness_asset')
                         <div class="feed-item">
                             <div class="activity-date">{{date('d, F Y H:i', strTotime($activity->created_at))}}</div>
-                            <div class="activity-text">{{$activity->text}}</div>
+                            <div class="activity-text">{!! $activity->text !!}</div>
                         </div>
                     @endif
                 @endforeach
@@ -420,14 +420,14 @@
                 @foreach($troubleshoot->activity as $activity)
                     <div class="feed-item">
                         <div class="activity-date">{{date('d, F Y H:i', strTotime($activity->created_at))}}</div>
-                        <div class="activity-text">{{$activity->text}}</div>
+                        <div class="activity-text">{!! $activity->text !!}</div>
                     </div>
                 @endforeach
 
                 @foreach($prevention->activity as $activity)
                     <div class="feed-item">
                         <div class="activity-date">{{date('d, F Y H:i', strTotime($activity->created_at))}}</div>
-                        <div class="activity-text">{{$activity->text}}</div>
+                        <div class="activity-text">{!! $activity->text !!}</div>
                     </div>
                 @endforeach
 
@@ -435,7 +435,7 @@
                     @if($activity->action == 'effectiveness_asset')
                         <div class="feed-item">
                             <div class="activity-date">{{date('d, F Y H:i', strTotime($activity->created_at))}}</div>
-                            <div class="activity-text">{{$activity->text}}</div>
+                            <div class="activity-text">{!! $activity->text !!}</div>
                         </div>
                     @endif
                 @endforeach

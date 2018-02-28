@@ -29,48 +29,48 @@ class TroubleshootActionLog
     {
         switch ($event->getAction()) {
             case 'created':
-                $text = __(':title được tạo bởi :creator và giao cho :assignee', [
+                $text = __('<b><i>:title</i></b> được tạo bởi :creator và giao cho :assignee', [
                         'title' => $event->getTroubleshoot()->title,
                         'creator' => $event->getTroubleshoot()->user->name,
                         'assignee' => $event->getTroubleshoot()->troubleshooter->name
                     ]);
                 break;
             case 'assigned_troubleshooter':
-                $text = __(':title, :username giao cho :assignee xử lý', [
+                $text = __('<b><i>:title</i></b>, :username giao cho :assignee xử lý', [
                         'title' => $event->getTroubleshoot()->descriptionTitle,
                         'username' => Auth()->user()->name,
                         'assignee' => $event->getTroubleshoot()->troubleshooter->name
                     ]);
                 break;
             case 'request_to_approve':
-                $text = __(':title, :username yêu cầu :assignee phê duyệt biện pháp khắc phục', [
+                $text = __('<b><i>:title</i></b>, :username yêu cầu :assignee phê duyệt biện pháp khắc phục', [
                     'title' => $event->getTroubleshoot()->descriptionTitle,
                     'username' => Auth()->user()->name,
                     'assignee' => $event->getTroubleshoot()->approver->name
                 ]);
                 break;
             case 'approved':
-                $text = __(':title, :assignee đã đồng ý biện pháp khắc phục', [
+                $text = __('<b><i>:title</i></b>, :assignee đã <b><i style="color:blue">đồng ý</i></b> biện pháp khắc phục', [
                     'title' => $event->getTroubleshoot()->descriptionTitle,
                     'username' => Auth()->user()->name,
                     'assignee' => $event->getTroubleshoot()->approver->name
                 ]);
                 break;
             case 'rejected':
-                $text = __(':title, :assignee đã từ chối biện pháp khắc phục', [
+                $text = __('<b><i>:title</i></b>, :assignee đã <b><i style="color:red">từ chối</i></b> biện pháp khắc phục', [
                     'title' => $event->getTroubleshoot()->descriptionTitle,
                     'username' => Auth()->user()->name,
                     'assignee' => $event->getTroubleshoot()->approver->name
                 ]);
                 break;
             case 'seriously':
-                $text = __(':title, :username đã đánh giá SKPH là nghiêm trọng', [
+                $text = __('<b><i>:title</i></b>, :username đã đánh giá SKPH là <b><i style="color:red">nghiêm trọng</i></b>', [
                     'title' => $event->getTroubleshoot()->descriptionTitle,
                     'username' => Auth()->user()->name
                 ]);
                 break;
             case 'normally':
-                $text = __(':title, :username đã đánh giá SKPH là không nghiêm trọng', [
+                $text = __('<b><i>:title</i></b>, :username đã đánh giá SKPH là <b><i style="color:blue">không nghiêm trọng</i></b>', [
                     'title' => $event->getTroubleshoot()->descriptionTitle,
                     'username' => Auth()->user()->name
                 ]);

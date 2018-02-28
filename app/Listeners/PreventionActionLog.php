@@ -29,49 +29,49 @@ class PreventionActionLog
     {
         switch ($event->getAction()) {
             case 'assigned_proposer':
-                $text = __(':title, :username giao cho :assignee đề xuất biện pháp phòng ngừa', [
+                $text = __('<b><i>:title</i></b>, :username giao cho :assignee đề xuất biện pháp phòng ngừa', [
                         'title' => $event->getPrevention()->descriptionTitle,
                         'username' => Auth()->user()->name,
                         'assignee' => $event->getPrevention()->proposer->name
                     ]);
                 break;
             case 'request_to_approve':
-                $text = __(':title, :username yêu cầu :assignee phê duyệt biện pháp phòng ngừa', [
+                $text = __('<b><i>:title</i></b>, :username yêu cầu :assignee phê duyệt biện pháp phòng ngừa', [
                     'title' => $event->getPrevention()->descriptionTitle,
                     'username' => Auth()->user()->name,
                     'assignee' => $event->getPrevention()->approver->name
                 ]);
                 break;
             case 'request_to_approve_root_cause':
-                $text = __(':title, :username yêu cầu :assignee phê duyệt nguyên nhân gốc rễ', [
+                $text = __('<b><i>:title</i></b>, :username yêu cầu :assignee phê duyệt nguyên nhân gốc rễ', [
                     'title' => $event->getPrevention()->descriptionTitle,
                     'username' => Auth()->user()->name,
                     'assignee' => $event->getPrevention()->root_cause_approver->name
                 ]);
                 break;
             case 'approved_prevention':
-                $text = __(':title, :assignee đã phê duyệt biện pháp phòng ngừa', [
+                $text = __('<b><i>:title</i></b>, :assignee đã <b><i style="color:blue">phê duyệt</i></b> biện pháp phòng ngừa', [
                     'title' => $event->getPrevention()->descriptionTitle,
                     'username' => Auth()->user()->name,
                     'assignee' => $event->getPrevention()->approver->name
                 ]);
                 break;
             case 'rejected_prevention':
-                $text = __(':title, :assignee đã bị từ chối biện pháp phòng ngừa', [
+                $text = __('<b><i>:title</i></b>, :assignee đã bị <b><i style="color:red">từ chối</i></b> biện pháp phòng ngừa', [
                     'title' => $event->getPrevention()->descriptionTitle,
                     'username' => Auth()->user()->name,
                     'assignee' => $event->getPrevention()->approver->name
                 ]);
                 break;
             case 'approved_root_cause':
-                $text = __(':title, :assignee đã đồng ý nguyên nhân gốc rễ', [
+                $text = __('<b><i>:title</i></b>, :assignee đã <b><i style="color:blue">đồng ý</i></b> nguyên nhân gốc rễ', [
                     'title' => $event->getPrevention()->descriptionTitle,
                     'username' => Auth()->user()->name,
                     'assignee' => $event->getPrevention()->root_cause_approver->name
                 ]);
                 break;
             case 'rejected_root_cause':
-                $text = __(':title, :assignee đã từ chối nguyên nhân gốc rễ', [
+                $text = __('<b><i>:title</i></b>, :assignee đã <b><i style="color:red">từ chối</i></b> nguyên nhân gốc rễ', [
                     'title' => $event->getPrevention()->descriptionTitle,
                     'username' => Auth()->user()->name,
                     'assignee' => $event->getPrevention()->root_cause_approver->name
