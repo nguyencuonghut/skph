@@ -156,7 +156,12 @@ class TroubleshootActionsController extends Controller
             ->add_column('edit', '
                 <a href="{{ route(\'troubleshootactions.edit\', $id) }}" class="btn btn-warning btn-xs" ><i class="fa fa-edit"></i></a>')
             ->add_column('markCompleted', '
-                <a href="{{ route(\'troubleshootActionMarkComplete\', $id) }}" class="btn btn-success btn-xs" ><i class="fa fa-check-circle"></i></a>')
+                <form action="{{ route(\'troubleshootActionMarkComplete\', $id) }}" method="POST">
+                    {{ csrf_field() }}
+                    {{ method_field(\'PATCH\') }}
+                    <button type="submit" class="btn btn-success btn-xs"><i class="fa fa-check-circle"></i></button>
+                </form>
+            ')
             ->make(true);
     }
 }

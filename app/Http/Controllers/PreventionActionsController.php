@@ -164,7 +164,11 @@ class PreventionActionsController extends Controller
             ->add_column('edit', '
                 <a href="{{ route(\'preventionactions.edit\', $id) }}" class="btn btn-warning btn-xs" ><i class="fa fa-edit"></i></a>')
             ->add_column('markCompleted', '
-                <a href="{{ route(\'preventionActionMarkComplete\', $id) }}" class="btn btn-success btn-xs" ><i class="fa fa-check-circle"></i></a>')
+                <form action="{{ route(\'preventionActionMarkComplete\', $id) }}" method="POST">
+                    {{ csrf_field() }}
+                    {{ method_field(\'PATCH\') }}
+                    <button type="submit" class="btn btn-success btn-xs"><i class="fa fa-check-circle"></i></button>
+                </form>                ')
             ->make(true);
     }
 }
