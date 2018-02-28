@@ -60,13 +60,13 @@ class PreventionActionNotify
                 ));
                 break;
             case 'approved_root_cause':
-                $prevention->rootcauseapprovedUser->notify(new PreventionActionNotification(
+                $prevention->assignedUser->notify(new PreventionActionNotification(
                     $prevention,
                     $action
                 ));
                 break;
             case 'rejected_root_cause':
-                $prevention->rootcauseapprovedUser->notify(new PreventionActionNotification(
+                $prevention->assignedUser->notify(new PreventionActionNotification(
                     $prevention,
                     $action
                 ));
