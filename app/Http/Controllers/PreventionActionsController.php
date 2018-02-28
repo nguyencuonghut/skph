@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\PreventionAction;
 use App\Models\User;
+use Datatables;
+use Carbon\Carbon;
 
 class PreventionActionsController extends Controller
 {
@@ -134,5 +136,33 @@ class PreventionActionsController extends Controller
             Session()->flash('flash_message_warning', 'Bạn không có quyền đánh dấu hoàn thành!');
             return redirect()->route("descriptions.show", $preventionaction->description_id)->with('tab', 'prevents');
         }
+    }
+
+
+    public function myActionsData()
+    {
+        $actions = PreventionAction::select(
+            ['id', 'action', 'budget', 'user_id', 'description_id', 'status', 'when']
+        )->where('user_id', \Auth::id())->orderBy('id', 'desc');
+        return Datatables::of($actions)
+            ->addColumn('action', function ($actions) {
+                return $actions->action;
+
+            })
+            ->editColumn('user_id', function ($actions) {
+                return $actions->user->name;
+            })
+            ->editColumn('status', function ($actions) {
+                return $actions->status;
+            })
+            ->editColumn('when', function ($actions) {
+                return $actions->when ? with(new Carbon($actions->when))
+                    ->format('d/m/Y') : '';
+            })
+            ->add_column('edit', '
+                <a href="{{ route(\'preventionactions.edit\', $id) }}" class="btn btn-warning btn-xs" ><i class="fa fa-edit"></i></a>')
+            ->add_column('markCompleted', '
+                <a href="{{ route(\'preventionActionMarkComplete\', $id) }}" class="btn btn-success btn-xs" ><i class="fa fa-check-circle"></i></a>')
+            ->make(true);
     }
 }

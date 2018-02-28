@@ -52,7 +52,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::patch('preventions/approverootcause/{id}/{result}', 'PreventionsController@approveRootcause')->name('approveRootcause');
 
     Route::patch('troubleshootactions/markcomplete/{id}', 'TroubleshootActionsController@markComplete')->name('troubleshootActionMarkComplete');
+    Route::get('troubleshootactions/myactionsdata', 'TroubleshootActionsController@myActionsData')->name('troubleshootactions.myactionsdata');
+
     Route::patch('preventionactions/markcomplete/{id}', 'PreventionActionsController@markComplete')->name('preventionActionMarkComplete');
+    Route::get('preventionactions/myactionsdata', 'PreventionActionsController@myActionsData')->name('preventionactions.myactionsdata');
+
 
     Route::resource('descriptions', 'DescriptionsController');
     Route::resource('troubleshoots', 'TroubleshootsController');

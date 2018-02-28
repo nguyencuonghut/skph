@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\TroubleshootAction;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Datatables;
+use Carbon\Carbon;
 
 class TroubleshootActionsController extends Controller
 {
@@ -127,5 +129,32 @@ class TroubleshootActionsController extends Controller
             Session()->flash('flash_message_warning', 'Bạn không có quyền đánh dấu hoàn thành!');
             return redirect()->route("descriptions.show", $troubleshootaction->description_id)->with('tab', 'troubleshoot');
         }
+    }
+
+    public function myActionsData()
+    {
+        $actions = TroubleshootAction::select(
+            ['id', 'action', 'user_id', 'description_id', 'status', 'deadline']
+        )->where('user_id', \Auth::id())->orderBy('id', 'desc');
+        return Datatables::of($actions)
+            ->addColumn('action', function ($actions) {
+                return $actions->action;
+
+            })
+            ->editColumn('user_id', function ($actions) {
+                return $actions->user->name;
+            })
+            ->editColumn('status', function ($actions) {
+                return $actions->status;
+            })
+            ->editColumn('deadline', function ($actions) {
+                return $actions->deadline ? with(new Carbon($actions->deadline))
+                    ->format('d/m/Y') : '';
+            })
+            ->add_column('edit', '
+                <a href="{{ route(\'troubleshootactions.edit\', $id) }}" class="btn btn-warning btn-xs" ><i class="fa fa-edit"></i></a>')
+            ->add_column('markCompleted', '
+                <a href="{{ route(\'troubleshootActionMarkComplete\', $id) }}" class="btn btn-success btn-xs" ><i class="fa fa-check-circle"></i></a>')
+            ->make(true);
     }
 }

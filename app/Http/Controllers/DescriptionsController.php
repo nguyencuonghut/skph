@@ -236,30 +236,4 @@ class DescriptionsController extends Controller
                 return $descriptions->leader_confirmation_result;
             })->make(true);
     }
-
-    public function myTroubleshootedData()
-    {
-        $descriptions = Description::select(
-            ['id', 'title', 'issue_date', 'answer_date', 'source_id', 'leader_confirmation_result']
-        )->where('leader_id', \Auth::id())->orderBy('id', 'desc')->get();
-        return Datatables::of($descriptions)
-            ->addColumn('titlelink', function ($descriptions) {
-                return '<a href="../descriptions/' . $descriptions->id . '" ">' . $descriptions->title . '</a>';
-
-            })
-            ->editColumn('issue_date', function ($descriptions) {
-                return $descriptions->issue_date ? with(new Carbon($descriptions->issue_date))
-                    ->format('d/m/Y') : '';
-            })
-            ->editColumn('answer_date', function ($descriptions) {
-                return $descriptions->answer_date ? with(new Carbon($descriptions->answer_date))
-                    ->format('d/m/Y') : '';
-            })
-            ->editColumn('source_id', function ($descriptions) {
-                return $descriptions->source->name;
-            })
-            ->addColumn('confirmation_result', function ($descriptions) {
-                return $descriptions->leader_confirmation_result;
-            })->make(true);
-    }
 }
