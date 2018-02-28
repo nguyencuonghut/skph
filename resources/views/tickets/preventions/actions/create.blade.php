@@ -56,42 +56,44 @@
     </div>
 @endif
 
-    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse" data-target="#prevention_id"><i class="fa fa-plus-circle"><b> Thêm biện pháp phòng ngừa</b></i></button>
+    @if(\Auth::id() == $prevention->proposer_id)
+        <button type="button" class="btn btn-success btn-sm" data-toggle="collapse" data-target="#prevention_id"><i class="fa fa-plus-circle"><b> Thêm biện pháp phòng ngừa</b></i></button>
 
-    {!! Form::open([
-            'route' => ['preventionactions.store', $subject->id],
-            ]) !!}
-    <div class="form-group panel-collapse collapse" id="prevention_id">
-        {!! Form::label('action', __('Hành động phòng ngừa'), ['class' => 'control-label']) !!}
-        {!! Form::text('action', null, ['class' => 'form-control', 'id' => 'action']) !!}
-        <div class="form-inline">
-            <div class="form-group col-sm-6 removeleft ">
-                {!! Form::label('budget', __('Ngân sách'), ['class' => 'control-label']) !!}
-                {!! Form::number('budget', null, ['class' => 'form-control', 'id' => 'action']) !!}
+        {!! Form::open([
+                'route' => ['preventionactions.store', $subject->id],
+                ]) !!}
+        <div class="form-group panel-collapse collapse" id="prevention_id">
+            {!! Form::label('action', __('Hành động phòng ngừa'), ['class' => 'control-label']) !!}
+            {!! Form::text('action', null, ['class' => 'form-control', 'id' => 'action']) !!}
+            <div class="form-inline">
+                <div class="form-group col-sm-6 removeleft ">
+                    {!! Form::label('budget', __('Ngân sách'), ['class' => 'control-label']) !!}
+                    {!! Form::number('budget', null, ['class' => 'form-control', 'id' => 'action']) !!}
 
-                {!! Form::label('user_id', __('Ai làm ?'), ['class' => 'control-label']) !!}
-                <select name="user_incharge_id" id="user_incharge_id" class="form-control" style="width:100%">
-                    <option disabled selected value> {{ __('Chọn') }} </option>
-                    @foreach ($users as $user)
-                        <option value="{{ $user->id }}">{{ $user->name }}</option>
-                    @endforeach
-                </select>
+                    {!! Form::label('user_id', __('Ai làm ?'), ['class' => 'control-label']) !!}
+                    <select name="user_incharge_id" id="user_incharge_id" class="form-control" style="width:100%">
+                        <option disabled selected value> {{ __('Chọn') }} </option>
+                        @foreach ($users as $user)
+                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group col-sm-6 removeright ">
+                    {!! Form::label('where', __('Làm ở đâu ?'), ['class' => 'control-label']) !!}
+                    {!! Form::text('where', null, ['class' => 'form-control', 'id' => 'action']) !!}
+
+                    {!! Form::label('when', __('Làm khi nào ?'), ['class' => 'control-label']) !!}
+                    {!! Form::date('when', \Carbon\Carbon::now()->addDays(3), ['class' => 'form-control']) !!}
+                </div>
             </div>
-            <div class="form-group col-sm-6 removeright ">
-                {!! Form::label('where', __('Làm ở đâu ?'), ['class' => 'control-label']) !!}
-                {!! Form::text('where', null, ['class' => 'form-control', 'id' => 'action']) !!}
+            {!! Form::label('how', __('Làm như thế nào ?'), ['class' => 'control-label']) !!}
+            {!! Form::text('how', null, ['class' => 'form-control', 'id' => 'action']) !!}
 
-                {!! Form::label('when', __('Làm khi nào ?'), ['class' => 'control-label']) !!}
-                {!! Form::date('when', \Carbon\Carbon::now()->addDays(3), ['class' => 'form-control']) !!}
-            </div>
+            <br>
+            {!! Form::submit( __('Thêm') , ['class' => 'btn btn-primary']) !!}
         </div>
-        {!! Form::label('how', __('Làm như thế nào ?'), ['class' => 'control-label']) !!}
-        {!! Form::text('how', null, ['class' => 'form-control', 'id' => 'action']) !!}
-
-        <br>
-        {!! Form::submit( __('Thêm') , ['class' => 'btn btn-primary']) !!}
-    </div>
-    {!! Form::close() !!}
+        {!! Form::close() !!}
+    @endif
 
 
 @push('scripts')

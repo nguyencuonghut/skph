@@ -309,13 +309,11 @@
                                     @endif
                                 </div>
 
-                                @if(\Auth::id() == $prevention->proposer_id)
-                                    <div class="col-md-12">
-                                        @if($prevention->proposer)
-                                            @include('tickets.preventions.actions.create', ['subject' => $prevention])
-                                        @endif
-                                    </div>
-                                @endif
+                                <div class="col-md-12">
+                                    @if($prevention->proposer)
+                                        @include('tickets.preventions.actions.create', ['subject' => $prevention])
+                                    @endif
+                                </div>
                                 <hr style="color:#337ab7; border-color:#337ab7; background-color:#337ab7">
                                 <h5><b style="color:blue;float: left;">6. Đánh giá hiệu quả: &nbsp;</b></h5>
                                 @if(\Auth::id() == $prevention->approver_id)
