@@ -64,45 +64,45 @@ class PreventionActionNotification extends Notification
     {
         switch ($this->action) {
             case 'assigned_proposer':
-                $text = __(':username giao cho bạn đề xuất biện pháp phòng ngừa', [
-                    'title' =>  $this->prevention->proposer->name,
+                $text = __(':title, :username giao cho bạn đề xuất biện pháp phòng ngừa', [
+                    'title' =>  $this->prevention->descriptionTitle,
                     'username' =>  Auth()->user()->name,
                     ]);
                 break;
             case 'request_to_approve':
-                $text = __(':username yêu cầu bạn phê duyệt biện pháp phòng ngừa', [
-                    'title' =>  $this->prevention->proposer->name,
+                $text = __(':title, :username yêu cầu bạn phê duyệt biện pháp phòng ngừa', [
+                    'title' =>  $this->prevention->descriptionTitle,
                     'username' =>  Auth()->user()->name,
                 ]);
                 break;
             case 'request_to_approve_root_cause':
-                $text = __(':username yêu cầu bạn phê duyệt nguyên nhân gốc rễ', [
-                    'title' =>  $this->prevention->proposer->name,
+                $text = __(':title, :username yêu cầu bạn phê duyệt nguyên nhân gốc rễ', [
+                    'title' =>  $this->prevention->descriptionTitle,
                     'username' =>  Auth()->user()->name,
                 ]);
                 break;
             case 'approved_prevention':
-                $text = __(':approver đã phê duyệt biện pháp phòng ngừa của bạn', [
+                $text = __(':title, :approver đã phê duyệt biện pháp phòng ngừa của bạn', [
                     'approver' =>  $this->prevention->approver->name,
-                    'username' =>  Auth()->user()->name,
+                    'title' =>  $this->prevention->descriptionTitle,
                 ]);
                 break;
             case 'rejected_prevention':
-                $text = __(':approver đã từ chối biện pháp phòng ngừa của bạn', [
+                $text = __(':title, :approver đã từ chối biện pháp phòng ngừa của bạn', [
                     'approver' =>  $this->prevention->approver->name,
-                    'username' =>  Auth()->user()->name,
+                    'title' =>  $this->prevention->descriptionTitle,
                 ]);
                 break;
             case 'approved_root_cause':
-                $text = __(':approver đã đồng ý nguyên nhân gốc rễ của bạn', [
+                $text = __(':title, :approver đã đồng ý nguyên nhân gốc rễ của bạn', [
                     'approver' =>  $this->prevention->approver->name,
-                    'username' =>  Auth()->user()->name,
+                    'title' =>  $this->prevention->descriptionTitle,
                 ]);
                 break;
             case 'rejected_root_cause':
-                $text = __(':approver đã từ chối nguyên nhân gốc rễ của bạn', [
+                $text = __(':title, :approver đã từ chối nguyên nhân gốc rễ của bạn', [
                     'approver' =>  $this->prevention->approver->name,
-                    'username' =>  Auth()->user()->name,
+                    'title' =>  $this->prevention->descriptionTitle,
                 ]);
                 break;
             default:

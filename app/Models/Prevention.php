@@ -45,6 +45,12 @@ class Prevention extends Model
         return User::findOrFail($this->root_cause_approver_id);
     }
 
+    public function getDescriptionTitleAttribute()
+    {
+        $description = Description::findOrFail($this->id);
+        return $description->title;
+    }
+
     public function activity()
     {
         return $this->morphMany(Activity::class, 'source');

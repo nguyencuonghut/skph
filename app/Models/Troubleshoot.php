@@ -58,6 +58,11 @@ class Troubleshoot extends Model
         return User::findOrFail($this->approver_id);
     }
 
+    public function getDescriptionTitleAttribute()
+    {
+        $description = Description::findOrFail($this->id);
+        return $description->title;
+    }
 
     public function activity()
     {

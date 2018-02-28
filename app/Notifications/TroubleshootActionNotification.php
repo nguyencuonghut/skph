@@ -65,40 +65,43 @@ class TroubleshootActionNotification extends Notification
         switch ($this->action) {
             case 'created':
                 $text = __(':title được tạo bởi :creator, và giao cho bạn', [
-                    'title' =>  $this->troubleshoot->title,
+                    'title' =>  $this->troubleshoot->descriptionTitle,
                     'creator' => $this->troubleshoot->user->name,
                     ]);
                 break;
             case 'assigned_troubleshooter':
-                $text = __(':username giao cho bạn xử lý vấn đề', [
-                    'title' =>  $this->troubleshoot->troubleshooter->name,
+                $text = __(':title, :username giao cho bạn xử lý vấn đề', [
+                    'title' =>  $this->troubleshoot->descriptionTitle,
                     'username' =>  Auth()->user()->name,
                     ]);
                 break;
             case 'request_to_approve':
-                $text = __(':username yêu cầu bạn phê duyệt biện pháp khắc phục', [
+                $text = __(':title, :username yêu cầu bạn phê duyệt biện pháp khắc phục', [
+                    'title' =>  $this->troubleshoot->descriptionTitle,
                     'username' =>  Auth()->user()->name,
                 ]);
                 break;
             case 'approved':
-                $text = __(':approver đã đồng ý biện pháp khắc phục của bạn', [
+                $text = __(':title, :approver đã đồng ý biện pháp khắc phục của bạn', [
+                    'title' =>  $this->troubleshoot->descriptionTitle,
                     'approver' =>  $this->troubleshoot->approver->name,
-                    'username' =>  Auth()->user()->name,
                 ]);
                 break;
             case 'rejected':
-                $text = __(':approver đã từ chối biện pháp khắc phục của bạn', [
+                $text = __(':title, :approver đã từ chối biện pháp khắc phục của bạn', [
+                    'title' =>  $this->troubleshoot->descriptionTitle,
                     'approver' =>  $this->troubleshoot->approver->name,
-                    'username' =>  Auth()->user()->name,
                 ]);
                 break;
             case 'seriously':
-                $text = __(':approver đã đánh giá SKPH của bạn là nghiêm trọng', [
+                $text = __(':title, :approver đã đánh giá SKPH của bạn là nghiêm trọng', [
+                    'title' =>  $this->troubleshoot->descriptionTitle,
                     'approver' =>  $this->troubleshoot->evaluater->name,
                 ]);
                 break;
             case 'normally':
-                $text = __(':approver đã đánh giá SKPH của bạn là không nghiêm trọng', [
+                $text = __(':title, :approver đã đánh giá SKPH của bạn là không nghiêm trọng', [
+                    'title' =>  $this->troubleshoot->descriptionTitle,
                     'approver' =>  $this->troubleshoot->evaluater->name,
                 ]);
                 break;
