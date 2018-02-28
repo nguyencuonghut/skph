@@ -78,15 +78,15 @@ class PermissionsTableSeeder extends Seeder
          */
 
         $createDescription = new Permissions;
-        $createDescription->display_name = 'Create ticket description';
+        $createDescription->display_name = 'Create ticket';
         $createDescription->name = 'description-create';
-        $createDescription->description = 'Permission to create ticket description';
+        $createDescription->description = 'Permission to create ticket';
         $createDescription->save();
 
         $updateDescription = new Permissions;
-        $updateDescription->display_name = 'Update ticket description';
+        $updateDescription->display_name = 'Update ticket';
         $updateDescription->name = 'description-update';
-        $updateDescription->description = 'Permission to update ticket description';
+        $updateDescription->description = 'Permission to update ticket';
         $updateDescription->save();
 
          /**

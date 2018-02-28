@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\Description;
 use Gate;
 use Carbon;
 use Datatables;
@@ -190,7 +191,8 @@ class UsersController extends Controller
             ->withUser($this->users->find($id))
             ->withCompanyname($this->settings->getCompanyName())
             ->withTaskStatistics($this->tasks->totalOpenAndClosedTasks($id))
-            ->withLeadStatistics($this->leads->totalOpenAndClosedLeads($id));
+            ->withLeadStatistics($this->leads->totalOpenAndClosedLeads($id))
+            ->withDescriptions(Description::all());
     }
 
     /**

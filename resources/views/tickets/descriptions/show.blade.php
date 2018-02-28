@@ -127,7 +127,27 @@
                                 </table>
                             </el-tab-pane>
                             <el-tab-pane label="Khắc phục" name="troubleshoot">
-                                <h5><b style="color:blue;float: left;">2. Thực hiện biện pháp khắc phục:</b></h5>
+                                <h5><b style="color:blue; float: left;">2. Xác định trách nhiệm:</b></h5>
+                                @if(\Auth::id() == $troubleshoot->troubleshooter_id && ('Đồng ý' != $troubleshoot->approve_result))
+                                    <span>
+                                        <a href="{{ route("troubleshoots.edit", $description->id) }}">
+                                            <button type="button" class="btn btn-warning btn-xs"><i class="fa fa-edit"><b> Cập nhật</b></i></button>
+                                        </a>
+                                    </span>
+                                @endif
+                                @if(isset($troubleshoot))
+                                    <div class="col-md-12">
+                                        @if($troubleshoot->responsibility)
+                                            <h5><b>Trách nhiệm:</b> {{$troubleshoot->responsibility->name}}</h5>
+                                        @endif
+                                        @if($troubleshoot->reason)
+                                            <h5><b>Lý do:</b></h5>
+                                            <p><i>{!! $troubleshoot->reason !!}</i></p>
+                                        @endif
+                                    </div>
+                                @endif
+
+                                <h5><b style="color:blue;float: left;">3. Thực hiện biện pháp khắc phục:</b></h5>
                                 @if(\Auth::id() == $troubleshoot->approver_id)
                                     <span>
                                         <form style="float: left;" action="{{ route('approve', [$troubleshoot->id, 'Đồng ý']) }}" method="POST">
@@ -171,26 +191,6 @@
                                         @include('tickets.troubleshoots.actions.create', ['subject' => $description])
                                     @endif
                                 </div>
-
-                                <h5><b style="color:blue; float: left;">3. Xác định trách nhiệm:</b></h5>
-                                @if(\Auth::id() == $troubleshoot->troubleshooter_id && ('Đồng ý' != $troubleshoot->approve_result))
-                                    <span>
-                                        <a href="{{ route("troubleshoots.edit", $description->id) }}">
-                                            <button type="button" class="btn btn-warning btn-xs"><i class="fa fa-edit"><b> Cập nhật</b></i></button>
-                                        </a>
-                                    </span>
-                                @endif
-                                @if(isset($troubleshoot))
-                                    <div class="col-md-12">
-                                        @if($troubleshoot->responsibility)
-                                            <h5><b>Trách nhiệm:</b> {{$troubleshoot->responsibility->name}}</h5>
-                                        @endif
-                                        @if($troubleshoot->reason)
-                                            <h5><b>Lý do:</b></h5>
-                                            <p><i>{!! $troubleshoot->reason !!}</i></p>
-                                        @endif
-                                    </div>
-                                @endif
                             </el-tab-pane>
                             <el-tab-pane label="Phòng ngừa" name="prevents">
                                 <h5><b style="color:blue; float: left">4. Xem xét mức độ sự không phù hợp:</b></h5>
@@ -226,7 +226,7 @@
                                         @endif
                                     </p>
                                         <p><b>Nguyên nhân gốc rễ:</b>
-                                            @if((\Auth::id() == $prevention->proposer_id) && ('Không đồng ý' == $prevention->root_cause_approve_result))
+                                            @if((\Auth::id() == $prevention->proposer_id))
                                                 <span>
                                                     <a href="{{ route("preventions.edit", $prevention->id) }}">
                                                         <button type="button" class="btn btn-warning btn-xs"><i class="fa fa-edit"><b> Cập nhật</b></i></button>
@@ -361,7 +361,7 @@
         </div>
         <div class="col-md-3">
             <div class="sidebarheader" style="margin-top: 0px; background-color:#337ab7;">
-                <p>{{ __('Cập nhật Ticket') }}</p>
+                <p style="text-align: center">{{ __('Phân công người xử lý') }}</p>
             </div>
 
             @if(\Auth::id() == $description->leader_id)

@@ -89,7 +89,7 @@ class TroubleshootsController extends Controller
     public function update(Request $request, $id)
     {
         $this->troubleshoots->update($id, $request);
-        Session()->flash('flash_message', 'Sửa thành công!');
+        Session()->flash('flash_message', 'Cập nhật thành công!');
         return redirect()->route("descriptions.show", $id)->with('tab', 'troubleshoot');
     }
 

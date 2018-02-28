@@ -64,16 +64,40 @@ class RolePermissionTableSeeder extends Seeder
         $updateTask->timestamps = false;
         $updateTask->save();
 
-        $createLead = new PermissionRole;
-        $createLead->role_id = '1';
-        $createLead->permission_id = '9';
-        $createLead->timestamps = false;
-        $createLead->save();
+        $createDescription = new PermissionRole;
+        $createDescription->role_id = '1';
+        $createDescription->permission_id = '9';
+        $createDescription->timestamps = false;
+        $createDescription->save();
 
-        $updateLead = new PermissionRole;
-        $updateLead->role_id = '1';
-        $updateLead->permission_id = '10';
-        $updateLead->timestamps = false;
-        $updateLead->save();
+        $updateDescription = new PermissionRole;
+        $updateDescription->role_id = '1';
+        $updateDescription->permission_id = '10';
+        $updateDescription->timestamps = false;
+        $updateDescription->save();
+
+        $createDescription = new PermissionRole;
+        $createDescription->role_id = '2';
+        $createDescription->permission_id = '9';
+        $createDescription->timestamps = false;
+        $createDescription->save();
+
+        $updateDescription = new PermissionRole;
+        $updateDescription->role_id = '2';
+        $updateDescription->permission_id = '10';
+        $updateDescription->timestamps = false;
+        $updateDescription->save();
+
+        $createDescription = new PermissionRole;
+        $createDescription->role_id = '3';
+        $createDescription->permission_id = '9';
+        $createDescription->timestamps = false;
+        $createDescription->save();
+
+        $updateDescription = new PermissionRole;
+        $updateDescription->role_id = '3';
+        $updateDescription->permission_id = '10';
+        $updateDescription->timestamps = false;
+        $updateDescription->save();
     }
 }

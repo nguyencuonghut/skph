@@ -36,6 +36,25 @@
                 </table>
             </div>
         </div>
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">Dòng sự kiện</div>
+            <div class="panel-body">
+                @foreach($descriptions as $description)
+                <div class="media">
+                    <div class="media-left">
+                        <a href="#">
+                            <img class="media-object col-md-10" src={{url('/upload/' . $description->image)}} alt="...">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading">Media heading</h4>
+                        ...
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
     </div>
     <div class="col-sm-6 removeright">
         <div class="panel panel-primary">
