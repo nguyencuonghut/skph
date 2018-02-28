@@ -37,7 +37,7 @@ class DescriptionActionNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database', 'mail'];
     }
 
     /**
@@ -48,10 +48,56 @@ class DescriptionActionNotification extends Notification
      */
     public function toMail($notifiable)
     {
-       /* return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', 'https://laravel.com')
-                    ->line('Thank you for using our application!'); */
+        $url = url('/descriptions/'.$this->description->id);
+        switch ($this->action) {
+            case 'created':
+                $text = __(':title được tạo bởi :creator, và giao cho bạn', [
+                    'title' =>  $this->description->title,
+                    'creator' => $this->description->user->name,
+                ]);
+                break;
+            case 'leader_approved':
+                $text = __(':title được xác nhận bởi :leader', [
+                    'title' =>  $this->description->title,
+                    'leader' => $this->description->leader->name,
+                ]);
+                break;
+            case 'leader_rejected':
+                $text = __(':title bị từ chối xác nhận bởi :leader', [
+                    'title' =>  $this->description->title,
+                    'leader' => $this->description->leader->name,
+                ]);
+                break;
+            case 'effectiveness_asset':
+                $text = __(':title được đánh giá hiệu quả bởi :username', [
+                    'title' =>  $this->description->title,
+                    'username' => $this->description->effectiveness_user->name,
+                ]);
+                break;
+            case 'updated_status':
+                $text = __(':title được đánh dấu hoàn thành bởi :username', [
+                    'title' =>  $this->description->title,
+                    'username' =>  Auth()->user()->name,
+                ]);
+                break;
+            case 'updated_time':
+                $text = __(':username inserted a new time for :title', [
+                    'title' =>  $this->description->title,
+                    'username' =>  Auth()->user()->name,
+                ]);
+                break;
+            case 'updated_assign':
+                $text = __(':username assigned a task to you', [
+                    'title' =>  $this->description->title,
+                    'username' =>  Auth()->user()->name,
+                ]);
+                break;
+            default:
+                break;
+        }
+       return (new MailMessage)
+                    ->action('Thông báo', $url)
+                    ->line($text);
     }
 
     /**
