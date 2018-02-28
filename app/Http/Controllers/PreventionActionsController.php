@@ -70,9 +70,14 @@ class PreventionActionsController extends Controller
     public function edit($id)
     {
         $preventionaction = PreventionAction::findOrFail($id);
-        return view('tickets.preventions.actions.edit')
-            ->withPreventionaction($preventionaction)
-            ->withUsers(User::all()->pluck('name', 'id'));
+        if(\Auth::id() == $preventionaction->user_id){
+            return view('tickets.preventions.actions.edit')
+                ->withPreventionaction($preventionaction)
+                ->withUsers(User::all()->pluck('name', 'id'));
+        }else{
+            Session()->flash('flash_message_warning', 'Bạn không có quyền sửa!');
+            return redirect()->route("descriptions.show", $preventionaction->description_id)->with('tab', 'prevents');
+        }
     }
 
     /**
@@ -118,10 +123,16 @@ class PreventionActionsController extends Controller
     public function markComplete($id)
     {
         $preventionaction = PreventionAction::findOrFail($id);
-        $preventionaction->status = 'Closed';
-        $preventionaction->save();
 
-        Session()->flash('flash_message', 'Đã hoàn thành một hành động khắc phục!');
-        return redirect()->route("descriptions.show", $preventionaction->description_id)->with('tab', 'prevents');
+        if(\Auth::id() == $preventionaction->user_id) {
+            $preventionaction->status = 'Closed';
+            $preventionaction->save();
+
+            Session()->flash('flash_message', 'Đã hoàn thành một hành động khắc phục!');
+            return redirect()->route("descriptions.show", $preventionaction->description_id)->with('tab', 'prevents');
+        }else{
+            Session()->flash('flash_message_warning', 'Bạn không có quyền đánh dấu hoàn thành!');
+            return redirect()->route("descriptions.show", $preventionaction->description_id)->with('tab', 'prevents');
+        }
     }
 }

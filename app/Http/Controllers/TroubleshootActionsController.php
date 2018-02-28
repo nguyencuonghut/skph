@@ -67,9 +67,14 @@ class TroubleshootActionsController extends Controller
     public function edit($id)
     {
         $troubleshootaction = TroubleshootAction::findOrFail($id);
-        return view('tickets.troubleshoots.actions.edit')
-            ->withTroubleshootaction($troubleshootaction)
-            ->withUsers(User::all()->pluck('name', 'id'));
+        if(\Auth::id() == $troubleshootaction->user_id){
+            return view('tickets.troubleshoots.actions.edit')
+                ->withTroubleshootaction($troubleshootaction)
+                ->withUsers(User::all()->pluck('name', 'id'));
+        }else{
+            Session()->flash('flash_message_warning', 'Bạn không có quyền cập nhật!');
+            return redirect()->route("descriptions.show", $troubleshootaction->description_id)->with('tab', 'troubleshoot');
+        }
     }
 
     /**
@@ -112,10 +117,15 @@ class TroubleshootActionsController extends Controller
     public function markComplete($id)
     {
         $troubleshootaction = TroubleshootAction::findOrFail($id);
-        $troubleshootaction->status = 'Closed';
-        $troubleshootaction->save();
+        if(\Auth::id() == $troubleshootaction->user_id) {
+            $troubleshootaction->status = 'Closed';
+            $troubleshootaction->save();
 
-        Session()->flash('flash_message', 'Đã hoàn thành một hành động khắc phục!');
-        return redirect()->route("descriptions.show", $troubleshootaction->description_id)->with('tab', 'troubleshoot');
+            Session()->flash('flash_message', 'Đã hoàn thành một hành động khắc phục!');
+            return redirect()->route("descriptions.show", $troubleshootaction->description_id)->with('tab', 'troubleshoot');
+        }else{
+            Session()->flash('flash_message_warning', 'Bạn không có quyền đánh dấu hoàn thành!');
+            return redirect()->route("descriptions.show", $troubleshootaction->description_id)->with('tab', 'troubleshoot');
+        }
     }
 }
