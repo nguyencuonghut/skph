@@ -29,7 +29,7 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                                <label class="col-md-4 control-label">Password</label>
+                                <label class="col-md-4 control-label">Mật khẩu</label>
 
                                 <div class="col-md-6">
                                     <input type="password" class="form-control" name="password">
@@ -43,7 +43,7 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                                <label class="col-md-4 control-label">Confirm Password</label>
+                                <label class="col-md-4 control-label">Xác nhận mật khẩu</label>
                                 <div class="col-md-6">
                                     <input type="password" class="form-control" name="password_confirmation">
 
@@ -58,7 +58,7 @@
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary">
-                                        <i class="fa fa-btn fa-refresh"></i>Reset Password
+                                        <i class="fa fa-btn fa-refresh"></i>Đặt lại mật khẩu
                                     </button>
                                 </div>
                             </div>

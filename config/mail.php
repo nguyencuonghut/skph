@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'from' => ['address' => null, 'name' => null],
+    'from' => ['address' => 'nguyenvancuong@honghafeed.com.vn', 'name' => 'Admin C.A.R'],
 
     /*
     |--------------------------------------------------------------------------
