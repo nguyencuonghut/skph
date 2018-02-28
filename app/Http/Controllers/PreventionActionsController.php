@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Prevention;
 use Illuminate\Http\Request;
 use App\Models\PreventionAction;
 use App\Models\User;
@@ -72,7 +73,8 @@ class PreventionActionsController extends Controller
     public function edit($id)
     {
         $preventionaction = PreventionAction::findOrFail($id);
-        if(\Auth::id() == $preventionaction->user_id){
+        $prevention = Prevention::findOrFail($preventionaction->description_id);
+        if((\Auth::id() == $preventionaction->user_id) || (\Auth::id() == $prevention->proposer_id)){
             return view('tickets.preventions.actions.edit')
                 ->withPreventionaction($preventionaction)
                 ->withUsers(User::all()->pluck('name', 'id'));

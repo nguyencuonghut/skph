@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Troubleshoot;
 use App\Models\TroubleshootAction;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -69,7 +70,8 @@ class TroubleshootActionsController extends Controller
     public function edit($id)
     {
         $troubleshootaction = TroubleshootAction::findOrFail($id);
-        if(\Auth::id() == $troubleshootaction->user_id){
+        $troubleshoot = Troubleshoot::findOrFail($troubleshootaction->description_id);
+        if((\Auth::id() == $troubleshootaction->user_id)  || (\Auth::id() == $troubleshoot->troubleshooter_id)){
             return view('tickets.troubleshoots.actions.edit')
                 ->withTroubleshootaction($troubleshootaction)
                 ->withUsers(User::all()->pluck('name', 'id'));
