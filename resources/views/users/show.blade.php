@@ -1,6 +1,6 @@
 @extends('layouts.master')
-    @section('content')
-    @include('partials.userheader')
+@section('content')
+
 <div class="col-sm-12">
     <br>
     <div class="col-sm-6 removeleft">
@@ -13,7 +13,6 @@
                         <th>{{ __('Tiêu đề') }}</th>
                         <th>{{ __('Ngày tạo') }}</th>
                         <th>{{ __('Hạn trả lời') }}</th>
-                        <th>{{ __('Nguồn gốc') }}</th>
                     </tr>
                     </thead>
                 </table>
@@ -38,20 +37,19 @@
         </div>
 
         <div class="panel panel-primary">
-            <div class="panel-heading">Tất cả ticket</div>
+            <div class="panel-heading">Ticket tạo gần đây</div>
             <div class="panel-body">
-                @foreach($descriptions as $description)
+                @foreach($descriptions->slice(0, 5) as $description)
                 <div class="media">
                     <div class="media-left">
                         <a href="{{route('descriptions.show', $description->id)}}">
-                            <img class="media-object" style="width: 50px;" src={{url('/upload/' . $description->image)}} alt="...">
+                            <img class="media-object" style="width: 100px;" src={{url('/upload/' . $description->image)}} alt="...">
                         </a>
                     </div>
                     <div class="media-body">
-                        <a href="{{route('descriptions.show', $description->id)}}"><h5 class="media-heading">{{str_limit($description->title, 50)}}</h5></a>
+                        <a href="{{route('descriptions.show', $description->id)}}"><h5 class="media-heading">{{str_limit($description->title, 40)}}</h5></a>
                         <i class="fa fa-check-circle" style="color:green">
                             <i style="color: #333333">
-                                Tạo
                                 @if(date_diff(new DateTime('now'), $description->created_at)->y)
                                     {{ date_diff(new DateTime('now'), $description->created_at)->y }} năm
                                 @endif
@@ -72,6 +70,44 @@
                                 trước bởi <b>{{$description->user->name}}</b>
                             </i>
                         </i>
+                        <br>
+                        <?php
+                        $troubleshoot_action_cnt = \Illuminate\Support\Facades\DB::table('troubleshoot_actions')->where('description_id', $description->id)->count();
+                        $troubleshoot_completed_action_cnt = \Illuminate\Support\Facades\DB::table('troubleshoot_actions')->where('description_id', $description->id)->where('status', 'Closed')->count();
+                        if(0 == $troubleshoot_action_cnt) {
+                            $troubleshoot_per = 0;
+                        } else {
+                            $troubleshoot_per = (int)(($troubleshoot_completed_action_cnt/$troubleshoot_action_cnt)*100);
+                        }
+
+                        $prevention_action_cnt = \Illuminate\Support\Facades\DB::table('prevention_actions')->where('description_id', $description->id)->count();
+                        $prevention_completed_action_cnt = \Illuminate\Support\Facades\DB::table('prevention_actions')->where('description_id', $description->id)->where('status', 'Closed')->count();
+                        if(0 == $prevention_action_cnt) {
+                            $prevention_per = 0;
+                        } else {
+                            $prevention_per = (int)(($prevention_completed_action_cnt/$prevention_action_cnt)*100);
+                        }
+                        ?>
+                        <i class="fa fa-wrench" style="color:red; float: left;"><i style="color: #333333"> {{$troubleshoot_per}}%</i></i>
+                        <span style="float: left;">&nbsp;</span>
+                        <div class="progress" style=".progress {
+                             position: relative;
+                             height: 8px;
+                             }; margin-top: 4px" >
+                            <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow={{$troubleshoot_per}} aria-valuemin="0" aria-valuemax="100" style="width: {{$troubleshoot_per}}%">
+                                <span class="sr-only"></span>
+                            </div>
+                        </div>
+                        <i class="fa fa-shield" style="float: left;color:green;margin-top: -13px"><i style="color: #333333"> {{$prevention_per}}%</i></i>
+                        <span style="float: left;">&nbsp;</span>
+                        <div class="progress" style=".progress {
+                             position: relative;
+                             height: 8px;
+                             }; margin-top: -11px; margin-left: 40px" >
+                            <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="{{$prevention_per}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$prevention_per}}%">
+                                <span class="sr-only">40% Complete (success)</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 @endforeach
@@ -88,7 +124,6 @@
                         <th>{{ __('Tiêu đề') }}</th>
                         <th>{{ __('Ngày tạo') }}</th>
                         <th>{{ __('Hạn trả lời') }}</th>
-                        <th>{{ __('Nguồn gốc') }}</th>
                         <th>{{ __('Kết quả') }}</th>
                     </tr>
                     </thead>
@@ -103,8 +138,8 @@
                     <thead>
                     <tr>
                         <th>{{ __('Tiêu đề') }}</th>
-                        <th>{{ __('Thời gian tạo') }}</th>
                         <th>{{ __('Thời hạn') }}</th>
+                        <th>{{ __('Trạng thái') }}</th>
                         <th>{{ __('Sửa') }}</th>
                         <th>{{ __('Đóng') }}</th>
                     </tr>
@@ -131,7 +166,6 @@
                 {data: 'titlelink', name: 'title'},
                 {data: 'issue_date', name: 'issue_date'},
                 {data: 'answer_date', name: 'answer_date'},
-                {data: 'source_id', name: 'source_id', searchable: false},
             ]
         });
 
@@ -158,7 +192,6 @@
                 {data: 'titlelink', name: 'title'},
                 {data: 'issue_date', name: 'issue_date'},
                 {data: 'answer_date', name: 'answer_date'},
-                {data: 'source_id', name: 'source_id', searchable: false},
                 {data: 'confirmation_result', name: 'confirmation_result'},
             ]
         });
