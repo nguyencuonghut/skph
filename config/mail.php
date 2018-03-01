@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'from' => ['address' => 'nguyenvancuong@honghafeed.com.vn', 'name' => 'Admin C.A.R'],
+    'from' => ['address' => 'nguyenvancuong@honghafeed.com.vn', 'name' => 'Admin C.A.R System'],
 
     /*
     |--------------------------------------------------------------------------
