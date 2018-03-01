@@ -48,9 +48,10 @@ class DescriptionActionLog
                 ]);
                 break;
             case 'effectiveness_asset':
-                $text = __('<b><i> :title </i></b>, được đánh giá hiệu quả bởi :username', [
+                $text = __('<b><i> :title </i></b>, được đánh giá <b><i> :effectiveness</b></i> bởi :username', [
                     'title' => $event->getDescription()->title,
                     'username' => Auth()->user()->name,
+                    'effectiveness' => $event->getDescription()->effectiveness,
                 ]);
                 break;
             case 'updated_status':
