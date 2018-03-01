@@ -96,6 +96,7 @@ class DescriptionActionNotification extends Notification
                 break;
         }
        return (new MailMessage)
+                    ->subject('Thông báo phiếu C.A.R')
                     ->action('Thông báo', $url)
                     ->line($text);
     }
