@@ -71,7 +71,7 @@ class DescriptionRepository implements DescriptionRepositoryContract
         $prevention->save();
 
         $insertedId = $description->id;
-        Session()->flash('flash_message', 'Ticket successfully added!');
+        Session()->flash('flash_message', 'Ticket được tạo thành công!');
         event(new \App\Events\DescriptionAction($description, self::CREATED));
 
         return $insertedId;

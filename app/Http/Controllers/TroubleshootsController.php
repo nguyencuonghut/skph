@@ -136,7 +136,7 @@ class TroubleshootsController extends Controller
     public function evaluate($id, $result)
     {
         $this->troubleshoots->evaluate($id, $result);
-        Session()->flash('flash_message', 'Đánh giá thành công!');
+        Session()->flash('flash_message', 'Xem xét mức độ KPH thành cônng! Hãy giao cho Người Đề Xuất Hành Động Phòng Ngừa');
         return redirect()->back()->with('tab', 'prevents');
     }
 }

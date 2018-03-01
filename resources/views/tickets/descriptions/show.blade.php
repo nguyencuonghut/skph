@@ -375,7 +375,7 @@
                         <option value="{{ $user->id }}">{{ $user->name }}</option>
                     @endforeach
                 </select>
-                {!! Form::submit(__('Chuyển cho người khắc phục'), ['class' => 'btn btn-primary form-control closebtn']) !!}
+                {!! Form::submit(__('Người khắc phục'), ['class' => 'btn btn-primary form-control closebtn']) !!}
                 {!! Form::close() !!}
             @endif
 
