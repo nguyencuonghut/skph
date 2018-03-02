@@ -97,8 +97,7 @@ class TroubleshootActionsController extends Controller
         $troubleshootaction->deadline = $request->deadline;
         $troubleshootaction->status = $request->status;
         if('Closed' == $troubleshootaction->status) {
-            $now = new \DateTime("now");
-            $troubleshootaction->is_on_time = ($now < $troubleshootaction->deadline);
+            $troubleshootaction->is_on_time = (strtotime($troubleshootaction->deadline) > time()) ? true:false;
         } else {
             $troubleshootaction->is_on_time = false;
         }
@@ -130,8 +129,7 @@ class TroubleshootActionsController extends Controller
         $troubleshootaction = TroubleshootAction::findOrFail($id);
         if(\Auth::id() == $troubleshootaction->user_id) {
             $troubleshootaction->status = 'Closed';
-            $now = new \DateTime("now");
-            $troubleshootaction->is_on_time = ($now < $troubleshootaction->deadline);
+            $troubleshootaction->is_on_time = (strtotime($troubleshootaction->deadline) > time()) ? true:false;
             $troubleshootaction->save();
 
             Session()->flash('flash_message', 'Đã hoàn thành một hành động khắc phục!');

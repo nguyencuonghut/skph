@@ -12,7 +12,6 @@
             </span>
             <table class="table">
                 <thead>
-                <th>STT</th>
                 <th>Hành động phòng ngừa</th>
                 <th>Ngân sách dự kiến</th>
                 <th>Ai làm ?</th>
@@ -28,12 +27,15 @@
                 <?php $i = 1 ?>
                 @foreach($preventionactions as $prevention)
                     <tr>
-                        <td>{{$i++}}</td>
-                        <td>{{ $prevention->action }}</td>
+                        @if($prevention->is_on_time == true)
+                            <td><i class="fa fa-check-circle" style="color:green"></i> {{ $prevention->action }}</td>
+                        @else
+                            <td><i class="fa fa-clock-o" style="color:red"></i> {{ $prevention->action }}</td>
+                        @endif
                         <td align="right">{{ number_format($prevention->budget, 0, ',', ',') . ' ' . 'VNĐ'}}</td>
                         <td>{{ $prevention->user->name }}</td>
                         <td>{{ $prevention->where }}</td>
-                        <td>{{ $prevention->when }}</td>
+                        <td>{{date('d, F Y', strTotime($prevention->when))}}</td>
                         <td>{{ $prevention->how }}</td>
                         <td style="color: {{'Open' == $prevention->status ? "green": "black"}}">{{ $prevention->status}}</td>
                         <td style="text-align: center">

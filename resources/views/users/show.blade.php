@@ -137,7 +137,6 @@
                     <thead>
                     <tr>
                         <th>{{ __('Tiêu đề') }}</th>
-                        <th>{{ __('Thời hạn') }}</th>
                         <th>{{ __('Trạng thái') }}</th>
                         <th>{{ __('Sửa') }}</th>
                         <th>{{ __('Đóng') }}</th>
@@ -201,7 +200,6 @@
             ajax: '{!! route('preventionactions.myactionsdata') !!}',
             columns: [
                 {data: 'action', name: 'action'},
-                {data: 'when', name: 'when'},
                 {data: 'status', name: 'status'},
                 { data: 'edit', name: 'edit', orderable: false, searchable: false},
                 { data: 'markCompleted', name: 'markCompleted', orderable: false, searchable: false},

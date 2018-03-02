@@ -21,7 +21,7 @@ class CreateTroubleshootActionsTable extends Migration
             $table->integer('description_id')->unsigned();
             $table->foreign('description_id')->references('id')->on('descriptions');
             $table->string('status');
-            $table->date('deadline');
+            $table->dateTime('deadline');
             $table->boolean('is_on_time')->default(false);
             $table->timestamps();
         });

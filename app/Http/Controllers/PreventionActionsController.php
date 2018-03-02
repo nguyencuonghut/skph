@@ -48,6 +48,7 @@ class PreventionActionsController extends Controller
         $prevention_action->how = $request->how;
         $prevention_action->description_id = $id;
         $prevention_action->status = 'Open';
+        $prevention_action->is_on_time = false;
         $prevention_action->save();
 
         return redirect()->route("descriptions.show", $id)->with('tab', 'prevents');
@@ -101,6 +102,11 @@ class PreventionActionsController extends Controller
         $preventionaction->when = $request->when;
         $preventionaction->how = $request->how;
         $preventionaction->status = $request->status;
+        if('Closed' == $preventionaction->status) {
+            $preventionaction->is_on_time = (strtotime($preventionaction->when) > time()) ? true:false;
+        } else {
+            $preventionaction->is_on_time = false;
+        }
         $preventionaction->save();
 
         Session()->flash('flash_message', 'Cập nhật biện pháp phòng ngừa thành công');
@@ -130,6 +136,7 @@ class PreventionActionsController extends Controller
 
         if(\Auth::id() == $preventionaction->user_id) {
             $preventionaction->status = 'Closed';
+            $preventionaction->is_on_time = (strtotime($preventionaction->when) > time()) ? true:false;
             $preventionaction->save();
 
             Session()->flash('flash_message', 'Đã hoàn thành một hành động khắc phục!');
@@ -144,12 +151,15 @@ class PreventionActionsController extends Controller
     public function myActionsData()
     {
         $actions = PreventionAction::select(
-            ['id', 'action', 'budget', 'user_id', 'description_id', 'status', 'when']
+            ['id', 'action', 'budget', 'user_id', 'description_id', 'status', 'when', 'is_on_time']
         )->where('user_id', \Auth::id())->orderBy('id', 'desc');
         return Datatables::of($actions)
             ->addColumn('action', function ($actions) {
-                return $actions->action;
-
+                if($actions->is_on_time == true) {
+                    return '<span><i class="fa fa-check-circle" style="color:green"></i></span>' .  ' ' . $actions->action;
+                } else {
+                    return '<span><i class="fa fa-clock-o" style="color:red"></i></span>' .  ' '  . $actions->action;
+                }
             })
             ->editColumn('user_id', function ($actions) {
                 return $actions->user->name;
