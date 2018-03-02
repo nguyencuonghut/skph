@@ -87,7 +87,7 @@ $style = [
                                             @if ($level == 'error')
                                                 Whoops!
                                             @else
-                                                Xin chào!
+                                                Xin chào {{$outroLines[0]}}!
                                             @endif
                                         </h1>
 
@@ -128,10 +128,14 @@ $style = [
                                         @endif
 
                                         <!-- Outro -->
+                                        <?php $i = 0 ?>
                                         @foreach ($outroLines as $line)
-                                            <p style="{{ $style['paragraph'] }}">
-                                                {{ $line }}
-                                            </p>
+                                            @if(0 != $i)
+                                                <p style="{{ $style['paragraph'] }}">
+                                                    {{ $line }}
+                                                </p>
+                                            @endif
+                                            <?php $i++; ?>
                                         @endforeach
 
                                         <!-- Salutation -->
