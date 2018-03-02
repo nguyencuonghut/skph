@@ -42,6 +42,8 @@ class CreateDescriptionsTable extends Migration
             $table->foreign('effectiveness_user_id')->references('id')->on('users');
             $table->integer('status_id')->unsigned();
             $table->foreign('status_id')->references('id')->on('statuses');
+            $table->integer('department_id')->unsigned();
+            $table->foreign('department_id')->references('id')->on('departments');
             $table->timestamps();
         });
     }

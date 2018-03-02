@@ -1,6 +1,7 @@
 <?php
 namespace App\Repositories\Description;
 
+use App\Models\Department;
 use App\Models\Prevention;
 use App\Models\Description;
 use App\Models\Troubleshoot;
@@ -49,10 +50,13 @@ class DescriptionRepository implements DescriptionRepositoryContract
             $requestData->file('image')->move($location, $filename);
         }
 
+        $user = \Auth::user();
+        $department_id = $user->department->first()->id;
         $input = $requestData = array_merge(
             $requestData->all(),
             ['user_id' => auth()->id(),
-                'image' => $filename]
+                'image' => $filename,
+                'department_id' => $department_id]
         );
         $description = Description::create($input);
 
@@ -171,5 +175,25 @@ class DescriptionRepository implements DescriptionRepositoryContract
         $description->fill($input)->save();
         $description = $description->fresh();
         event(new \App\Events\DescriptionAction($description, self::EFFECTIVENESS_ASSET));
+    }
+
+    /**
+     * @param
+     */
+    public function allDepartmentStatistic()
+    {
+        $hcns_cnt =  Description::all()->where('department_id', 1)->count();
+        $sale_cnt =  Description::all()->where('department_id', 2)->count();
+        $ketoan_cnt =  Description::all()->where('department_id', 3)->count();
+        $ksnb_cnt =  Description::all()->where('department_id', 4)->count();
+        $baotri_cnt =  Description::all()->where('department_id', 5)->count();
+        $sx_cnt =  Description::all()->where('department_id', 6)->count();
+        $thumua_cnt =  Description::all()->where('department_id', 7)->count();
+        $kythuat_cnt =  Description::all()->where('department_id', 8)->count();
+        $qlcl_cnt =  Description::all()->where('department_id', 9)->count();
+        $kho_cnt =  Description::all()->where('department_id', 10)->count();
+
+        return collect([$hcns_cnt, $sale_cnt, $ketoan_cnt, $ksnb_cnt, $baotri_cnt,
+            $sx_cnt, $thumua_cnt, $kythuat_cnt, $qlcl_cnt, $kho_cnt]);
     }
 }
