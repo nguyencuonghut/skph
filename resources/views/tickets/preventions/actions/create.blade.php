@@ -58,7 +58,7 @@
     </div>
 @endif
 
-    @if(\Auth::id() == $prevention->proposer_id)
+    @if(\Auth::id() == $subject->proposer_id)
         <button type="button" class="btn btn-success btn-sm" data-toggle="collapse" data-target="#prevention_id"><i class="fa fa-plus-circle"><b> Thêm biện pháp phòng ngừa</b></i></button>
 
         {!! Form::open([
