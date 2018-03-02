@@ -28,6 +28,7 @@ class Description extends Model
         'leader_confirmation_result',
         'effectiveness',
         'effectiveness_user_id',
+        'status_id',
     ];
 
     protected $hidden = ['remember_token'];

@@ -12,7 +12,6 @@
             </span>
             <table class="table" style="font-size: 12px">
                 <thead>
-                <th>STT</th>
                 <th>Hành động khắc phục</th>
                 <th>Người thực hiện</th>
                 <th>Thời gian tạo</th>
@@ -26,10 +25,13 @@
                 <?php $i = 1 ?>
                 @foreach($actions as $action)
                     <tr>
-                        <td>{{$i++}}</td>
-                        <td>{{ $action->action }}</td>
+                        @if($action->is_on_time == true)
+                            <td><i class="fa fa-check-circle" style="color:green"></i> {{ $action->action }}</td>
+                        @else
+                            <td><i class="fa fa-clock-o" style="color:red"></i> {{ $action->action }}</td>
+                        @endif
                         <td>{{ $action->user->name }}</td>
-                        <td>{{date('d, F Y H:i', strTotime($action->created_at))}}</td>
+                        <td>{{date('d, F Y', strTotime($action->created_at))}}</td>
                         <td>{{date('d, F Y', strTotime($action->deadline))}}</td>
                         <td style="color: {{'Open' == $action->status ? "green": "black"}}">{{ $action->status}}</td>
                         <td style="text-align: center">

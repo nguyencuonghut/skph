@@ -25,6 +25,7 @@ class CreatePreventionactionsTable extends Migration
             $table->string('status');
             $table->integer('description_id')->unsigned();
             $table->foreign('description_id')->references('id')->on('descriptions');
+            $table->boolean('is_on_time')->default(false);
             $table->timestamps();
         });
     }

@@ -40,6 +40,8 @@ class CreateDescriptionsTable extends Migration
             $table->string('effectiveness');
             $table->integer('effectiveness_user_id')->unsigned();
             $table->foreign('effectiveness_user_id')->references('id')->on('users');
+            $table->integer('status_id')->unsigned();
+            $table->foreign('status_id')->references('id')->on('statuses');
             $table->timestamps();
         });
     }

@@ -26,8 +26,7 @@
                     <thead>
                     <tr>
                         <th>{{ __('Tiêu đề') }}</th>
-                        <th>{{ __('Thời gian tạo') }}</th>
-                        <th>{{ __('Thời hạn') }}</th>
+                        <th>{{ __('Trạng thái') }}</th>
                         <th>{{ __('Sửa') }}</th>
                         <th>{{ __('Đóng') }}</th>
                     </tr>
@@ -176,7 +175,6 @@
             ajax: '{!! route('troubleshootactions.myactionsdata') !!}',
             columns: [
                 {data: 'action', name: 'action'},
-                {data: 'deadline', name: 'deadline'},
                 {data: 'status', name: 'status'},
                 { data: 'edit', name: 'edit', orderable: false, searchable: false},
                 { data: 'markCompleted', name: 'markCompleted', orderable: false, searchable: false},

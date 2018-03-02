@@ -22,6 +22,7 @@ class CreateTroubleshootActionsTable extends Migration
             $table->foreign('description_id')->references('id')->on('descriptions');
             $table->string('status');
             $table->date('deadline');
+            $table->boolean('is_on_time')->default(false);
             $table->timestamps();
         });
     }

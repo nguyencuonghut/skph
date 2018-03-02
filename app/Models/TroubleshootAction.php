@@ -7,11 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class TroubleshootAction extends Model
 {
     protected $fillable = [
-    'action',
-    'user_id',
-    'status',
-    'deadline',
-    'description_id',
+        'action',
+        'user_id',
+        'status',
+        'deadline',
+        'description_id',
+        'is_on_time',
     ];
 
 

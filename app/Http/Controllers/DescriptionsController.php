@@ -170,7 +170,7 @@ class DescriptionsController extends Controller
         )->orderBy('id', 'desc');
         return Datatables::of($descriptions)
             ->addColumn('titlelink', function ($descriptions) {
-                return '<a href="descriptions/' . $descriptions->id . '" ">' . $descriptions->title . '</a>';
+                return '<a href="descriptions/' . $descriptions->id . '" ">' . str_limit($descriptions->title, 40) . '</a>';
             })
             ->editColumn('issue_date', function ($descriptions) {
                 return $descriptions->issue_date ? with(new Carbon($descriptions->issue_date))

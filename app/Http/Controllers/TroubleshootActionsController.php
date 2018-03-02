@@ -45,6 +45,7 @@ class TroubleshootActionsController extends Controller
         $troubleshoot_action->status = 'Open';
         $troubleshoot_action->deadline = $request->deadline;
         $troubleshoot_action->description_id = $id;
+        $troubleshoot_action->is_on_time = false;
         $troubleshoot_action->save();
 
         return redirect()->route("descriptions.show", $id)->with('tab', 'troubleshoot');;
@@ -95,6 +96,12 @@ class TroubleshootActionsController extends Controller
         $troubleshootaction->user_id = $request->user_id;
         $troubleshootaction->deadline = $request->deadline;
         $troubleshootaction->status = $request->status;
+        if('Closed' == $troubleshootaction->status) {
+            $now = new \DateTime("now");
+            $troubleshootaction->is_on_time = ($now < $troubleshootaction->deadline);
+        } else {
+            $troubleshootaction->is_on_time = false;
+        }
         $troubleshootaction->save();
 
         Session()->flash('flash_message', 'Cập nhật biện pháp khắc phục thành công');
@@ -123,6 +130,8 @@ class TroubleshootActionsController extends Controller
         $troubleshootaction = TroubleshootAction::findOrFail($id);
         if(\Auth::id() == $troubleshootaction->user_id) {
             $troubleshootaction->status = 'Closed';
+            $now = new \DateTime("now");
+            $troubleshootaction->is_on_time = ($now < $troubleshootaction->deadline);
             $troubleshootaction->save();
 
             Session()->flash('flash_message', 'Đã hoàn thành một hành động khắc phục!');
@@ -136,12 +145,15 @@ class TroubleshootActionsController extends Controller
     public function myActionsData()
     {
         $actions = TroubleshootAction::select(
-            ['id', 'action', 'user_id', 'description_id', 'status', 'deadline']
+            ['id', 'action', 'user_id', 'description_id', 'status', 'deadline','is_on_time']
         )->where('user_id', \Auth::id())->orderBy('id', 'desc');
         return Datatables::of($actions)
             ->addColumn('action', function ($actions) {
-                return $actions->action;
-
+                if($actions->is_on_time == true) {
+                    return '<span><i class="fa fa-check-circle" style="color:green"></i></span>' .  ' ' . $actions->action;
+                } else {
+                    return '<span><i class="fa fa-clock-o" style="color:red"></i></span>' .  ' '  . $actions->action;
+                }
             })
             ->editColumn('user_id', function ($actions) {
                 return $actions->user->name;
