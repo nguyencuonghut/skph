@@ -14,7 +14,9 @@
                 this.Chart = new Chart(this.$refs.canvaschart.getContext('2d'), {
                     type: 'pie',
                     data: {
-                        labels: ["Con người", "Máy móc", "Nguyên liệu", "Phương pháp", "Đo lường", "Môi trường"],
+                        labels: ["Con người" + ": " + this.statistics[0], "Máy móc" + ": " + this.statistics[1],
+                            "Nguyên liệu" + ": " + this.statistics[2], "Phương pháp" + ": " + this.statistics[3],
+                            "Đo lường" + ": " + this.statistics[4], "Môi trường" + ": " + this.statistics[5]],
                         datasets: [
                             {
                                 backgroundColor: ["#FF6384", "#71397C", "#61BA95", "red", "green", "gray"],
@@ -37,7 +39,7 @@
                                         total += allData[i];
                                     }
                                     var tooltipPercentage = Math.round((tooltipData / total) * 100);
-                                    return tooltipLabel +  ':' + tooltipData + ' (' + tooltipPercentage + '%)';
+                                    return tooltipLabel + ' (' + tooltipPercentage + '%)';
                                 }
                             },
                             scales: { scaleLabel: { fontSize: 8 } }
