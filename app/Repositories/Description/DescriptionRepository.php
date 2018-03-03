@@ -197,4 +197,19 @@ class DescriptionRepository implements DescriptionRepositoryContract
         //    $sx_cnt, $thumua_cnt, $kythuat_cnt, $qlcl_cnt, $kho_cnt]);
         return collect([12, 20, 31, 14, 55, 26, 57, 88, 9, 10]);
     }
+    /**
+     * @param
+     */
+    public function allReasonStatistic()
+    {
+        $human_cnt =  Prevention::all()->where('reason_type_id', 1)->count();
+        $machine_cnt =  Prevention::all()->where('reason_type_id', 2)->count();
+        $material_cnt =  Prevention::all()->where('reason_type_id', 3)->count();
+        $method_cnt =  Prevention::all()->where('reason_type_id', 4)->count();
+        $measurement_cnt =  Prevention::all()->where('reason_type_id', 5)->count();
+        $environment_cnt =  Prevention::all()->where('reason_type_id', 6)->count();
+
+        //return collect([$human_cnt, $machine_cnt, $material_cnt, $method_cnt, $measurement_cnt, $environment_cnt]);
+        return collect([24, 7, 55, 16, 25, 86]);
+    }
 }

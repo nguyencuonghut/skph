@@ -25,5 +25,6 @@ class DatabaseSeeder extends Seeder
         $this->call('StatusesTableSeeder');
         $this->call('LevelsTableSeeder');
         $this->call('ResponsibilitiesTableSeeder');
+        $this->call('ReasonTypesTableSeeder');
     }
 }

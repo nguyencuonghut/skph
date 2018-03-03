@@ -13,6 +13,7 @@ class Prevention extends Model
         'root_cause',
         'root_cause_approver_id',
         'root_cause_approve_result',
+        'reason_type_id',
     ];
 
     public function proposer()
@@ -54,5 +55,9 @@ class Prevention extends Model
     public function activity()
     {
         return $this->morphMany(Activity::class, 'source');
+    }
+    public function reason_type()
+    {
+        return $this->belongsTo(ReasonType::class, 'reason_type_id');
     }
 }

@@ -225,6 +225,11 @@
                                             (Bởi <b>{{$troubleshoot->evaluater->name}}</b>)
                                         @endif
                                     </p>
+                                    @if($prevention->reason_type_id)
+                                        <p><b>Phân loại nguyên nhân:</b> {{$prevention->reason_type->name}}
+
+                                        </p>
+                                    @endif
                                         <p><b>Nguyên nhân gốc rễ:</b>
                                             @if((\Auth::id() == $prevention->proposer_id))
                                                 <span>

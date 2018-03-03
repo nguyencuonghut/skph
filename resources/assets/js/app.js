@@ -10,6 +10,7 @@ import graphline from './components/Graphline.vue';
 import doughnut from './components/Doughnut.vue';
 import message from './components/Message.vue';
 import pie from './components/DepartmentStatisticChart.vue';
+import pie2 from './components/ReasonStatisticChart.vue';
 import 'element-ui/lib/theme-default/index.css';
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -95,9 +96,10 @@ $('.search-select')
 var app = new Vue({
     el: '#wrapper',
     components: {
-      graphline,
-      doughnut,
-      message,
-      pie,
+        graphline,
+        doughnut,
+        message,
+        pie,
+        pie2,
     }
 });

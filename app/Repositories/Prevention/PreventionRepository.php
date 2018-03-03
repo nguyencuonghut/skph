@@ -2,6 +2,7 @@
 namespace App\Repositories\Prevention;
 
 use App\Models\Prevention;
+use App\Models\ReasonType;
 use Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Models\Ticket;
@@ -100,5 +101,15 @@ class PreventionRepository implements PreventionRepositoryContract
         } else {
             event(new \App\Events\PreventionAction($prevention, self::REJECTED_ROOT_CAUSE));
         }
+    }
+
+    /**
+     * @param $id
+     * @param $requestData
+     */
+    public function getAllReasonTypesWithDescription()
+    {
+        return ReasonType::all()
+            ->pluck('nameAndDescription', 'id');
     }
 }

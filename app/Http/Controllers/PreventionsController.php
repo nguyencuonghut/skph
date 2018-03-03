@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ReasonType;
 use App\Models\User;
 use App\Models\Prevention;
 use Illuminate\Http\Request;
@@ -71,6 +72,7 @@ class PreventionsController extends Controller
         $prevention = Prevention::findOrFail($id);
         return view('tickets.preventions.edit')
             ->withPrevention($prevention)
+            ->withReasonTypes($this->preventions->getAllReasonTypesWithDescription())
             ->withUsers(User::all()->pluck('name', 'id'));
     }
 

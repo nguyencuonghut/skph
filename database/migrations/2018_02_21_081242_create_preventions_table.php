@@ -24,6 +24,9 @@ class CreatePreventionsTable extends Migration
             $table->integer('root_cause_approver_id')->unsigned();
             $table->foreign('root_cause_approver_id')->references('id')->on('users');
             $table->string('root_cause_approve_result');
+            $table->integer('reason_type_id')->unsigned();
+            $table->foreign('reason_type_id')->references('id')->on('reason_types');
+
             $table->timestamps();
         });
     }
