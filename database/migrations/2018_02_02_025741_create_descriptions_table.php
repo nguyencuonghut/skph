@@ -44,6 +44,8 @@ class CreateDescriptionsTable extends Migration
             $table->foreign('status_id')->references('id')->on('statuses');
             $table->integer('department_id')->unsigned();
             $table->foreign('department_id')->references('id')->on('departments');
+            $table->integer('troubleshoot_action_count');
+            $table->integer('prevention_action_count');
             $table->timestamps();
         });
     }

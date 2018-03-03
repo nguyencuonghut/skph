@@ -30,6 +30,8 @@ class Description extends Model
         'effectiveness_user_id',
         'status_id',
         'department_id',
+        'troubleshoot_action_count',
+        'prevention_action_count',
     ];
 
     protected $hidden = ['remember_token'];

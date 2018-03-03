@@ -212,4 +212,164 @@ class DescriptionRepository implements DescriptionRepositoryContract
         //return collect([$human_cnt, $machine_cnt, $material_cnt, $method_cnt, $measurement_cnt, $environment_cnt]);
         return collect([24, 7, 55, 16, 25, 86]);
     }
+
+    /**
+     * @param
+     */
+    public function allTroubleshootableRateStatistic()
+    {
+        if(0 == Description::all()->where('department_id', 1)->count()) {
+            $hcns_cnt = 0;
+        } else {
+            $hcns_cnt = (int)(100 * Description::all()->where('department_id', 1)
+                ->where('troubleshoot_action_count', '>', 0)->count() /
+                $hcns_cnt = Description::all()->where('department_id', 1)->count());
+        }
+        if(0 == Description::all()->where('department_id', 2)->count()) {
+            $sale_cnt = 0;
+        } else {
+            $sale_cnt = (int)(100 *  Description::all()->where('department_id', 2)
+                    ->where('troubleshoot_action_count', '>', 0)->count() /
+                $sale_cnt = Description::all()->where('department_id', 2)->count());
+        }
+        if(0 == Description::all()->where('department_id', 3)->count()) {
+            $ketoan_cnt = 0;
+        } else {
+            $ketoan_cnt = (int)(100 *  Description::all()->where('department_id', 3)
+                    ->where('troubleshoot_action_count', '>', 0)->count() /
+                $ketoan_cnt = Description::all()->where('department_id', 3)->count());
+        }
+        if(0 == Description::all()->where('department_id', 4)->count()) {
+            $ksnb_cnt = 0;
+        } else {
+            $ksnb_cnt = (int)(100 *  Description::all()->where('department_id', 4)
+                    ->where('troubleshoot_action_count', '>', 0)->count() /
+                $ksnb_cnt = Description::all()->where('department_id', 4)->count());
+        }
+        if(0 == Description::all()->where('department_id', 5)->count()) {
+            $baotri_cnt = 0;
+        } else {
+            $baotri_cnt = (int)(100 *  Description::all()->where('department_id', 5)
+                    ->where('troubleshoot_action_count', '>', 0)->count() /
+                $baotri_cnt = Description::all()->where('department_id', 5)->count());
+        }
+        if(0 == Description::all()->where('department_id', 6)->count()) {
+            $sx_cnt = 0;
+        } else {
+            $sx_cnt = (int)(100 *  Description::all()->where('department_id', 6)
+                    ->where('troubleshoot_action_count', '>', 0)->count() /
+                $sx_cnt = Description::all()->where('department_id', 6)->count());
+        }
+        if(0 == Description::all()->where('department_id', 6)->count()) {
+            $thumua_cnt = 0;
+        } else {
+            $thumua_cnt = (int)(100 *  Description::all()->where('department_id', 7)
+                    ->where('troubleshoot_action_count', '>', 0)->count() /
+                $thumua_cnt = Description::all()->where('department_id', 7)->count());
+        }
+        if(0 == Description::all()->where('department_id', 8)->count()) {
+            $kythuat_cnt = 0;
+        } else {
+            $kythuat_cnt = (int)(100 *  Description::all()->where('department_id', 8)
+                    ->where('troubleshoot_action_count', '>', 0)->count() /
+                $kythuat_cnt = Description::all()->where('department_id', 8)->count());
+        }
+        if(0 == Description::all()->where('department_id', 9)->count()) {
+            $qlcl_cnt = 0;
+        } else {
+            $qlcl_cnt = (int)(100 *  Description::all()->where('department_id', 9)
+                    ->where('troubleshoot_action_count', '>', 0)->count() /
+                $qlcl_cnt = Description::all()->where('department_id', 9)->count());
+        }
+        if(0 == Description::all()->where('department_id', 9)->count()) {
+            $kho_cnt = 0;
+        } else {
+            $kho_cnt = (int)(100 *  Description::all()->where('department_id', 10)
+                    ->where('troubleshoot_action_count', '>', 0)->count() /
+                $kho_cnt = Description::all()->where('department_id', 10)->count());
+        }
+
+        return collect([$hcns_cnt, $sale_cnt, $ketoan_cnt, $ksnb_cnt, $baotri_cnt,
+            $sx_cnt, $thumua_cnt, $kythuat_cnt, $qlcl_cnt, $kho_cnt]);
+    }
+
+    /**
+     * @param
+     */
+    public function allPreventionableRateStatistic()
+    {
+        if(0 == Description::all()->where('department_id', 1)->count()) {
+            $hcns_cnt = 0;
+        } else {
+            $hcns_cnt = (int)(100 * Description::all()->where('department_id', 1)
+                    ->where('prevention_action_count', '>', 0)->count() /
+                $hcns_cnt = Description::all()->where('department_id', 1)->count());
+        }
+        if(0 == Description::all()->where('department_id', 2)->count()) {
+            $sale_cnt = 0;
+        } else {
+            $sale_cnt = (int)(100 *  Description::all()->where('department_id', 2)
+                    ->where('prevention_action_count', '>', 0)->count() /
+                $sale_cnt = Description::all()->where('department_id', 2)->count());
+        }
+        if(0 == Description::all()->where('department_id', 3)->count()) {
+            $ketoan_cnt = 0;
+        } else {
+            $ketoan_cnt = (int)(100 *  Description::all()->where('department_id', 3)
+                    ->where('prevention_action_count', '>', 0)->count() /
+                $ketoan_cnt = Description::all()->where('department_id', 3)->count());
+        }
+        if(0 == Description::all()->where('department_id', 4)->count()) {
+            $ksnb_cnt = 0;
+        } else {
+            $ksnb_cnt = (int)(100 *  Description::all()->where('department_id', 4)
+                    ->where('prevention_action_count', '>', 0)->count() /
+                $ksnb_cnt = Description::all()->where('department_id', 4)->count());
+        }
+        if(0 == Description::all()->where('department_id', 5)->count()) {
+            $baotri_cnt = 0;
+        } else {
+            $baotri_cnt = (int)(100 *  Description::all()->where('department_id', 5)
+                    ->where('prevention_action_count', '>', 0)->count() /
+                $baotri_cnt = Description::all()->where('department_id', 5)->count());
+        }
+        if(0 == Description::all()->where('department_id', 6)->count()) {
+            $sx_cnt = 0;
+        } else {
+            $sx_cnt = (int)(100 *  Description::all()->where('department_id', 6)
+                    ->where('prevention_action_count', '>', 0)->count() /
+                $sx_cnt = Description::all()->where('department_id', 6)->count());
+        }
+        if(0 == Description::all()->where('department_id', 6)->count()) {
+            $thumua_cnt = 0;
+        } else {
+            $thumua_cnt = (int)(100 *  Description::all()->where('department_id', 7)
+                    ->where('prevention_action_count', '>', 0)->count() /
+                $thumua_cnt = Description::all()->where('department_id', 7)->count());
+        }
+        if(0 == Description::all()->where('department_id', 8)->count()) {
+            $kythuat_cnt = 0;
+        } else {
+            $kythuat_cnt = (int)(100 *  Description::all()->where('department_id', 8)
+                    ->where('prevention_action_count', '>', 0)->count() /
+                $kythuat_cnt = Description::all()->where('department_id', 8)->count());
+        }
+        if(0 == Description::all()->where('department_id', 9)->count()) {
+            $qlcl_cnt = 0;
+        } else {
+            $qlcl_cnt = (int)(100 *  Description::all()->where('department_id', 9)
+                    ->where('prevention_action_count', '>', 0)->count() /
+                $qlcl_cnt = Description::all()->where('department_id', 9)->count());
+        }
+        if(0 == Description::all()->where('department_id', 9)->count()) {
+            $kho_cnt = 0;
+        } else {
+            $kho_cnt = (int)(100 *  Description::all()->where('department_id', 10)
+                    ->where('prevention_action_count', '>', 0)->count() /
+                $kho_cnt = Description::all()->where('department_id', 10)->count());
+        }
+
+        return collect([$hcns_cnt, $sale_cnt, $ketoan_cnt, $ksnb_cnt, $baotri_cnt,
+            $sx_cnt, $thumua_cnt, $kythuat_cnt, $qlcl_cnt, $kho_cnt]);
+    }
 }

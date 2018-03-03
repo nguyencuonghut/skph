@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Description;
 use App\Models\Troubleshoot;
 use App\Models\TroubleshootAction;
 use App\Models\User;
@@ -47,6 +48,11 @@ class TroubleshootActionsController extends Controller
         $troubleshoot_action->description_id = $id;
         $troubleshoot_action->is_on_time = false;
         $troubleshoot_action->save();
+
+        //Count the troubleshoot action for each ticket
+        $description = Description::findOrFail($id);
+        $description->troubleshoot_action_count += 1;
+        $description->save();
 
         return redirect()->route("descriptions.show", $id)->with('tab', 'troubleshoot');;
     }

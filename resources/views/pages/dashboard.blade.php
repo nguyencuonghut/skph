@@ -20,8 +20,10 @@
     </script>
 @endpush
     <div class="row">
-
         @include('partials.dashboardthree')
+    </div>
+    <div class="row">
+        @include('partials.dashboardfour')
     </div>
     <div class="div">
 
@@ -139,4 +141,5 @@
 
 
         </div>
+    </div>
 @endsection

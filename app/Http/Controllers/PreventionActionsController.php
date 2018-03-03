@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Description;
 use App\Models\Prevention;
 use Illuminate\Http\Request;
 use App\Models\PreventionAction;
@@ -51,6 +52,11 @@ class PreventionActionsController extends Controller
         $prevention_action->is_on_time = false;
         $prevention_action->save();
 
+
+        //Count the troubleshoot action for each ticket
+        $description = Description::findOrFail($id);
+        $description->prevention_action_count += 1;
+        $description->save();
         return redirect()->route("descriptions.show", $id)->with('tab', 'prevents');
     }
 

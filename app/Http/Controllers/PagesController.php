@@ -115,6 +115,8 @@ class PagesController extends Controller
      */
         $allDepartmentTickets = $this->descriptions->allDepartmentStatistic();
         $allReasonTickets = $this->descriptions->allReasonStatistic();
+        $allTroubleshootableRateTickets = $this->descriptions->allTroubleshootableRateStatistic();
+        $allPreventionableRateTickets = $this->descriptions->allPreventionableRateStatistic();
         return view('pages.dashboard', compact(
             'completedTasksToday',
             'completedLeadsToday',
@@ -137,7 +139,9 @@ class PagesController extends Controller
             'allCompletedLeads',
             'totalPercentageLeads',
             'allDepartmentTickets',
-            'allReasonTickets'
+            'allReasonTickets',
+            'allTroubleshootableRateTickets',
+            'allPreventionableRateTickets'
         ));
     }
 }
