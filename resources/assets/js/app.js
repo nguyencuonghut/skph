@@ -9,6 +9,7 @@ import ElementUI from 'element-ui';
 import graphline from './components/Graphline.vue';
 import doughnut from './components/Doughnut.vue';
 import message from './components/Message.vue';
+import pie from './components/DepartmentStatisticChart.vue';
 import 'element-ui/lib/theme-default/index.css';
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -96,6 +97,7 @@ var app = new Vue({
     components: {
       graphline,
       doughnut,
-      message
+      message,
+      pie,
     }
 });

@@ -193,7 +193,8 @@ class DescriptionRepository implements DescriptionRepositoryContract
         $qlcl_cnt =  Description::all()->where('department_id', 9)->count();
         $kho_cnt =  Description::all()->where('department_id', 10)->count();
 
-        return collect([$hcns_cnt, $sale_cnt, $ketoan_cnt, $ksnb_cnt, $baotri_cnt,
-            $sx_cnt, $thumua_cnt, $kythuat_cnt, $qlcl_cnt, $kho_cnt]);
+        //return collect([$hcns_cnt, $sale_cnt, $ketoan_cnt, $ksnb_cnt, $baotri_cnt,
+        //    $sx_cnt, $thumua_cnt, $kythuat_cnt, $qlcl_cnt, $kho_cnt]);
+        return collect([12, 20, 31, 14, 55, 26, 57, 88, 9, 10]);
     }
 }

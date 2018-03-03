@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Repositories\Description\DescriptionRepository;
 use DB;
 use Carbon;
 use App\Http\Requests;
@@ -24,13 +25,15 @@ class PagesController extends Controller
         ClientRepositoryContract $clients,
         SettingRepositoryContract $settings,
         TaskRepositoryContract $tasks,
-        LeadRepositoryContract $leads
+        LeadRepositoryContract $leads,
+        DescriptionRepository $descriptions
     ) {
         $this->users = $users;
         $this->clients = $clients;
         $this->settings = $settings;
         $this->tasks = $tasks;
         $this->leads = $leads;
+        $this->descriptions = $descriptions;
     }
 
     /**
@@ -105,7 +108,12 @@ class PagesController extends Controller
       */
         $completedLeadsMonthly = $this->leads->createdLeadsMonthly();
         $createdLeadsMonthly = $this->leads->completedLeadsMonthly();
-       
+
+    /**
+     * Statistics for ticket (For Charts).
+     *
+     */
+        $allDepartmentTickets = $this->descriptions->allDepartmentStatistic();
         return view('pages.dashboard', compact(
             'completedTasksToday',
             'completedLeadsToday',
@@ -126,7 +134,8 @@ class PagesController extends Controller
             'totalPercentageTasks',
             'allleads',
             'allCompletedLeads',
-            'totalPercentageLeads'
+            'totalPercentageLeads',
+            'allDepartmentTickets'
         ));
     }
 }
