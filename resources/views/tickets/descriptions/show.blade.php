@@ -252,7 +252,7 @@
                                             @endif
                                         </span>
                                         <span style="float: left;">&nbsp; </span>
-                                        @if(\Auth::id() == $prevention->approver_id)
+                                        @if(\Auth::id() == $prevention->root_cause_approver_id)
                                             <span>
                                                 <form style="float: left;" action="{{ route('approveRootcause', [$prevention->id, 'Đồng ý']) }}" method="POST">
                                                     {{ csrf_field() }}

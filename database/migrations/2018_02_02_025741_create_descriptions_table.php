@@ -46,6 +46,8 @@ class CreateDescriptionsTable extends Migration
             $table->foreign('department_id')->references('id')->on('departments');
             $table->integer('troubleshoot_action_count');
             $table->integer('prevention_action_count');
+            $table->boolean('is_troubleshoot_actions_on_time')->default(false);
+            $table->boolean('is_prevention_actions_on_time')->default(false);
             $table->timestamps();
         });
     }

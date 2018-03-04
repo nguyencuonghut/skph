@@ -82,7 +82,7 @@ class PreventionActionNotification extends Notification
                 break;
             case 'approved_root_cause':
                 $text = __(':title, :approver đã đồng ý nguyên nhân gốc rễ của bạn', [
-                    'approver' =>  $this->prevention->approver->name,
+                    'approver' =>  $this->prevention->root_cause_approver->name,
                     'title' =>  $this->prevention->descriptionTitle,
                 ]);
                 break;
@@ -142,7 +142,7 @@ class PreventionActionNotification extends Notification
                 break;
             case 'approved_root_cause':
                 $text = __(':title, :approver đã đồng ý nguyên nhân gốc rễ của bạn', [
-                    'approver' =>  $this->prevention->approver->name,
+                    'approver' =>  $this->prevention->root_cause_approver->name,
                     'title' =>  $this->prevention->descriptionTitle,
                 ]);
                 break;
