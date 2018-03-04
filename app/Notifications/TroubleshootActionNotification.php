@@ -96,7 +96,9 @@ class TroubleshootActionNotification extends Notification
                 break;
         }
         return (new MailMessage)
+            ->subject('Thông báo phiếu C.A.R')
             ->action('Thông báo', $url)
+            ->line(Auth()->user()->name)
             ->line($text);
     }
 
