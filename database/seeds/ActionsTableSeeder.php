@@ -26,6 +26,13 @@ class ActionsTableSeeder extends Seeder
                     'name' => 'Cải tiến',
                     'created_at' => '2016-06-04 13:42:19',
                     'updated_at' => '2016-06-04 13:42:19',
+                ),
+            2 =>
+                array (
+                    'id' => 3,
+                    'name' => 'Cả khắc phục và cải tiến',
+                    'created_at' => '2016-06-04 13:42:19',
+                    'updated_at' => '2016-06-04 13:42:19',
                 )
         ));
     }
