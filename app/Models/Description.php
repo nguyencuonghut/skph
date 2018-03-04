@@ -32,6 +32,8 @@ class Description extends Model
         'department_id',
         'troubleshoot_action_count',
         'prevention_action_count',
+        'is_troubleshoot_actions_on_time',
+        'is_prevention_actions_on_time',
     ];
 
     protected $hidden = ['remember_token'];

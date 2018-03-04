@@ -115,6 +115,8 @@ class PreventionActionsController extends Controller
         }
         $preventionaction->save();
 
+        //Update the flag of description
+        $this->isAllActionsOnTime($preventionaction->description_id);
         Session()->flash('flash_message', 'Cập nhật biện pháp phòng ngừa thành công');
         return redirect()->route("descriptions.show", $preventionaction->description_id)->with('tab', 'prevents');
     }
@@ -144,6 +146,9 @@ class PreventionActionsController extends Controller
             $preventionaction->status = 'Closed';
             $preventionaction->is_on_time = (strtotime($preventionaction->when) > time()) ? true:false;
             $preventionaction->save();
+
+            //Update the flag of description
+            $this->isAllActionsOnTime($preventionaction->description_id);
 
             Session()->flash('flash_message', 'Đã hoàn thành một hành động khắc phục!');
             return redirect()->route("descriptions.show", $preventionaction->description_id)->with('tab', 'prevents');
@@ -187,4 +192,21 @@ class PreventionActionsController extends Controller
                 </form>                ')
             ->make(true);
     }
+
+
+    private function isAllActionsOnTime($description_id)
+    {
+        $is_all_on_time = true;
+        //Find all the actions according to description id
+        $actions = PreventionAction::all()->where('description_id', $description_id);
+        foreach ($actions as $action) {
+            if(false == $action->is_on_time){
+                $is_all_on_time = false;
+            }
+        }
+        $description = Description::findOrFail($description_id);
+        $description->is_prevention_actions_on_time = $is_all_on_time;
+        $description->save();
+    }
+
 }

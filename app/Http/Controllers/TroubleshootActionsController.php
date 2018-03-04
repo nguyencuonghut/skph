@@ -109,6 +109,8 @@ class TroubleshootActionsController extends Controller
         }
         $troubleshootaction->save();
 
+        //Update the flag of description
+        $this->isAllActionsOnTime($troubleshootaction->description_id);
         Session()->flash('flash_message', 'Cập nhật biện pháp khắc phục thành công');
         return redirect()->route("descriptions.show", $troubleshootaction->description_id)->with('tab', 'troubleshoot');
     }
@@ -137,6 +139,9 @@ class TroubleshootActionsController extends Controller
             $troubleshootaction->status = 'Closed';
             $troubleshootaction->is_on_time = (strtotime($troubleshootaction->deadline) > time()) ? true:false;
             $troubleshootaction->save();
+
+            //Update the flag of description
+            $this->isAllActionsOnTime($troubleshootaction->description_id);
 
             Session()->flash('flash_message', 'Đã hoàn thành một hành động khắc phục!');
             return redirect()->route("descriptions.show", $troubleshootaction->description_id)->with('tab', 'troubleshoot');
@@ -179,5 +184,20 @@ class TroubleshootActionsController extends Controller
                 </form>
             ')
             ->make(true);
+    }
+
+    private function isAllActionsOnTime($description_id)
+    {
+        $is_all_on_time = true;
+        //Find all the actions according to description id
+        $actions = TroubleshootAction::all()->where('description_id', $description_id);
+        foreach ($actions as $action) {
+            if(false == $action->is_on_time){
+                $is_all_on_time = false;
+            }
+        }
+        $description = Description::findOrFail($description_id);
+        $description->is_troubleshoot_actions_on_time = $is_all_on_time;
+        $description->save();
     }
 }
