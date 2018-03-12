@@ -116,6 +116,7 @@ class PagesController extends Controller
         $allDepartmentTickets = $this->descriptions->allDepartmentStatistic();
         $allReasonTickets = $this->descriptions->allReasonStatistic();
         $allDepartmentStatusTickets = $this->descriptions->allDepartmentStatusStatistic();
+        $allDepartmentReasonTickets = $this->descriptions->allDepartmentReasonStatistic();
         //$allTroubleshootableRateTickets = $this->descriptions->allTroubleshootableRateStatistic();
         //$allPreventionableRateTickets = $this->descriptions->allPreventionableRateStatistic();
         //$allTroubleshootActionsOnTimeRateTickets = $this->descriptions->allTroubleshootActionsOnTimeRateStatistic();
@@ -143,7 +144,8 @@ class PagesController extends Controller
             'totalPercentageLeads',
             'allDepartmentTickets',
             'allReasonTickets',
-            'allDepartmentStatusTickets'
+            'allDepartmentStatusTickets',
+            'allDepartmentReasonTickets'
         ));
     }
 }

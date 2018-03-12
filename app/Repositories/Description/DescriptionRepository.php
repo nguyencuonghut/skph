@@ -57,7 +57,7 @@ class DescriptionRepository implements DescriptionRepositoryContract
             ['user_id' => auth()->id(),
                 'image' => $filename,
                 'department_id' => $department_id,
-                'status_id' => 0]
+                'status_id' => 1]
         );
         $description = Description::create($input);
 
@@ -223,73 +223,604 @@ class DescriptionRepository implements DescriptionRepositoryContract
         $hcns_status_2_cnt =  Description::all()->where('department_id', 1)->where('status_id', 2)->count();
         $hcns_status_3_cnt =  Description::all()->where('department_id', 1)->where('status_id', 3)->count();
         $hcns_status_4_cnt =  Description::all()->where('department_id', 1)->where('status_id', 4)->count();
-        //$hcns_cnt = collect([$hcns_status_1_cnt, $hcns_status_2_cnt, $hcns_status_3_cnt, $hcns_status_4_cnt]);
-        $hcns_cnt = collect([0, 1, 2, 3]);
+        $hcns_cnt = collect([$hcns_status_1_cnt, $hcns_status_2_cnt, $hcns_status_3_cnt, $hcns_status_4_cnt]);
+        //$hcns_cnt = collect([0, 1, 2, 3]);
 
         $sale_status_1_cnt =  Description::all()->where('department_id', 2)->where('status_id', 1)->count();
         $sale_status_2_cnt =  Description::all()->where('department_id', 2)->where('status_id', 2)->count();
         $sale_status_3_cnt =  Description::all()->where('department_id', 2)->where('status_id', 3)->count();
         $sale_status_4_cnt =  Description::all()->where('department_id', 2)->where('status_id', 4)->count();
-        //$sale_cnt = collect([$sale_status_1_cnt, $sale_status_2_cnt, $sale_status_3_cnt, $sale_status_4_cnt]);
-        $sale_cnt = collect([10, 11, 12, 13]);
+        $sale_cnt = collect([$sale_status_1_cnt, $sale_status_2_cnt, $sale_status_3_cnt, $sale_status_4_cnt]);
+        //$sale_cnt = collect([10, 11, 12, 13]);
 
 
         $ketoan_status_1_cnt =  Description::all()->where('department_id', 3)->where('status_id', 1)->count();
         $ketoan_status_2_cnt =  Description::all()->where('department_id', 3)->where('status_id', 2)->count();
         $ketoan_status_3_cnt =  Description::all()->where('department_id', 3)->where('status_id', 3)->count();
         $ketoan_status_4_cnt =  Description::all()->where('department_id', 3)->where('status_id', 4)->count();
-        //$ketoan_cnt = collect([$ketoan_status_1_cnt, $ketoan_status_2_cnt, $ketoan_status_3_cnt, $ketoan_status_4_cnt]);
-        $ketoan_cnt = collect([20, 21, 22, 23]);
+        $ketoan_cnt = collect([$ketoan_status_1_cnt, $ketoan_status_2_cnt, $ketoan_status_3_cnt, $ketoan_status_4_cnt]);
+        //$ketoan_cnt = collect([20, 21, 22, 23]);
 
 
         $ksnb_status_1_cnt =  Description::all()->where('department_id', 4)->where('status_id', 1)->count();
         $ksnb_status_2_cnt =  Description::all()->where('department_id', 4)->where('status_id', 2)->count();
         $ksnb_status_3_cnt =  Description::all()->where('department_id', 4)->where('status_id', 3)->count();
         $ksnb_status_4_cnt =  Description::all()->where('department_id', 4)->where('status_id', 4)->count();
-        //$ksnb_cnt = collect([$ksnb_status_1_cnt, $ksnb_status_2_cnt, $ksnb_status_3_cnt, $ksnb_status_4_cnt]);
-        $ksnb_cnt = collect([30, 31, 32, 33]);
+        $ksnb_cnt = collect([$ksnb_status_1_cnt, $ksnb_status_2_cnt, $ksnb_status_3_cnt, $ksnb_status_4_cnt]);
+        //$ksnb_cnt = collect([30, 31, 32, 33]);
 
         $baotri_status_1_cnt =  Description::all()->where('department_id', 5)->where('status_id', 1)->count();
         $baotri_status_2_cnt =  Description::all()->where('department_id', 5)->where('status_id', 2)->count();
         $baotri_status_3_cnt =  Description::all()->where('department_id', 5)->where('status_id', 3)->count();
         $baotri_status_4_cnt =  Description::all()->where('department_id', 5)->where('status_id', 4)->count();
-        //$baotri_cnt = collect([$baotri_status_1_cnt, $baotri_status_2_cnt, $baotri_status_3_cnt, $baotri_status_4_cnt]);
-        $baotri_cnt = collect([40, 41, 42, 43]);
+        $baotri_cnt = collect([$baotri_status_1_cnt, $baotri_status_2_cnt, $baotri_status_3_cnt, $baotri_status_4_cnt]);
+        //$baotri_cnt = collect([40, 41, 42, 43]);
 
         $sx_status_1_cnt =  Description::all()->where('department_id', 6)->where('status_id', 1)->count();
         $sx_status_2_cnt =  Description::all()->where('department_id', 6)->where('status_id', 2)->count();
         $sx_status_3_cnt =  Description::all()->where('department_id', 6)->where('status_id', 3)->count();
         $sx_status_4_cnt =  Description::all()->where('department_id', 6)->where('status_id', 4)->count();
-        //$sx_cnt = collect([$sx_status_1_cnt, $sx_status_2_cnt, $sx_status_3_cnt, $sx_status_4_cnt]);
-        $sx_cnt = collect([50, 51, 52, 53]);
+        $sx_cnt = collect([$sx_status_1_cnt, $sx_status_2_cnt, $sx_status_3_cnt, $sx_status_4_cnt]);
+        //$sx_cnt = collect([50, 51, 52, 53]);
 
         $thumua_status_1_cnt =  Description::all()->where('department_id', 7)->where('status_id', 1)->count();
         $thumua_status_2_cnt =  Description::all()->where('department_id', 7)->where('status_id', 2)->count();
         $thumua_status_3_cnt =  Description::all()->where('department_id', 7)->where('status_id', 3)->count();
         $thumua_status_4_cnt =  Description::all()->where('department_id', 7)->where('status_id', 4)->count();
-        //$thumua_cnt = collect([$thumua_status_1_cnt, $thumua_status_2_cnt, $thumua_status_3_cnt, $thumua_status_4_cnt]);
-        $thumua_cnt = collect([60, 61, 62, 63]);
+        $thumua_cnt = collect([$thumua_status_1_cnt, $thumua_status_2_cnt, $thumua_status_3_cnt, $thumua_status_4_cnt]);
+        //$thumua_cnt = collect([60, 61, 62, 63]);
 
         $kythuat_status_1_cnt =  Description::all()->where('department_id', 8)->where('status_id', 1)->count();
         $kythuat_status_2_cnt =  Description::all()->where('department_id', 8)->where('status_id', 2)->count();
         $kythuat_status_3_cnt =  Description::all()->where('department_id', 8)->where('status_id', 3)->count();
         $kythuat_status_4_cnt =  Description::all()->where('department_id', 8)->where('status_id', 4)->count();
-        //$kythuat_cnt = collect([$kythuat_status_1_cnt, $kythuat_status_2_cnt, $kythuat_status_3_cnt, $kythuat_status_4_cnt]);
-        $kythuat_cnt = collect([70, 71, 72, 73]);
+        $kythuat_cnt = collect([$kythuat_status_1_cnt, $kythuat_status_2_cnt, $kythuat_status_3_cnt, $kythuat_status_4_cnt]);
+        //$kythuat_cnt = collect([70, 71, 72, 73]);
 
         $qlcl_status_1_cnt =  Description::all()->where('department_id', 9)->where('status_id', 1)->count();
         $qlcl_status_2_cnt =  Description::all()->where('department_id', 9)->where('status_id', 2)->count();
         $qlcl_status_3_cnt =  Description::all()->where('department_id', 9)->where('status_id', 3)->count();
         $qlcl_status_4_cnt =  Description::all()->where('department_id', 9)->where('status_id', 4)->count();
-        //$qlcl_cnt = collect([$qlcl_status_1_cnt, $qlcl_status_2_cnt, $qlcl_status_3_cnt, $qlcl_status_4_cnt]);
-        $qlcl_cnt = collect([80, 81, 82, 83]);
+        $qlcl_cnt = collect([$qlcl_status_1_cnt, $qlcl_status_2_cnt, $qlcl_status_3_cnt, $qlcl_status_4_cnt]);
+        //$qlcl_cnt = collect([80, 81, 82, 83]);
 
         $kho_status_1_cnt =  Description::all()->where('department_id', 10)->where('status_id', 1)->count();
         $kho_status_2_cnt =  Description::all()->where('department_id', 10)->where('status_id', 2)->count();
         $kho_status_3_cnt =  Description::all()->where('department_id', 10)->where('status_id', 3)->count();
         $kho_status_4_cnt =  Description::all()->where('department_id', 10)->where('status_id', 4)->count();
-        //$kho_cnt = collect([$kho_status_1_cnt, $kho_status_2_cnt, $kho_status_3_cnt, $kho_status_4_cnt]);
-        $kho_cnt = collect([90, 91, 92, 93]);
+        $kho_cnt = collect([$kho_status_1_cnt, $kho_status_2_cnt, $kho_status_3_cnt, $kho_status_4_cnt]);
+        //$kho_cnt = collect([90, 91, 92, 93]);
+
+        return collect([$hcns_cnt, $sale_cnt, $ketoan_cnt, $ksnb_cnt, $baotri_cnt,
+            $sx_cnt, $thumua_cnt, $kythuat_cnt, $qlcl_cnt, $kho_cnt]);
+    }
+
+
+    /**
+     * @param
+     */
+    public function allDepartmentReasonStatistic()
+    {
+        $hcns_reason_type_1_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 1)
+                    ->where('preventions.reason_type_id', 1);
+            })
+            ->count();
+        $hcns_reason_type_2_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 1)
+                    ->where('preventions.reason_type_id', 2);
+            })
+            ->count();
+        $hcns_reason_type_3_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 1)
+                    ->where('preventions.reason_type_id', 3);
+            })
+            ->count();
+        $hcns_reason_type_4_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 1)
+                    ->where('preventions.reason_type_id', 4);
+            })
+            ->count();
+        $hcns_reason_type_5_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 1)
+                    ->where('preventions.reason_type_id', 5);
+            })
+            ->count();
+        $hcns_reason_type_6_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 1)
+                    ->where('preventions.reason_type_id', 6);
+            })
+            ->count();
+        $hcns_cnt = collect([$hcns_reason_type_1_cnt, $hcns_reason_type_2_cnt, $hcns_reason_type_3_cnt,
+         $hcns_reason_type_4_cnt, $hcns_reason_type_5_cnt, $hcns_reason_type_6_cnt]);
+        //$hcns_cnt = collect([90, 91, 92, 93, 94, 95]);
+
+        $sale_reason_type_1_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 2)
+                    ->where('preventions.reason_type_id', 1);
+            })
+            ->count();
+        $sale_reason_type_2_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 2)
+                    ->where('preventions.reason_type_id', 2);
+            })
+            ->count();
+        $sale_reason_type_3_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 2)
+                    ->where('preventions.reason_type_id', 3);
+            })
+            ->count();
+        $sale_reason_type_4_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 2)
+                    ->where('preventions.reason_type_id', 4);
+            })
+            ->count();
+        $sale_reason_type_5_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 2)
+                    ->where('preventions.reason_type_id', 5);
+            })
+            ->count();
+        $sale_reason_type_6_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 2)
+                    ->where('preventions.reason_type_id', 6);
+            })
+            ->count();
+        $sale_cnt = collect([$sale_reason_type_1_cnt, $sale_reason_type_2_cnt, $sale_reason_type_3_cnt,
+         $sale_reason_type_4_cnt, $sale_reason_type_5_cnt, $sale_reason_type_6_cnt]);
+        //$sale_cnt = collect([80, 81, 82, 83, 84, 85, 86]);
+
+
+        $ketoan_reason_type_1_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 3)
+                    ->where('preventions.reason_type_id', 1);
+            })
+            ->count();
+        $ketoan_reason_type_2_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 3)
+                    ->where('preventions.reason_type_id', 2);
+            })
+            ->count();
+        $ketoan_reason_type_3_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 3)
+                    ->where('preventions.reason_type_id', 3);
+            })
+            ->count();
+        $ketoan_reason_type_4_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 3)
+                    ->where('preventions.reason_type_id', 4);
+            })
+            ->count();
+        $ketoan_reason_type_5_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 3)
+                    ->where('preventions.reason_type_id', 5);
+            })
+            ->count();
+        $ketoan_reason_type_6_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 3)
+                    ->where('preventions.reason_type_id', 6);
+            })
+            ->count();
+        $ketoan_cnt = collect([$ketoan_reason_type_1_cnt, $ketoan_reason_type_2_cnt, $ketoan_reason_type_3_cnt,
+         $ketoan_reason_type_4_cnt, $ketoan_reason_type_5_cnt, $ketoan_reason_type_6_cnt]);
+        //$ketoan_cnt = collect([70, 71, 72, 73, 74, 75]);
+
+        $ksnb_reason_type_1_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 4)
+                    ->where('preventions.reason_type_id', 1);
+            })
+            ->count();
+        $ksnb_reason_type_2_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 4)
+                    ->where('preventions.reason_type_id', 2);
+            })
+            ->count();
+        $ksnb_reason_type_3_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 4)
+                    ->where('preventions.reason_type_id', 3);
+            })
+            ->count();
+        $ksnb_reason_type_4_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 4)
+                    ->where('preventions.reason_type_id', 4);
+            })
+            ->count();
+        $ksnb_reason_type_5_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 4)
+                    ->where('preventions.reason_type_id', 5);
+            })
+            ->count();
+        $ksnb_reason_type_6_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 4)
+                    ->where('preventions.reason_type_id', 6);
+            })
+            ->count();
+        $ksnb_cnt = collect([$ksnb_reason_type_1_cnt, $ksnb_reason_type_2_cnt, $ksnb_reason_type_3_cnt,
+         $ksnb_reason_type_4_cnt, $ksnb_reason_type_5_cnt, $ksnb_reason_type_6_cnt]);
+        //$ksnb_cnt = collect([60, 61, 62, 63, 64, 65]);
+
+        $baotri_reason_type_1_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 5)
+                    ->where('preventions.reason_type_id', 1);
+            })
+            ->count();
+        $baotri_reason_type_2_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 5)
+                    ->where('preventions.reason_type_id', 2);
+            })
+            ->count();
+        $baotri_reason_type_3_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 5)
+                    ->where('preventions.reason_type_id', 3);
+            })
+            ->count();
+        $baotri_reason_type_4_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 5)
+                    ->where('preventions.reason_type_id', 4);
+            })
+            ->count();
+        $baotri_reason_type_5_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 5)
+                    ->where('preventions.reason_type_id', 5);
+            })
+            ->count();
+        $baotri_reason_type_6_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 5)
+                    ->where('preventions.reason_type_id', 6);
+            })
+            ->count();
+        $baotri_cnt = collect([$baotri_reason_type_1_cnt, $baotri_reason_type_2_cnt, $baotri_reason_type_3_cnt,
+         $baotri_reason_type_4_cnt, $baotri_reason_type_5_cnt, $baotri_reason_type_5_cnt]);
+        //$baotri_cnt = collect([50, 51, 52, 53, 54, 55]);
+
+        $sx_reason_type_1_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 6)
+                    ->where('preventions.reason_type_id', 1);
+            })
+            ->count();
+        $sx_reason_type_2_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 6)
+                    ->where('preventions.reason_type_id', 2);
+            })
+            ->count();
+        $sx_reason_type_3_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 6)
+                    ->where('preventions.reason_type_id', 3);
+            })
+            ->count();
+        $sx_reason_type_4_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 6)
+                    ->where('preventions.reason_type_id', 4);
+            })
+            ->count();
+        $sx_reason_type_5_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 6)
+                    ->where('preventions.reason_type_id', 5);
+            })
+            ->count();
+        $sx_reason_type_6_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 6)
+                    ->where('preventions.reason_type_id', 6);
+            })
+            ->count();
+        $sx_cnt = collect([$sx_reason_type_1_cnt, $sx_reason_type_2_cnt, $sx_reason_type_3_cnt,
+         $sx_reason_type_4_cnt, $sx_reason_type_5_cnt, $sx_reason_type_6_cnt]);
+        //$sx_cnt = collect([40, 41, 42, 43, 44, 45]);
+
+        $thumua_reason_type_1_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 7)
+                    ->where('preventions.reason_type_id', 1);
+            })
+            ->count();
+        $thumua_reason_type_2_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 7)
+                    ->where('preventions.reason_type_id', 2);
+            })
+            ->count();
+        $thumua_reason_type_3_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 7)
+                    ->where('preventions.reason_type_id', 3);
+            })
+            ->count();
+        $thumua_reason_type_4_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 7)
+                    ->where('preventions.reason_type_id', 4);
+            })
+            ->count();
+        $thumua_reason_type_5_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 7)
+                    ->where('preventions.reason_type_id', 5);
+            })
+            ->count();
+        $thumua_reason_type_6_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 7)
+                    ->where('preventions.reason_type_id', 6);
+            })
+            ->count();
+        $thumua_cnt = collect([$thumua_reason_type_1_cnt, $thumua_reason_type_2_cnt, $thumua_reason_type_3_cnt,
+         $thumua_reason_type_4_cnt, $thumua_reason_type_5_cnt, $thumua_reason_type_6_cnt]);
+        //$thumua_cnt = collect([30, 31, 32, 33, 34, 35]);
+
+        $kythuat_reason_type_1_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 8)
+                    ->where('preventions.reason_type_id', 1);
+            })
+            ->count();
+        $kythuat_reason_type_2_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 8)
+                    ->where('preventions.reason_type_id', 2);
+            })
+            ->count();
+        $kythuat_reason_type_3_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 8)
+                    ->where('preventions.reason_type_id', 3);
+            })
+            ->count();
+        $kythuat_reason_type_4_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 8)
+                    ->where('preventions.reason_type_id', 4);
+            })
+            ->count();
+        $kythuat_reason_type_5_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 8)
+                    ->where('preventions.reason_type_id', 5);
+            })
+            ->count();
+        $kythuat_reason_type_6_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 8)
+                    ->where('preventions.reason_type_id', 6);
+            })
+            ->count();
+        $kythuat_cnt = collect([$kythuat_reason_type_1_cnt, $kythuat_reason_type_2_cnt, $kythuat_reason_type_3_cnt,
+         $kythuat_reason_type_4_cnt, $kythuat_reason_type_5_cnt, $kythuat_reason_type_6_cnt]);
+        //$kythuat_cnt = collect([20, 21, 22, 23, 24, 25]);
+
+        $qlcl_reason_type_1_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 9)
+                    ->where('preventions.reason_type_id', 1);
+            })
+            ->count();
+        $qlcl_reason_type_2_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 9)
+                    ->where('preventions.reason_type_id', 2);
+            })
+            ->count();
+        $qlcl_reason_type_3_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 9)
+                    ->where('preventions.reason_type_id', 3);
+            })
+            ->count();
+        $qlcl_reason_type_4_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 9)
+                    ->where('preventions.reason_type_id', 4);
+            })
+            ->count();
+        $qlcl_reason_type_5_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 9)
+                    ->where('preventions.reason_type_id', 5);
+            })
+            ->count();
+        $qlcl_reason_type_6_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 9)
+                    ->where('preventions.reason_type_id', 6);
+            })
+            ->count();
+        $qlcl_cnt = collect([$qlcl_reason_type_1_cnt, $qlcl_reason_type_2_cnt, $qlcl_reason_type_3_cnt,
+         $qlcl_reason_type_4_cnt, $qlcl_reason_type_5_cnt, $qlcl_reason_type_6_cnt]);
+        //$qlcl_cnt = collect([10, 11, 12, 13, 14, 15]);
+
+        $kho_reason_type_1_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 10)
+                    ->where('preventions.reason_type_id', 1);
+            })
+            ->count();
+        $kho_reason_type_2_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 10)
+                    ->where('preventions.reason_type_id', 2);
+            })
+            ->count();
+        $kho_reason_type_3_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 10)
+                    ->where('preventions.reason_type_id', 3);
+            })
+            ->count();
+        $kho_reason_type_4_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 10)
+                    ->where('preventions.reason_type_id', 4);
+            })
+            ->count();
+        $kho_reason_type_5_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 10)
+                    ->where('preventions.reason_type_id', 5);
+            })
+            ->count();
+        $kho_reason_type_6_cnt = DB::table('preventions')
+            ->join('descriptions', function($join)
+            {
+                $join->on('descriptions.id', '=', 'preventions.id')
+                    ->where('descriptions.department_id', 10)
+                    ->where('preventions.reason_type_id', 6);
+            })
+            ->count();
+        $kho_cnt = collect([$kho_reason_type_1_cnt, $kho_reason_type_2_cnt, $kho_reason_type_3_cnt,
+         $kho_reason_type_4_cnt, $kho_reason_type_5_cnt, $kho_reason_type_6_cnt]);
+        //$kho_cnt = collect([0, 1, 2, 3, 4, 5]);
 
         return collect([$hcns_cnt, $sale_cnt, $ketoan_cnt, $ksnb_cnt, $baotri_cnt,
             $sx_cnt, $thumua_cnt, $kythuat_cnt, $qlcl_cnt, $kho_cnt]);
