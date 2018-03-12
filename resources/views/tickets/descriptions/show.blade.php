@@ -195,7 +195,7 @@
                             <el-tab-pane label="Phòng ngừa" name="prevents">
                                 <h5><b style="color:blue; float: left">4. Xem xét mức độ sự không phù hợp:</b></h5>
                                 <span style="float: left;">&nbsp; </span>
-                                @if(\Auth::user()->userRole->role_id == 1)
+                                @if((\Auth::user()->userRole->role_id == 1) && ('Đồng ý' == $troubleshoot->approve_result))
                                     <span>
                                         <form style="float: left;" action="{{ route('evaluate', [$troubleshoot->id, 'Nghiêm trọng']) }}" method="POST">
                                             {{ csrf_field() }}
@@ -230,6 +230,7 @@
 
                                         </p>
                                     @endif
+                                    @if($troubleshoot->evaluate_result)
                                         <p><b>Nguyên nhân gốc rễ:</b>
                                             @if((\Auth::id() == $prevention->proposer_id))
                                                 <span>
@@ -270,47 +271,50 @@
                                             </span>
                                         @endif
                                     </p>
+                                    @endif
                                 </div>
 
                                 <br>
                                 <hr style="color:#337ab7; border-color:#337ab7; background-color:#337ab7">
                                 <h5><b style="color:blue">5. Hoạt động phòng ngừa</b></h5>
                                 <div class="col-md-12">
-                                    @if($prevention->proposer)
-                                        <p><b>Người đề xuất xử lý:</b> {{$prevention->proposer->name}}</p>
-                                    @else
-                                        <p><b>Người đề xuất xử lý:</b> <b style="color:red">Chưa được giao</b></p>
-                                    @endif
-                                    @if($preventionactions->count())
-                                        <p><b style="float: left;">Thẩm tra đề xuất xử lý:</b>
-                                            <span style="float: left;">
-                                                @if($prevention->approve_result)
-                                                    <b style="color: {{'Đồng ý' == $prevention->approve_result ? "blue":"red"}}">&nbsp; {{$prevention->approve_result}}</b> (Bởi {{$prevention->approver->name}})&nbsp;
-                                                @else
-                                                    <p style="float: left;"><b style="color:red"> Chưa thẩm tra</b></p>
-                                                @endif
-                                            </span>
-                                            <span style="float: left;">&nbsp; </span>
-                                            @if(\Auth::id() == $prevention->approver_id)
-                                                <span>
-                                                    <form style="float: left;" action="{{ route('approvePrevention', [$prevention->id, 'Đồng ý']) }}" method="POST">
-                                                        {{ csrf_field() }}
-                                                        {{ method_field('PATCH') }}
-                                                        <button type="submit"  class="btn btn-success btn-xs"><i class="fa fa-check-circle"> Chấp nhận</i></button>
-                                                    </form>
+                                    @if('Đồng ý' == $prevention->root_cause_approve_result)
+                                        @if($prevention->proposer)
+                                            <p><b>Người đề xuất xử lý:</b> {{$prevention->proposer->name}}</p>
+                                        @else
+                                            <p><b>Người đề xuất xử lý:</b> <b style="color:red">Chưa được giao</b></p>
+                                        @endif
+                                        @if($preventionactions->count())
+                                            <p><b style="float: left;">Thẩm tra đề xuất xử lý:</b>
+                                                <span style="float: left;">
+                                                    @if($prevention->approve_result)
+                                                        <b style="color: {{'Đồng ý' == $prevention->approve_result ? "blue":"red"}}">&nbsp; {{$prevention->approve_result}}</b> (Bởi {{$prevention->approver->name}})&nbsp;
+                                                    @else
+                                                        <p style="float: left;"><b style="color:red"> Chưa thẩm tra</b></p>
+                                                    @endif
                                                 </span>
                                                 <span style="float: left;">&nbsp; </span>
-                                                <span>
-                                                    <form action="{{ route('approvePrevention', [$prevention->id, 'Không đồng ý']) }}" method="POST">
-                                                        {{ csrf_field() }}
-                                                        {{ method_field('PATCH') }}
-                                                        <button type="submit" class="btn btn-danger btn-xs"><i class="fa fa-times-circle"> Từ chối</i></button>
-                                                    </form>
-                                                </span>
-                                            @endif
-                                        </p>
-                                    @else
-                                        <p><b>Thẩm tra đề xuất xử lý:</b> <b style="color: red"> Chưa thẩm tra</b></p>
+                                                @if(\Auth::id() == $prevention->approver_id)
+                                                    <span>
+                                                        <form style="float: left;" action="{{ route('approvePrevention', [$prevention->id, 'Đồng ý']) }}" method="POST">
+                                                            {{ csrf_field() }}
+                                                            {{ method_field('PATCH') }}
+                                                            <button type="submit"  class="btn btn-success btn-xs"><i class="fa fa-check-circle"> Chấp nhận</i></button>
+                                                        </form>
+                                                    </span>
+                                                    <span style="float: left;">&nbsp; </span>
+                                                    <span>
+                                                        <form action="{{ route('approvePrevention', [$prevention->id, 'Không đồng ý']) }}" method="POST">
+                                                            {{ csrf_field() }}
+                                                            {{ method_field('PATCH') }}
+                                                            <button type="submit" class="btn btn-danger btn-xs"><i class="fa fa-times-circle"> Từ chối</i></button>
+                                                        </form>
+                                                    </span>
+                                                @endif
+                                            </p>
+                                        @else
+                                            <p><b>Thẩm tra đề xuất xử lý:</b> <b style="color: red"> Chưa thẩm tra</b></p>
+                                        @endif
                                     @endif
                                 </div>
 
