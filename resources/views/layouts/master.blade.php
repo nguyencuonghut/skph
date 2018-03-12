@@ -94,14 +94,14 @@
             <a href="{{route('dashboard', \Auth::id())}}" class=" list-group-item" data-parent="#MainMenu"><i
                         class="glyphicon sidebar-icon glyphicon-dashboard"></i><span id="menu-txt">{{ __('Dashboard') }}</span> </a>
             <a href="{{route('users.show', \Auth::id())}}" class=" list-group-item" data-parent="#MainMenu"><i
-                        class="glyphicon sidebar-icon glyphicon-user"></i><span id="menu-txt">{{ __('Profile') }}</span> </a>
+                        class="glyphicon sidebar-icon glyphicon-user"></i><span id="menu-txt">{{ __('Trang cá nhân') }}</span> </a>
 
             <a href="#tickets" class=" list-group-item" data-toggle="collapse" data-parent="#MainMenu"><i
-                        class="glyphicon sidebar-icon glyphicon-tag"></i><span id="menu-txt">{{ __('Tickets') }}</span>
+                        class="glyphicon sidebar-icon glyphicon-tag"></i><span id="menu-txt">{{ __('Phiếu C.A.R') }}</span>
                 <i class="ion-chevron-up  arrow-up sidebar-arrow"></i></a>
             <div class="collapse" id="tickets">
 
-                <a href="{{ route('descriptions.index')}}" class="list-group-item childlist">{{ __('Tất cả tickets') }}</a>
+                <a href="{{ route('descriptions.index')}}" class="list-group-item childlist">{{ __('Tất cả') }}</a>
                 <a href="{{ route('descriptions.create')}}"
                    class="list-group-item childlist">{{ __('Tạo mới') }}
                 </a>
@@ -132,13 +132,13 @@
             -->
 
             <a href="#user" class=" list-group-item" data-toggle="collapse" data-parent="#MainMenu"><i
-                        class="sidebar-icon fa fa-users"></i><span id="menu-txt">{{ __('Users') }}</span>
+                        class="sidebar-icon fa fa-users"></i><span id="menu-txt">{{ __('Người dùng') }}</span>
                 <i class="ion-chevron-up  arrow-up sidebar-arrow"></i></a>
             <div class="collapse" id="user">
-                <a href="{{ route('users.index')}}" class="list-group-item childlist">{{ __('Users All') }}</a>
+                <a href="{{ route('users.index')}}" class="list-group-item childlist">{{ __('Tất cả') }}</a>
                 @if(Entrust::can('user-create'))
                     <a href="{{ route('users.create')}}"
-                       class="list-group-item childlist">{{ __('New User') }}</a>
+                       class="list-group-item childlist">{{ __('Tạo mới') }}</a>
                 @endif
             </div>
 
@@ -156,35 +156,33 @@
             -->
 
             <a href="#departments" class=" list-group-item" data-toggle="collapse" data-parent="#MainMenu"><i
-                        class="sidebar-icon glyphicon glyphicon-list-alt"></i><span id="menu-txt">{{ __('Departments') }}</span>
+                        class="sidebar-icon glyphicon glyphicon-list-alt"></i><span id="menu-txt">{{ __('Phòng/ban') }}</span>
                 <i class="ion-chevron-up  arrow-up sidebar-arrow"></i></a>
             <div class="collapse" id="departments">
                 <a href="{{ route('departments.index')}}"
-                   class="list-group-item childlist">{{ __('All Departments') }}</a>
+                   class="list-group-item childlist">{{ __('Tất cả') }}</a>
                 @if(Entrust::hasRole('administrator'))
                     <a href="{{ route('departments.create')}}"
-                       class="list-group-item childlist">{{ __('New Department') }}</a>
+                       class="list-group-item childlist">{{ __('Tạo mới') }}</a>
                 @endif
             </div>
 
             @if(Entrust::hasRole('administrator'))
                 <a href="#settings" class=" list-group-item" data-toggle="collapse" data-parent="#MainMenu"><i
-                            class="glyphicon sidebar-icon glyphicon-cog"></i><span id="menu-txt">{{ __('Settings') }}</span>
+                            class="glyphicon sidebar-icon glyphicon-cog"></i><span id="menu-txt">{{ __('Cấu hình') }}</span>
                     <i class="ion-chevron-up  arrow-up sidebar-arrow"></i></a>
                 <div class="collapse" id="settings">
                     <a href="{{ route('settings.index')}}"
-                       class="list-group-item childlist">{{ __('Overall Settings') }}</a>
+                       class="list-group-item childlist">{{ __('Cấu hình chung') }}</a>
 
                     <a href="{{ route('roles.index')}}"
-                       class="list-group-item childlist">{{ __('Role Management') }}</a>
-                    <a href="{{ route('integrations.index')}}"
-                       class="list-group-item childlist">{{ __('Integrations') }}</a>
+                       class="list-group-item childlist">{{ __('Quản lý chức vụ') }}</a>
                 </div>
 
 
             @endif
             <a href="{{ url('/logout') }}" class=" list-group-item impmenu" data-parent="#MainMenu"><i
-                        class="glyphicon sidebar-icon glyphicon-log-out"></i><span id="menu-txt">{{ __('Sign Out') }}</span> </a>
+                        class="glyphicon sidebar-icon glyphicon-log-out"></i><span id="menu-txt">{{ __('Đăng xuất') }}</span> </a>
 
         </div>
     </nav>
