@@ -17,67 +17,38 @@ class StatusesTableSeeder extends Seeder
             0 =>
                 array (
                     'id' => 1,
-                    'name' => 'Đang chờ xác nhận bởi trưởng bộ phận',
+                    'name' => 'Phiếu CAR chưa được chỉ định người phân tích nguyên nhân và đề xuất hành động KPPN',
                     'created_at' => '2016-06-04 13:42:19',
                     'updated_at' => '2016-06-04 13:42:19',
                 ),
             1 =>
                 array (
                     'id' => 2,
-                    'name' => 'Trưởng bộ phận đã xác nhận',
+                    'name' => 'Phiếu CAR chưa được duyệt nguyên nhân gốc rễ',
                     'created_at' => '2016-06-04 13:42:19',
                     'updated_at' => '2016-06-04 13:42:19',
                 ),
             2 =>
                 array (
                     'id' => 3,
-                    'name' => 'Đang thực hiện khắc phục SKPH',
+                    'name' => 'Phiếu CAR chưa đc duyệt hành động KPPN',
                     'created_at' => '2016-06-04 13:42:19',
                     'updated_at' => '2016-06-04 13:42:19',
                 ),
             3 =>
                 array (
                     'id' => 4,
-                    'name' => 'Đang phân tích nguyên nhân',
+                    'name' => 'Phiếu CAR chưa hoàn thành hành động KPPN (gồm cả chưa đến hạn, quá hạn)',
                     'created_at' => '2016-06-04 13:42:19',
                     'updated_at' => '2016-06-04 13:42:19',
                 ),
             4 =>
                 array (
                     'id' => 5,
-                    'name' => 'Đang đề xuất hoạt động xử lý không phù hợp',
+                    'name' => 'Phiếu CAR đã hoàn thành hành động KPPN',
                     'created_at' => '2016-06-04 13:42:19',
                     'updated_at' => '2016-06-04 13:42:19',
                 ),
-            5 =>
-                array (
-                    'id' => 6,
-                    'name' => 'Đang thẩm tra đề xuất hoạt động xử lý không phù hợp',
-                    'created_at' => '2016-06-04 13:42:19',
-                    'updated_at' => '2016-06-04 13:42:19',
-                ),
-            6 =>
-                array (
-                    'id' => 7,
-                    'name' => 'Đang xử lý sự không phù hợp',
-                    'created_at' => '2016-06-04 13:42:19',
-                    'updated_at' => '2016-06-04 13:42:19',
-                ),
-            7 =>
-                array (
-                    'id' => 8,
-                    'name' => 'Đang xem xét mức độ sự không phù hợp',
-                    'created_at' => '2016-06-04 13:42:19',
-                    'updated_at' => '2016-06-04 13:42:19',
-                ),
-            8=>
-                array (
-                    'id' => 9,
-                    'name' => 'Phiếu C.A.R đã được xử lý',
-                    'created_at' => '2016-06-04 13:42:19',
-                    'updated_at' => '2016-06-04 13:42:19',
-                ),
-
         ));
     }
 }

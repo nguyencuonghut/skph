@@ -115,10 +115,11 @@ class PagesController extends Controller
      */
         $allDepartmentTickets = $this->descriptions->allDepartmentStatistic();
         $allReasonTickets = $this->descriptions->allReasonStatistic();
-        $allTroubleshootableRateTickets = $this->descriptions->allTroubleshootableRateStatistic();
-        $allPreventionableRateTickets = $this->descriptions->allPreventionableRateStatistic();
-        $allTroubleshootActionsOnTimeRateTickets = $this->descriptions->allTroubleshootActionsOnTimeRateStatistic();
-        $allPreventionActionsOnTimeRateTickets = $this->descriptions->allPreventionActionsOnTimeRateStatistic();
+        $allDepartmentStatusTickets = $this->descriptions->allDepartmentStatusStatistic();
+        //$allTroubleshootableRateTickets = $this->descriptions->allTroubleshootableRateStatistic();
+        //$allPreventionableRateTickets = $this->descriptions->allPreventionableRateStatistic();
+        //$allTroubleshootActionsOnTimeRateTickets = $this->descriptions->allTroubleshootActionsOnTimeRateStatistic();
+        //$allPreventionActionsOnTimeRateTickets = $this->descriptions->allPreventionActionsOnTimeRateStatistic();
         return view('pages.dashboard', compact(
             'completedTasksToday',
             'completedLeadsToday',
@@ -142,10 +143,7 @@ class PagesController extends Controller
             'totalPercentageLeads',
             'allDepartmentTickets',
             'allReasonTickets',
-            'allTroubleshootableRateTickets',
-            'allPreventionableRateTickets',
-            'allTroubleshootActionsOnTimeRateTickets',
-            'allPreventionActionsOnTimeRateTickets'
+            'allDepartmentStatusTickets'
         ));
     }
 }

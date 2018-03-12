@@ -117,6 +117,7 @@ class PreventionActionsController extends Controller
 
         //Update the flag of description
         $this->isAllActionsOnTime($preventionaction->description_id);
+        $this->isAllActionsCompleted($preventionaction->description_id);
         Session()->flash('flash_message', 'Cập nhật biện pháp phòng ngừa thành công');
         return redirect()->route("descriptions.show", $preventionaction->description_id)->with('tab', 'prevents');
     }
@@ -149,6 +150,7 @@ class PreventionActionsController extends Controller
 
             //Update the flag of description
             $this->isAllActionsOnTime($preventionaction->description_id);
+            $this->isAllActionsCompleted($preventionaction->description_id);
 
             Session()->flash('flash_message', 'Đã hoàn thành một hành động khắc phục!');
             return redirect()->route("descriptions.show", $preventionaction->description_id)->with('tab', 'prevents');
@@ -207,6 +209,23 @@ class PreventionActionsController extends Controller
         $description = Description::findOrFail($description_id);
         $description->is_prevention_actions_on_time = $is_all_on_time;
         $description->save();
+    }
+
+    private function isAllActionsCompleted($description_id)
+    {
+        $is_all_completed = true;
+        //Find all the actions according to description id
+        $actions = PreventionAction::all()->where('description_id', $description_id);
+        foreach ($actions as $action) {
+            if('Open' == $action->status){
+                $is_all_completed = false;
+            }
+        }
+        if(true == $is_all_completed) {
+            $description = Description::findOrFail($description_id);
+            $description->status_id = 5; //Phiếu CAR đã hoàn thành hành động KPPN
+            $description->save();
+        }
     }
 
 }

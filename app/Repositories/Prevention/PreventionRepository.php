@@ -1,6 +1,7 @@
 <?php
 namespace App\Repositories\Prevention;
 
+use App\Models\Description;
 use App\Models\Prevention;
 use App\Models\ReasonType;
 use Carbon;
@@ -68,6 +69,11 @@ class PreventionRepository implements PreventionRepositoryContract
         if('Đồng ý' == $result) {
             event(new \App\Events\PreventionAction($prevention, self::APPROVED_PREVENTION));
 
+            //Update the status of description
+            $description = Description::findOrFail($id);
+            $description->status_id = 4; // Phiếu CAR chưa hoàn thành hành động KPPN (gồm cả chưa đến hạn, quá hạn)
+            $description->save();
+
         } else {
             event(new \App\Events\PreventionAction($prevention, self::REJECTED_PREVENTION));
         }
@@ -77,6 +83,11 @@ class PreventionRepository implements PreventionRepositoryContract
     {
         $prevention = Prevention::findOrFail($id);
         $prevention->fill($requestData->all())->save();
+
+        //Update the status of description
+        $description = Description::findOrFail($id);
+        $description->status_id = 2; // Phiếu CAR chưa được duyệt nguyên nhân gốc rễ
+        $description->save();
 
         event(new \App\Events\PreventionAction($prevention, self::REQUEST_TO_APPROVE_ROOT_CAUSE));
     }
@@ -97,6 +108,11 @@ class PreventionRepository implements PreventionRepositoryContract
 
         if('Đồng ý' == $result) {
             event(new \App\Events\PreventionAction($prevention, self::APPROVED_ROOT_CAUSE));
+
+            //Update the status of description
+            $description = Description::findOrFail($id);
+            $description->status_id = 3; // Phiếu CAR chưa đc duyệt hành động KPPN
+            $description->save();
 
         } else {
             event(new \App\Events\PreventionAction($prevention, self::REJECTED_ROOT_CAUSE));
