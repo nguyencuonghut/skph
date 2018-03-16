@@ -109,7 +109,7 @@ class PreventionActionsController extends Controller
         $preventionaction->how = $request->how;
         $preventionaction->status = $request->status;
         if('Closed' == $preventionaction->status) {
-            $preventionaction->is_on_time = (strtotime($preventionaction->when) > time()) ? true:false;
+            $preventionaction->is_on_time = (strtotime($preventionaction->when .  "+ 1 days") >= time()) ? true:false;
         } else {
             $preventionaction->is_on_time = false;
         }
@@ -145,7 +145,7 @@ class PreventionActionsController extends Controller
 
         if(\Auth::id() == $preventionaction->user_id) {
             $preventionaction->status = 'Closed';
-            $preventionaction->is_on_time = (strtotime($preventionaction->when) > time()) ? true:false;
+            $preventionaction->is_on_time = (strtotime($preventionaction->when .  "+ 1 days") >= time()) ? true:false;
             $preventionaction->save();
 
             //Update the flag of description

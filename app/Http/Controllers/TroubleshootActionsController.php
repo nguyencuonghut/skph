@@ -103,7 +103,7 @@ class TroubleshootActionsController extends Controller
         $troubleshootaction->deadline = $request->deadline;
         $troubleshootaction->status = $request->status;
         if('Closed' == $troubleshootaction->status) {
-            $troubleshootaction->is_on_time = (strtotime($troubleshootaction->deadline) > time()) ? true:false;
+            $troubleshootaction->is_on_time = (strtotime($troubleshootaction->deadline .  "+ 1 days") >= time()) ? true:false;
         } else {
             $troubleshootaction->is_on_time = false;
         }
@@ -137,7 +137,7 @@ class TroubleshootActionsController extends Controller
         $troubleshootaction = TroubleshootAction::findOrFail($id);
         if(\Auth::id() == $troubleshootaction->user_id) {
             $troubleshootaction->status = 'Closed';
-            $troubleshootaction->is_on_time = (strtotime($troubleshootaction->deadline) > time()) ? true:false;
+            $troubleshootaction->is_on_time = (strtotime($troubleshootaction->deadline .  "+ 1 days") >= time()) ? true:false;
             $troubleshootaction->save();
 
             //Update the flag of description
