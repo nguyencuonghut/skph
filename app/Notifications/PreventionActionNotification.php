@@ -49,48 +49,56 @@ class PreventionActionNotification extends Notification
     public function toMail($notifiable)
     {
         $url = url('/descriptions/'.$this->prevention->id);
+        $toName = '';
         switch ($this->action) {
             case 'assigned_proposer':
                 $text = __(':title, :username giao cho bạn đề xuất biện pháp phòng ngừa', [
                     'title' =>  $this->prevention->descriptionTitle,
                     'username' =>  Auth()->user()->name,
                 ]);
+                $toName = $this->prevention->proposer->name;
                 break;
             case 'request_to_approve':
                 $text = __(':title, :username yêu cầu bạn phê duyệt biện pháp phòng ngừa', [
                     'title' =>  $this->prevention->descriptionTitle,
                     'username' =>  Auth()->user()->name,
                 ]);
+                $toName = $this->prevention->approver->name;
                 break;
             case 'request_to_approve_root_cause':
                 $text = __(':title, :username yêu cầu bạn phê duyệt nguyên nhân gốc rễ', [
                     'title' =>  $this->prevention->descriptionTitle,
                     'username' =>  Auth()->user()->name,
                 ]);
+                $toName = $this->prevention->root_cause_approver->name;
                 break;
             case 'approved_prevention':
                 $text = __(':title, :approver đã phê duyệt biện pháp phòng ngừa của bạn', [
                     'approver' =>  $this->prevention->approver->name,
                     'title' =>  $this->prevention->descriptionTitle,
                 ]);
+                $toName = $this->prevention->proposer->name;
                 break;
             case 'rejected_prevention':
                 $text = __(':title, :approver đã từ chối biện pháp phòng ngừa của bạn', [
                     'approver' =>  $this->prevention->approver->name,
                     'title' =>  $this->prevention->descriptionTitle,
                 ]);
+                $toName = $this->prevention->proposer->name;
                 break;
             case 'approved_root_cause':
                 $text = __(':title, :approver đã đồng ý nguyên nhân gốc rễ của bạn', [
                     'approver' =>  $this->prevention->root_cause_approver->name,
                     'title' =>  $this->prevention->descriptionTitle,
                 ]);
+                $toName = $this->prevention->proposer->name;
                 break;
             case 'rejected_root_cause':
                 $text = __(':title, :approver đã từ chối nguyên nhân gốc rễ của bạn', [
-                    'approver' =>  $this->prevention->approver->name,
+                    'approver' =>  $this->prevention->root_cause_approver->name,
                     'title' =>  $this->prevention->descriptionTitle,
                 ]);
+                $toName = $this->prevention->proposer->name;
                 break;
             default:
                 break;
@@ -99,7 +107,7 @@ class PreventionActionNotification extends Notification
         return (new MailMessage)
             ->subject('Thông báo phiếu C.A.R')
             ->action('Thông báo', $url)
-            ->line(Auth()->user()->name)
+            ->line($toName)
             ->line($text);
     }
 

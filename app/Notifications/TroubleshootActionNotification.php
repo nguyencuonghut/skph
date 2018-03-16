@@ -49,48 +49,56 @@ class TroubleshootActionNotification extends Notification
     public function toMail($notifiable)
     {
         $url = url('/descriptions/'.$this->troubleshoot->id);
+        $toName = '';
         switch ($this->action) {
             case 'created':
                 $text = __(':title được tạo bởi :creator, và giao cho bạn', [
                     'title' =>  $this->troubleshoot->descriptionTitle,
                     'creator' => $this->troubleshoot->user->name,
                 ]);
+                $toName = $this->troubleshoot->user->name;
                 break;
             case 'assigned_troubleshooter':
                 $text = __(':title, :username giao cho bạn xử lý vấn đề', [
                     'title' =>  $this->troubleshoot->descriptionTitle,
                     'username' =>  Auth()->user()->name,
                 ]);
+                $toName = $this->troubleshoot->troubleshooter->name;
                 break;
             case 'request_to_approve':
                 $text = __(':title, :username yêu cầu bạn phê duyệt biện pháp khắc phục', [
                     'title' =>  $this->troubleshoot->descriptionTitle,
                     'username' =>  Auth()->user()->name,
                 ]);
+                $toName = $this->troubleshoot->approver->name;
                 break;
             case 'approved':
                 $text = __(':title, :approver đã đồng ý biện pháp khắc phục của bạn', [
                     'title' =>  $this->troubleshoot->descriptionTitle,
                     'approver' =>  $this->troubleshoot->approver->name,
                 ]);
+                $toName = $this->troubleshoot->troubleshooter->name;
                 break;
             case 'rejected':
                 $text = __(':title, :approver đã từ chối biện pháp khắc phục của bạn', [
                     'title' =>  $this->troubleshoot->descriptionTitle,
                     'approver' =>  $this->troubleshoot->approver->name,
                 ]);
+                $toName = $this->troubleshoot->troubleshooter->name;
                 break;
             case 'seriously':
                 $text = __(':title, :approver đã đánh giá SKPH của bạn là nghiêm trọng', [
                     'title' =>  $this->troubleshoot->descriptionTitle,
                     'approver' =>  $this->troubleshoot->evaluater->name,
                 ]);
+                $toName = $this->troubleshoot->troubleshooter->name;
                 break;
             case 'normally':
                 $text = __(':title, :approver đã đánh giá SKPH của bạn là không nghiêm trọng', [
                     'title' =>  $this->troubleshoot->descriptionTitle,
                     'approver' =>  $this->troubleshoot->evaluater->name,
                 ]);
+                $toName = $this->troubleshoot->troubleshooter->name;
                 break;
             default:
                 break;
@@ -98,7 +106,7 @@ class TroubleshootActionNotification extends Notification
         return (new MailMessage)
             ->subject('Thông báo phiếu C.A.R')
             ->action('Thông báo', $url)
-            ->line(Auth()->user()->name)
+            ->line($toName)
             ->line($text);
     }
 

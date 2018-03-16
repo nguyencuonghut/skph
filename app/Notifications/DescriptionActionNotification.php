@@ -49,30 +49,35 @@ class DescriptionActionNotification extends Notification
     public function toMail($notifiable)
     {
         $url = url('/descriptions/'.$this->description->id);
+        $toName = '';
         switch ($this->action) {
             case 'created':
                 $text = __(':title được tạo bởi :creator, và giao cho bạn', [
                     'title' =>  $this->description->title,
                     'creator' => $this->description->user->name,
                 ]);
+                $toName = $this->description->leader->name;
                 break;
             case 'leader_approved':
                 $text = __(':title được xác nhận bởi :leader', [
                     'title' =>  $this->description->title,
                     'leader' => $this->description->leader->name,
                 ]);
+                $toName = $this->description->user->name;
                 break;
             case 'leader_rejected':
                 $text = __(':title bị từ chối xác nhận bởi :leader', [
                     'title' =>  $this->description->title,
                     'leader' => $this->description->leader->name,
                 ]);
+                $toName = $this->description->user->name;
                 break;
             case 'effectiveness_asset':
                 $text = __(':title được đánh giá hiệu quả bởi :username', [
                     'title' =>  $this->description->title,
                     'username' => $this->description->effectiveness_user->name,
                 ]);
+                $toName = $this->description->user->name;
                 break;
             case 'updated_status':
                 $text = __(':title được đánh dấu hoàn thành bởi :username', [
@@ -98,7 +103,7 @@ class DescriptionActionNotification extends Notification
        return (new MailMessage)
                     ->subject('Thông báo phiếu C.A.R')
                     ->action('Thông báo', $url)
-                    ->line(Auth()->user()->name)
+                    ->line($toName)
                     ->line($text);
     }
 
