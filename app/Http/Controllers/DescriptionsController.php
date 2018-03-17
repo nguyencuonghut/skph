@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Level;
 use App\Models\Prevention;
+use App\Models\Responsibility;
 use App\Models\Troubleshoot;
 use App\Models\TroubleshootAction;
 use App\Models\PreventionAction;
@@ -94,7 +96,10 @@ class DescriptionsController extends Controller
             ->withCompletedActions(TroubleshootAction::all()->where('description_id', $id)->where('status', 'Closed'))
             ->withPrevention($prevention)
             ->withPreventionactions(PreventionAction::all()->where('description_id', $id))
-            ->withCompletedPreventions(PreventionAction::all()->where('description_id', $id)->where('status', 'Closed'));
+            ->withCompletedPreventions(PreventionAction::all()->where('description_id', $id)->where('status', 'Closed'))
+            ->withApprovers(User::all()->pluck('name', 'id'))
+            ->withResponsibilities(Responsibility::all()->pluck('name', 'id'))
+            ->withLevels(Level::all()->pluck('name', 'id'));
     }
 
     /**
