@@ -130,10 +130,59 @@
                                 <h5><b style="color:blue; float: left;">2. Xác định trách nhiệm:</b></h5>
                                 @if(\Auth::id() == $troubleshoot->troubleshooter_id && ('Đồng ý' != $troubleshoot->approve_result))
                                     <span>
-                                        <a href="{{ route("troubleshoots.edit", $description->id) }}">
-                                            <button type="button" class="btn btn-warning btn-xs"><i class="fa fa-edit"><b> Cập nhật</b></i></button>
-                                        </a>
+                                        <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#troubleshoot_edit"><i class="fa fa-edit"><b> Cập nhật</b></i></button>
                                     </span>
+                                    <div class="modal fade" id="troubleshoot_edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                    <h4 class="modal-title" id="myModalLabel"></h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    {!! Form::model($troubleshoot, [
+                                                            'method' => 'PATCH',
+                                                            'route' => ['troubleshoots.update', $troubleshoot->id],
+                                                            'files'=>true,
+                                                            'enctype' => 'multipart/form-data'
+                                                            ]) !!}
+                                                    <div class="form-inline">
+                                                        <div class="form-group col-sm-6 removeleft ">
+                                                            {!! Form::label('responsibility_id', __('Xác định trách nhiệm'), ['class' => 'control-label']) !!}
+                                                            {!! Form::select('responsibility_id', $responsibilities, null, ['placeholder' => '', 'id'=>'responsibility_id', 'name'=>'responsibility_id','class'=>'form-control', 'style' => 'width:100%']) !!}
+
+                                                        </div>
+                                                        <div class="form-group col-sm-6 removeright ">
+                                                            {!! Form::label('level_id', __('Mức độ'), ['class' => 'control-label']) !!}
+                                                            {!! Form::select('level_id', $levels, null, ['placeholder' => '', 'id'=>'level_id', 'name'=>'level_id','class'=>'form-control', 'style' => 'width:100%']) !!}
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-inline">
+                                                        <div class="form-group col-sm-6 removeleft ">
+                                                            {!! Form::label('approver_id', __('Người phê duyệt'), ['class' => 'control-label']) !!}
+                                                            {!! Form::select('approver_id', $approvers, null, ['placeholder' => '', 'id'=>'approver_id', 'name'=>'approver_id','class'=>'form-control', 'style' => 'width:100%']) !!}
+                                                        </div>
+                                                        <div class="form-group col-sm-6 removeright ">
+                                                            {!! Form::label('deadline', __('Thời hạn trả lời'), ['class' => 'control-label']) !!}
+                                                            {!! Form::date('deadline', \Carbon\Carbon::now(), ['class' => 'form-control']) !!}
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <br>
+                                                    <br>
+                                                    <div class="form-group form-inline">
+                                                        {!! Form::label('reason', __('Lý do'), ['class' => 'control-label']) !!}
+                                                        {!! Form::textarea('reason', null, ['class' => 'form-control',  'id' => 'troubleshoot_action']) !!}
+                                                    </div>
+
+                                                    {!! Form::submit(__('Cập nhật'), ['class' => 'btn btn-primary']) !!}
+                                                    {!! Form::close() !!}
+                                                </div>
+                                                <div class="modal-footer">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 @endif
                                 @if(isset($troubleshoot))
                                     <div class="col-md-12">
@@ -454,6 +503,18 @@
 @stop
 
 @push('scripts')
+    <script type="text/javascript">
+        $("#responsibility_id").select2({
+            placeholder: "Chọn",
+            allowClear: true
+        });
+    </script>
+    <script type="text/javascript">
+        $("#level_id").select2({
+            placeholder: "Chọn",
+            allowClear: true
+        });
+    </script>
     <script type="text/javascript">
         $("#troubleshooter_id").select2({
             placeholder: "Chọn",
