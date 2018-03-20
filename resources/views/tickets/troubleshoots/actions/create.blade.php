@@ -1,6 +1,47 @@
-@if($actions->count())
-    <div class="row">
-        <div class="col-md-12">
+<div class="row">
+    <div class="col-md-12">
+        <h5><b style="float: left">Biện pháp khắc phục:</b></h5>
+        @if(\Auth::id() == $troubleshoot->troubleshooter_id)
+            <span>
+                <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#troubleshootaction"><i class="fa fa-plus-circle"><b> Thêm biện pháp khắc phục</b></i></button>
+            </span>
+            <div class="modal fade" id="troubleshootaction" tabindex="-1" role="dialog" aria-labelledby="TroubleshootModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="TroubleshootModalLabel"><b>Thêm biện pháp khắc phục</b></h4>
+                        </div>
+                        <div class="modal-body">
+                            {!! Form::open([
+                                'route' => ['troubleshootactions.store', $subject->id],
+                                ]) !!}
+                                {!! Form::label('action', __('Biện pháp khắc phục'), ['class' => 'control-label']) !!}
+                                {!! Form::text('action', null, ['class' => 'form-control', 'id' => 'action']) !!}
+                                <div class="form-inline">
+                                    <div class="form-group col-sm-6 removeleft ">
+                                        {!! Form::label('user_id', __('Người thực hiện'), ['class' => 'control-label']) !!}
+                                        <select name="user_id" id="user_id" class="form-control" style="width:100%">
+                                            <option disabled selected value> {{ __('Chọn') }} </option>
+                                            @foreach ($users as $user)
+                                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-sm-6 removeright ">
+                                        {!! Form::label('deadline', __('Thời hạn'), ['class' => 'control-label']) !!}
+                                        {!! Form::date('deadline', \Carbon\Carbon::now()->addDays(3), ['class' => 'form-control']) !!}
+                                    </div>
+                                </div>
+                                {!! Form::submit( __('Thêm') , ['class' => 'btn btn-primary']) !!}
+                            {!! Form::close() !!}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+
+        @if($actions->count())
             <h5><b style="float: left">Tiến độ:</b></h5>
             <span style="float: left">&nbsp;</span>
             <span>
@@ -50,39 +91,9 @@
                 @endforeach
                 </tbody>
             </table>
-        </div>
+        @endif
     </div>
-@endif
-
-    @if(\Auth::id() == $troubleshoot->troubleshooter_id)
-        <button type="button" class="btn btn-success btn-sm" data-toggle="collapse" data-target="#action_id"><i class="fa fa-plus-circle"><b> Thêm biện pháp khắc phục</b></i></button>
-
-        {!! Form::open([
-                'route' => ['troubleshootactions.store', $subject->id],
-                ]) !!}
-        <div class="form-group panel-collapse collapse" id="action_id">
-            {!! Form::label('action', __('Biện pháp khắc phục'), ['class' => 'control-label']) !!}
-            {!! Form::text('action', null, ['class' => 'form-control', 'id' => 'action']) !!}
-            <div class="form-inline">
-                <div class="form-group col-sm-6 removeleft ">
-                    {!! Form::label('user_id', __('Người thực hiện'), ['class' => 'control-label']) !!}
-                    <select name="user_id" id="user_id" class="form-control" style="width:100%">
-                        <option disabled selected value> {{ __('Chọn') }} </option>
-                        @foreach ($users as $user)
-                            <option value="{{ $user->id }}">{{ $user->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="form-group col-sm-6 removeright ">
-                    {!! Form::label('deadline', __('Thời hạn'), ['class' => 'control-label']) !!}
-                    {!! Form::date('deadline', \Carbon\Carbon::now()->addDays(3), ['class' => 'form-control']) !!}
-                </div>
-            </div>
-            {!! Form::submit( __('Thêm') , ['class' => 'btn btn-primary']) !!}
-        </div>
-        {!! Form::close() !!}
-    @endif
-
+</div>
 
 @push('scripts')
     <script type="text/javascript">
