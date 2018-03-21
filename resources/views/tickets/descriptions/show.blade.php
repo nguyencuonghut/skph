@@ -423,46 +423,97 @@
             </div>
 
             @if(\Auth::id() == $description->leader_id)
-                {!! Form::model($troubleshoot, [
-                    'method' => 'PATCH',
-                    'url' => ['troubleshoots/assigntroubeshooter', $troubleshoot->id],
-                ]) !!}
-                <select name="troubleshooter_id" id="troubleshooter_id" class="form-control" style="width:100%">
-                    <option disabled selected value> {{ __('Select a user') }} </option>
-                    @foreach ($users as $user)
-                        <option value="{{ $user->id }}">{{ $user->name }}</option>
-                    @endforeach
-                </select>
-                {!! Form::submit(__('Người khắc phục'), ['class' => 'btn btn-primary form-control closebtn']) !!}
-                {!! Form::close() !!}
+                <button type="button" class="btn btn-primary form-control closebtn" data-toggle="modal" data-target="#AssignTroubleshooterModal">Người khắc phục</button>
+                <div class="modal fade" id="AssignTroubleshooterModal" tabindex="-1" role="dialog" aria-labelledby="AssignTroubleshooterModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="AssignTroubleshooterModalLabel">Chọn người khắc phục</h4>
+                            </div>
+                            <div class="modal-body" style="text-align: left">
+                                {!! Form::model($troubleshoot, [
+                                        'method' => 'PATCH',
+                                        'url' => ['troubleshoots/assigntroubeshooter', $troubleshoot->id],
+                                    ]) !!}
+                                <select name="troubleshooter_id" id="troubleshooter_id" class="form-control" style="width:100%">
+                                    <option disabled selected value> {{ __('Select a user') }} </option>
+                                    @foreach ($users as $user)
+                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                    @endforeach
+                                </select>
+                                <br>
+                                <br>
+                                {!! Form::submit(__('Cập nhật'), ['class' => 'btn btn-primary closebtn']) !!}
+                                {!! Form::close() !!}
+                            </div>
+                            <div class="modal-footer">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             @endif
 
             @if(\Auth::user()->userRole->role_id == 1)
-                {!! Form::model($prevention, [
-                    'method' => 'PATCH',
-                    'url' => ['preventions/assignproposer', $prevention->id],
-                ]) !!}
-                <select name="proposer_id" id="proposer_id" class="form-control" style="width:100%">
-                    <option disabled selected value> {{ __('Select a user') }} </option>
-                    @foreach ($users as $user)
-                        <option value="{{ $user->id }}">{{ $user->name }}</option>
-                    @endforeach
-                </select>
-                {!! Form::submit(__('Người đề xuất HĐ phòng ngừa'), ['class' => 'btn btn-primary form-control closebtn']) !!}
-                {!! Form::close() !!}
+                <button type="button" class="btn btn-warning form-control closebtn" data-toggle="modal" data-target="#AssignProposerModal">Người đề xuất HĐ phòng ngừa</button>
+                <div class="modal fade" id="AssignProposerModal" tabindex="-1" role="dialog" aria-labelledby="AssignProposerModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="AssignProposerModalLabel">Chọn người khắc phục</h4>
+                            </div>
+                            <div class="modal-body" style="text-align: left">
+                                {!! Form::model($prevention, [
+                                    'method' => 'PATCH',
+                                    'url' => ['preventions/assignproposer', $prevention->id],
+                                ]) !!}
+                                <select name="proposer_id" id="proposer_id" class="form-control" style="width:100%">
+                                    <option disabled selected value> {{ __('Select a user') }} </option>
+                                    @foreach ($users as $user)
+                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                    @endforeach
+                                </select>
+                                <br>
+                                <br>
+                                {!! Form::submit(__('Cập nhật'), ['class' => 'btn btn-primary closebtn']) !!}
+                                {!! Form::close() !!}
+                            </div>
+                            <div class="modal-footer">
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                {!! Form::model($prevention, [
-                                'method' => 'PATCH',
-                                'url' => ['preventions/assignapprover', $prevention->id],
-                            ]) !!}
-                <select name="approver_id" id="approver_id" class="form-control" style="width:100%">
-                    <option disabled selected value> {{ __('Select a user') }} </option>
-                    @foreach ($users as $user)
-                        <option value="{{ $user->id }}">{{ $user->name }}</option>
-                    @endforeach
-                </select>
-                {!! Form::submit(__('Người duyệt HĐ phòng ngừa'), ['class' => 'btn btn-primary form-control closebtn']) !!}
-                {!! Form::close() !!}
+                <button type="button" class="btn btn-success form-control closebtn" data-toggle="modal" data-target="#AssignApproverModal">Người duyệt HĐ phòng ngừa</button>
+                <div class="modal fade" id="AssignApproverModal" tabindex="-1" role="dialog" aria-labelledby="AssignApproverModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="AssignApproverModalLabel">Chọn người duyệt</h4>
+                            </div>
+                            <div class="modal-body" style="text-align: left">
+                                {!! Form::model($prevention, [
+                                    'method' => 'PATCH',
+                                    'url' => ['preventions/assignapprover', $prevention->id],
+                                ]) !!}
+                                <select name="approver_id" id="approver_id" class="form-control" style="width:100%">
+                                    <option disabled selected value> {{ __('Select a user') }} </option>
+                                    @foreach ($users as $user)
+                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                    @endforeach
+                                </select>
+                                <br>
+                                <br>
+                                {!! Form::submit(__('Cập nhật'), ['class' => 'btn btn-warning closebtn']) !!}
+                                {!! Form::close() !!}
+                            </div>
+                            <div class="modal-footer">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             @endif
 
             <div class="activity-feed movedown">
