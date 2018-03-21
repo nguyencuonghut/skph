@@ -461,7 +461,7 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="AssignProposerModalLabel">Chọn người khắc phục</h4>
+                                <h4 class="modal-title" id="AssignProposerModalLabel">Chọn người đề xuất HĐ phòng ngừa</h4>
                             </div>
                             <div class="modal-body" style="text-align: left">
                                 {!! Form::model($prevention, [
@@ -491,7 +491,7 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="AssignApproverModalLabel">Chọn người duyệt</h4>
+                                <h4 class="modal-title" id="AssignApproverModalLabel">Chọn người duyệt HĐ phòng ngừa</h4>
                             </div>
                             <div class="modal-body" style="text-align: left">
                                 {!! Form::model($prevention, [
