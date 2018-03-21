@@ -32,7 +32,7 @@
                 {data: 'issue_date', name: 'issue_date'},
                 {data: 'answer_date', name: 'answer_date'},
                 {data: 'source_id', name: 'source_id', searchable: false},
-                {data: 'user_id', name: 'user_id', searchable: false},
+                {data: 'user_id', name: 'user_id'},
             ]
         });
     });
