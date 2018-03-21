@@ -48,8 +48,8 @@ class UsersTableSeeder extends Seeder
             2 =>
                 array (
                     'id' => 3,
-                    'name' => 'Hoàng Liên Sơn',
-                    'email' => 'hoanglienson@honghafeed.com.vn',
+                    'name' => 'Nguyễn Văn Cường',
+                    'email' => 'nguyencuonghut55@gmail.com',
                     'password' => bcrypt('Hongha@123'),
                     'address' => '',
                     'work_number' => 0,
@@ -62,8 +62,8 @@ class UsersTableSeeder extends Seeder
             3 =>
                 array (
                     'id' => 4,
-                    'name' => 'Dương Xuân Sơn',
-                    'email' => 'duongxuanson@honghafeed.com.vn',
+                    'name' => 'Lê Văn Khoa',
+                    'email' => 'levankhoa@honghafeed.com.vn',
                     'password' => bcrypt('Hongha@123'),
                     'address' => '',
                     'work_number' => 0,
@@ -76,34 +76,6 @@ class UsersTableSeeder extends Seeder
             4 =>
                 array (
                     'id' => 5,
-                    'name' => 'Nguyễn Văn Cường',
-                    'email' => 'nguyencuonghut55@gmail.com',
-                    'password' => bcrypt('Hongha@123'),
-                    'address' => '',
-                    'work_number' => 0,
-                    'personal_number' => 0,
-                    'image_path' => '',
-                    'remember_token' => null,
-                    'created_at' => '2016-06-04 13:42:19',
-                    'updated_at' => '2016-06-04 13:42:19',
-                ),
-            5 =>
-                array (
-                    'id' => 6,
-                    'name' => 'Lê Văn Khoa',
-                    'email' => 'levankhoa@honghafeed.com.vn',
-                    'password' => bcrypt('Hongha@123'),
-                    'address' => '',
-                    'work_number' => 0,
-                    'personal_number' => 0,
-                    'image_path' => '',
-                    'remember_token' => null,
-                    'created_at' => '2016-06-04 13:42:19',
-                    'updated_at' => '2016-06-04 13:42:19',
-                ),
-            6 =>
-                array (
-                    'id' => 7,
                     'name' => 'Phạm Thị Trang',
                     'email' => 'phamthitrang@honghafeed.com.vn',
                     'password' => bcrypt('Hongha@123'),
