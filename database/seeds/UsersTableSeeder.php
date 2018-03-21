@@ -90,8 +90,8 @@ class UsersTableSeeder extends Seeder
             5 =>
                 array (
                     'id' => 6,
-                    'name' => 'Phạm Thành Thứ',
-                    'email' => 'phamthanhthu@honghafeed.com.vn',
+                    'name' => 'Lê Văn Khoa',
+                    'email' => 'levankhoa@honghafeed.com.vn',
                     'password' => bcrypt('Hongha@123'),
                     'address' => '',
                     'work_number' => 0,
