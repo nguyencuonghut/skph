@@ -91,7 +91,7 @@
                                 <table style="width:100%">
                                     <tr>
                                         <th class="col-md-3">Có gì đã xảy ra?</th>
-                                        <td class="col-md-4">{{$description->title}}</td>
+                                        <td class="col-md-4">{{$description->what}}</td>
                                         <th rowspan="5"><img class="img-responsive" src={{url('/upload/' . $description->image)}}></th>
                                     </tr>
                                     <tr>
