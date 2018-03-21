@@ -64,7 +64,7 @@
                 </span>
                 <table class="table">
                     <thead>
-                    <th>Hành động phòng ngừa</th>
+                    <th>Biện pháp phòng ngừa</th>
                     <th>Ngân sách dự kiến</th>
                     <th>Ai làm ?</th>
                     <th>Làm ở đâu ?</th>
@@ -91,15 +91,83 @@
                             <td>{{ $prevention->how }}</td>
                             <td style="color: {{'Open' == $prevention->status ? "green": "black"}}">{{ $prevention->status}}</td>
                             <td style="text-align: center">
-                                <a class="btn btn-small btn-warning" href="{{ URL::to('preventionactions/' . $prevention->id . '/edit') }}"><i class="fa fa-edit"></i></a>
+                                @if(\Auth::id() == $prevention->user_id)
+                                    <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#PreventionActionEditModal-{{$prevention->id}}"
+                                            data-id="{{ $prevention->id }}"><i class="fa fa-edit"></i>
+                                    </button>
+                                    <div class="modal fade" id="PreventionActionEditModal-{{$prevention->id}}" tabindex="-1" role="dialog" aria-labelledby="PreventionActionEditModalLabel">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                    <h4 class="modal-title" id="PreventionActionEditModalLabel">Sửa biện pháp phòng ngừa</h4>
+                                                </div>
+                                                <div class="modal-body" style="text-align: left">
+                                                    {!! Form::model($prevention, [
+                                                        'method' => 'PATCH',
+                                                        'route' => ['preventiontactions.update', $prevention->id],
+                                                        'files'=>true,
+                                                        'enctype' => 'multipart/form-data'
+                                                        ]) !!}
+
+                                                    {!! Form::label('action', __('Hành động phòng ngừa'), ['class' => 'control-label']) !!}
+                                                    {!! Form::text('action', null, ['class' => 'form-control', 'id' => 'action']) !!}
+
+                                                    <div class="form-inline">
+                                                        <div class="form-group col-sm-4 removeleft ">
+                                                            {!! Form::label('budget', __('Ngân sách'), ['class' => 'control-label']) !!}
+                                                            {!! Form::text('budget', null, ['class' => 'form-control', 'id' => 'action']) !!}
+
+                                                            {!! Form::label('user_id', __('Ai làm ?'), ['class' => 'control-label']) !!}
+                                                            {!! Form::select('user_id', $approvers, null, ['placeholder' => '', 'id'=>'user_id', 'name'=>'user_id','class'=>'form-control', 'style' => 'width:100%']) !!}
+                                                        </div>
+                                                        <div class="form-group col-sm-4 removeright ">
+                                                            {!! Form::label('where', __('Làm ở đâu ?'), ['class' => 'control-label']) !!}
+                                                            {!! Form::text('where', null, ['class' => 'form-control', 'id' => 'action']) !!}
+
+                                                            {!! Form::label('when', __('Làm khi nào ?'), ['class' => 'control-label']) !!}
+                                                            {!! Form::date('when', \Carbon\Carbon::parse($prevention->when), ['class' => 'form-control']) !!}
+                                                        </div>
+                                                        <div class="form-group col-sm-4 removeright ">
+                                                            {!! Form::label('status', __('Trạng thái'), ['class' => 'control-label']) !!}
+                                                            <select name="status" id="status" class="form-control" style="width:100%">
+                                                                <option <?php if($prevention->status == 'Open'){echo("selected");}?> > {{ __('Open') }} </option>
+                                                                <option <?php if($prevention->status == 'Closed'){echo("selected");}?> > {{ __('Closed') }} </option>
+                                                            </select>
+                                                            <br>
+                                                            <br>
+                                                            <br>
+                                                            <br>
+                                                            <br>
+                                                        </div>
+                                                    </div>
+                                                    {!! Form::label('how', __('Làm như thế nào ?'), ['class' => 'control-label']) !!}
+                                                    {!! Form::text('how', null, ['class' => 'form-control', 'id' => 'action']) !!}
+                                                    <br>
+                                                    {!! Form::submit('Cập nhật', ['class' => 'btn btn-primary']) !!}
+
+                                                    {!! Form::close() !!}
+                                                </div>
+                                                <div class="modal-footer">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @else
+                                    <button type="button" class="btn btn-warning btn-sm"><i class="fa fa-lock"></i></button>
+                                @endif
                             </td>
                             <td style="text-align: center">
                                 <span>
-                                    <form action="{{ route('preventionActionMarkComplete', $prevention->id) }}" method="POST">
-                                        {{ csrf_field() }}
-                                        {{ method_field('PATCH') }}
-                                        <button type="submit" class="btn btn-success"><i class="fa fa-check-circle"></i></button>
-                                    </form>
+                                    @if(\Auth::id() == $prevention->user_id)
+                                        <form action="{{ route('preventionActionMarkComplete', $prevention->id) }}" method="POST">
+                                            {{ csrf_field() }}
+                                            {{ method_field('PATCH') }}
+                                            <button type="submit" class="btn btn-success"><i class="fa fa-check-circle"></i></button>
+                                        </form>
+                                    @else
+                                        <button type="submit" class="btn btn-success btn-sm"><i class="fa fa-lock"></i></button>
+                                    @endif
                                 </span>
                             </td>
                         </tr>

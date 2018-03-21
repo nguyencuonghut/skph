@@ -79,16 +79,6 @@ class PreventionActionsController extends Controller
      */
     public function edit($id)
     {
-        $preventionaction = PreventionAction::findOrFail($id);
-        $prevention = Prevention::findOrFail($preventionaction->description_id);
-        if((\Auth::id() == $preventionaction->user_id) || (\Auth::id() == $prevention->proposer_id)){
-            return view('tickets.preventions.actions.edit')
-                ->withPreventionaction($preventionaction)
-                ->withUsers(User::all()->pluck('name', 'id'));
-        }else{
-            Session()->flash('flash_message_warning', 'Bạn không có quyền sửa!');
-            return redirect()->route("descriptions.show", $preventionaction->description_id)->with('tab', 'prevents');
-        }
     }
 
     /**
