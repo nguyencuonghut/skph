@@ -19,11 +19,11 @@ class CreatePreventionsTable extends Migration
             $table->foreign('proposer_id')->references('id')->on('users');
             $table->integer('approver_id')->unsigned();
             $table->foreign('approver_id')->references('id')->on('users');
-            $table->string('approve_result');
-            $table->longText('root_cause');
+            $table->string('approve_result')->nullable();
+            $table->longText('root_cause')->nullable();
             $table->integer('root_cause_approver_id')->unsigned();
             $table->foreign('root_cause_approver_id')->references('id')->on('users');
-            $table->string('root_cause_approve_result');
+            $table->string('root_cause_approve_result')->nullable();
             $table->integer('reason_type_id')->unsigned();
             $table->foreign('reason_type_id')->references('id')->on('reason_types');
 

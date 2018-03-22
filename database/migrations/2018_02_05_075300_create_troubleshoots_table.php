@@ -23,10 +23,10 @@ class CreateTroubleshootsTable extends Migration
             $table->foreign('troubleshooter_id')->references('id')->on('users');
             $table->integer('approver_id')->unsigned();
             $table->foreign('approver_id')->references('id')->on('users');
-            $table->longText('reason');
-            $table->string('approve_result');
-            $table->dateTime('deadline');
-            $table->string('evaluate_result');
+            $table->longText('reason')->nullable();
+            $table->string('approve_result')->nullable();
+            $table->dateTime('deadline')->nullable();
+            $table->string('evaluate_result')->nullable();
             $table->integer('evaluater_id')->unsigned();
             $table->foreign('evaluater_id')->references('id')->on('users');
             $table->timestamps();

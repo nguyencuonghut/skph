@@ -15,13 +15,13 @@ class CreateTroubleshootActionsTable extends Migration
     {
         Schema::create('troubleshoot_actions', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('action');
+            $table->text('action')->nullable();
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
             $table->integer('description_id')->unsigned();
             $table->foreign('description_id')->references('id')->on('descriptions');
-            $table->string('status');
-            $table->dateTime('deadline');
+            $table->string('status')->nullable();
+            $table->dateTime('deadline')->nullable();
             $table->boolean('is_on_time')->default(false);
             $table->timestamps();
         });

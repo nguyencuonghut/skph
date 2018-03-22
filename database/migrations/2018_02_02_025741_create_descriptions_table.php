@@ -15,7 +15,7 @@ class CreateDescriptionsTable extends Migration
     {
         Schema::create('descriptions', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
+            $table->string('title')->unique();
             $table->date('issue_date');
             $table->date('answer_date');
             $table->integer('area_id')->unsigned();
@@ -24,20 +24,20 @@ class CreateDescriptionsTable extends Migration
             $table->foreign('source_id')->references('id')->on('sources');
             $table->integer('action_id')->unsigned();
             $table->foreign('action_id')->references('id')->on('actions');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
             $table->integer('leader_id')->unsigned();
             $table->foreign('leader_id')->references('id')->on('users');
-            $table->text('what');
-            $table->text('why');
-            $table->dateTime('when');
-            $table->string('who');
-            $table->text('where');
-            $table->text('how_1');
-            $table->integer('how_2')->unsigned();
-            $table->text('leader_confirmation_result');
-            $table->string('effectiveness');
+            $table->text('what')->nullable();
+            $table->text('why')->nullable();
+            $table->dateTime('when')->nullable();
+            $table->string('who')->nullable();
+            $table->text('where')->nullable();
+            $table->text('how_1')->nullable();
+            $table->integer('how_2')->unsigned()->nullable();
+            $table->text('leader_confirmation_result')->nullable();
+            $table->string('effectiveness')->nullable();
             $table->integer('effectiveness_user_id')->unsigned();
             $table->foreign('effectiveness_user_id')->references('id')->on('users');
             $table->integer('status_id')->unsigned();
