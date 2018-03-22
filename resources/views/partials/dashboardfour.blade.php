@@ -6,11 +6,11 @@
             <table class="table">
                 <tr>
                     <th rowspan="2">Bộ phận</th>
-                    <th colspan="5" style="text-align: center">Số lượng phiếu C.A.R</th>
+                    <th rowspan="2">Tổng số phiếu C.A.R</th>
+                    <th colspan="4" style="text-align: center">Số lượng phiếu C.A.R</th>
                     <th colspan="6" style="text-align: center">Phân loại nguyên nhân</th>
                 </tr>
                 <tr><strong>
-                        <td><strong>Tổng số</strong></td>
                         <td><strong>Chưa được chỉ định người phân tích nguyên nhân và đề xuất hành động KPPN</strong></td>
                         <td><strong>Chưa được duyệt nguyên nhân gốc rễ</strong></td>
                         <td><strong>Chưa đc duyệt hành động KPPN</strong></td>

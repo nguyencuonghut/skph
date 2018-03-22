@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Description;
 use App\Models\ReasonType;
 use App\Models\User;
 use App\Models\Prevention;
@@ -137,6 +138,10 @@ class PreventionsController extends Controller
             Session()->flash('flash_message', 'Biện pháp phòng ngừa đã được phê duyệt!');
         }else {
             Session()->flash('flash_message', 'Biện pháp phòng ngừa đã bị từ chối!');
+            //Update the status
+            $description = Description::findOrFail($id);
+            $description->status_id = 3; //Phiếu CAR chua được duyệt hành động KPPN
+            $description->save();
         }
         return redirect()->back()->with('tab', 'prevents');
     }
@@ -152,6 +157,10 @@ class PreventionsController extends Controller
         if('Đồng ý' == $result){
             Session()->flash('flash_message', 'Nguyên nhân gốc rễ đã được phê duyệt!');
         }else {
+            //Update the status
+            $description = Description::findOrFail($id);
+            $description->status_id = 2; //Phiếu CAR chua được duyệt nguyên nhân gốc rễ
+            $description->save();
             Session()->flash('flash_message', 'Nguyên nhân gốc rễ đã bị từ chối!');
         }
         return redirect()->back()->with('tab', 'prevents');
