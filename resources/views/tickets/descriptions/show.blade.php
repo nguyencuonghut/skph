@@ -92,7 +92,11 @@
                                     <tr>
                                         <th class="col-md-3">Có gì đã xảy ra?</th>
                                         <td class="col-md-4">{{$description->what}}</td>
+                                        @if($description->image)
                                         <th rowspan="5"><img class="img-responsive" src={{url('/upload/' . $description->image)}}></th>
+                                        @else
+                                            <th rowspan="5"><img class="img-responsive" src={{url('/images/no-evidence.jpg')}}></th>
+                                        @endif
                                     </tr>
                                     <tr>
                                         <th class="col-md-3">Tại sao đây là một vấn đề?</th>
